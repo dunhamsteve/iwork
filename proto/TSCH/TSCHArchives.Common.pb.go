@@ -505,12 +505,12 @@ func (m *ChartsNSArrayOfNSNumberDoubleArchive) GetNumbers() []float64 {
 }
 
 type DEPRECATEDChart3DFillArchive struct {
-	Fill             *TSD.FillArchive                   `protobuf:"bytes,1,opt,name=fill" json:"fill,omitempty"`
+	Fill             *TSD.FillArchive             `protobuf:"bytes,1,opt,name=fill" json:"fill,omitempty"`
 	Lightingmodel    *Chart3DLightingModelArchive `protobuf:"bytes,2,opt,name=lightingmodel" json:"lightingmodel,omitempty"`
-	TexturesetId     *string                            `protobuf:"bytes,3,opt,name=textureset_id" json:"textureset_id,omitempty"`
+	TexturesetId     *string                      `protobuf:"bytes,3,opt,name=textureset_id" json:"textureset_id,omitempty"`
 	FillType         *FillPropertyType            `protobuf:"varint,4,opt,name=fill_type,enum=FillPropertyType" json:"fill_type,omitempty"`
-	SeriesIndex      *uint32                            `protobuf:"varint,5,opt,name=series_index" json:"series_index,omitempty"`
-	XXX_unrecognized []byte                             `json:"-"`
+	SeriesIndex      *uint32                      `protobuf:"varint,5,opt,name=series_index" json:"series_index,omitempty"`
+	XXX_unrecognized []byte                       `json:"-"`
 }
 
 func (m *DEPRECATEDChart3DFillArchive) Reset()         { *m = DEPRECATEDChart3DFillArchive{} }

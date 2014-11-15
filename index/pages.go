@@ -3,6 +3,7 @@ package index
 import (
 	"errors"
 	"fmt"
+
 	"github.com/dunhamsteve/iwork/proto/TP"
 
 	"code.google.com/p/goprotobuf/proto"

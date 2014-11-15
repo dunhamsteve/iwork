@@ -4,15 +4,15 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
-	"github.com/dunhamsteve/iwork/proto/TP"
-	"github.com/dunhamsteve/iwork/proto/TSWP"
-	"github.com/dunhamsteve/iwork/index"
 	"log"
 	"os"
 
+	"github.com/dunhamsteve/iwork/index"
+	"github.com/dunhamsteve/iwork/proto/TP"
+	"github.com/dunhamsteve/iwork/proto/TSWP"
+
 	"golang.org/x/net/html"
 )
-
 
 // Helper function for building html text nodes
 func T(value string) *html.Node {
@@ -44,16 +44,16 @@ func E(tag string, children ...interface{}) *html.Node {
 }
 
 func main() {
-    if len(os.Args) < 3 {
-        fmt.Printf(`Converts pages files to html
+	if len(os.Args) < 3 {
+		fmt.Printf(`Converts pages files to html
 
 Usage:
     %s infile.pages outfile.html
 
 `, os.Args[0])
-        return
-    }
-    
+		return
+	}
+
 	fmt.Println("Processing", os.Args[1])
 	ix, err := index.Open(os.Args[1])
 	must(err)
@@ -65,10 +65,10 @@ Usage:
 	// This has most of what we want, aside from the actual style definitions.
 	bs := ix.Deref(da.BodyStorage).(*TSWP.StorageArchive)
 	texts := bs.Text
-    
-    if len(texts) != 1 {
-        log.Printf("WARNING - Expecting exactly one text, got %d", len(texts))
-    }
+
+	if len(texts) != 1 {
+		log.Printf("WARNING - Expecting exactly one text, got %d", len(texts))
+	}
 	text := texts[0]
 
 	// Offsets are in terms of unicode runes, so we have to convert to runes
@@ -82,18 +82,16 @@ Usage:
 
 	// <span> <em> and <b>
 	charStyles := bs.TableCharStyle.Entries
-    
-    
+
 	// bs.TableListStyle - seems to change on headings, look into it.
-	
-    
-    // Root of output document
-    head, body := E("head", "\n"), E("body", "\n")
+
+	// Root of output document
+	head, body := E("head", "\n"), E("body", "\n")
 	doc := E("html", head, "\n", body)
 
 	var className string
-    
-    // build paragraphs
+
+	// build paragraphs
 	for i, e := range parStyles {
 		pos := *e.CharacterIndex
 		end := uint32(len(rr))
@@ -172,7 +170,7 @@ Usage:
 		fmt.Println("Writing", os.Args[2])
 		html.Render(w, doc)
 	} else {
-        // html.Render(os.Stdout, doc)
+		// html.Render(os.Stdout, doc)
 	}
 }
 

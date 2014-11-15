@@ -266,12 +266,12 @@ func (m *CommandChangeFreezeHeaderStateArchive) GetSuper() *TableCommandArchive 
 }
 
 type CommandDeleteCellsArchive struct {
-	Selection          *SelectionArchive `protobuf:"bytes,1,req,name=selection" json:"selection,omitempty"`
-	UndoMap            *CellMapArchive   `protobuf:"bytes,2,req,name=undo_map" json:"undo_map,omitempty"`
-	Super              *TableCommandArchive   `protobuf:"bytes,3,req,name=super" json:"super,omitempty"`
-	RedoMap            *CellMapArchive   `protobuf:"bytes,4,req,name=redo_map" json:"redo_map,omitempty"`
-	InvalidateComments *bool                  `protobuf:"varint,5,req,name=invalidate_comments" json:"invalidate_comments,omitempty"`
-	XXX_unrecognized   []byte                 `json:"-"`
+	Selection          *SelectionArchive    `protobuf:"bytes,1,req,name=selection" json:"selection,omitempty"`
+	UndoMap            *CellMapArchive      `protobuf:"bytes,2,req,name=undo_map" json:"undo_map,omitempty"`
+	Super              *TableCommandArchive `protobuf:"bytes,3,req,name=super" json:"super,omitempty"`
+	RedoMap            *CellMapArchive      `protobuf:"bytes,4,req,name=redo_map" json:"redo_map,omitempty"`
+	InvalidateComments *bool                `protobuf:"varint,5,req,name=invalidate_comments" json:"invalidate_comments,omitempty"`
+	XXX_unrecognized   []byte               `json:"-"`
 }
 
 func (m *CommandDeleteCellsArchive) Reset()         { *m = CommandDeleteCellsArchive{} }
@@ -314,12 +314,12 @@ func (m *CommandDeleteCellsArchive) GetInvalidateComments() bool {
 }
 
 type CommandDeleteCellContentsArchive struct {
-	Selection          *SelectionArchive `protobuf:"bytes,1,req,name=selection" json:"selection,omitempty"`
-	UndoMap            *CellMapArchive   `protobuf:"bytes,2,req,name=undo_map" json:"undo_map,omitempty"`
-	Super              *TableCommandArchive   `protobuf:"bytes,3,req,name=super" json:"super,omitempty"`
-	RedoMap            *CellMapArchive   `protobuf:"bytes,4,req,name=redo_map" json:"redo_map,omitempty"`
-	InvalidateComments *bool                  `protobuf:"varint,5,req,name=invalidate_comments" json:"invalidate_comments,omitempty"`
-	XXX_unrecognized   []byte                 `json:"-"`
+	Selection          *SelectionArchive    `protobuf:"bytes,1,req,name=selection" json:"selection,omitempty"`
+	UndoMap            *CellMapArchive      `protobuf:"bytes,2,req,name=undo_map" json:"undo_map,omitempty"`
+	Super              *TableCommandArchive `protobuf:"bytes,3,req,name=super" json:"super,omitempty"`
+	RedoMap            *CellMapArchive      `protobuf:"bytes,4,req,name=redo_map" json:"redo_map,omitempty"`
+	InvalidateComments *bool                `protobuf:"varint,5,req,name=invalidate_comments" json:"invalidate_comments,omitempty"`
+	XXX_unrecognized   []byte               `json:"-"`
 }
 
 func (m *CommandDeleteCellContentsArchive) Reset()         { *m = CommandDeleteCellContentsArchive{} }
@@ -362,13 +362,13 @@ func (m *CommandDeleteCellContentsArchive) GetInvalidateComments() bool {
 }
 
 type CommandSetMultipleCellsArchive struct {
-	Selection           *SelectionArchive `protobuf:"bytes,1,req,name=selection" json:"selection,omitempty"`
-	UndoMap             *CellMapArchive   `protobuf:"bytes,2,req,name=undo_map" json:"undo_map,omitempty"`
-	RedoMap             *CellMapArchive   `protobuf:"bytes,3,req,name=redo_map" json:"redo_map,omitempty"`
-	SourceCell          *Cell             `protobuf:"bytes,4,opt,name=source_cell" json:"source_cell,omitempty"`
-	OnlyIfFormatDiffers *bool                  `protobuf:"varint,6,opt,name=only_if_format_differs" json:"only_if_format_differs,omitempty"`
-	Super               *TableCommandArchive   `protobuf:"bytes,7,req,name=super" json:"super,omitempty"`
-	XXX_unrecognized    []byte                 `json:"-"`
+	Selection           *SelectionArchive    `protobuf:"bytes,1,req,name=selection" json:"selection,omitempty"`
+	UndoMap             *CellMapArchive      `protobuf:"bytes,2,req,name=undo_map" json:"undo_map,omitempty"`
+	RedoMap             *CellMapArchive      `protobuf:"bytes,3,req,name=redo_map" json:"redo_map,omitempty"`
+	SourceCell          *Cell                `protobuf:"bytes,4,opt,name=source_cell" json:"source_cell,omitempty"`
+	OnlyIfFormatDiffers *bool                `protobuf:"varint,6,opt,name=only_if_format_differs" json:"only_if_format_differs,omitempty"`
+	Super               *TableCommandArchive `protobuf:"bytes,7,req,name=super" json:"super,omitempty"`
+	XXX_unrecognized    []byte               `json:"-"`
 }
 
 func (m *CommandSetMultipleCellsArchive) Reset()         { *m = CommandSetMultipleCellsArchive{} }
@@ -418,9 +418,9 @@ func (m *CommandSetMultipleCellsArchive) GetSuper() *TableCommandArchive {
 }
 
 type CommandSetMultipleCellsCustomArchive struct {
-	Selection        *SelectionArchive   `protobuf:"bytes,1,req,name=selection" json:"selection,omitempty"`
-	UndoMap          *CellMapArchive     `protobuf:"bytes,2,req,name=undo_map" json:"undo_map,omitempty"`
-	RedoMap          *CellMapArchive     `protobuf:"bytes,3,req,name=redo_map" json:"redo_map,omitempty"`
+	Selection        *SelectionArchive        `protobuf:"bytes,1,req,name=selection" json:"selection,omitempty"`
+	UndoMap          *CellMapArchive          `protobuf:"bytes,2,req,name=undo_map" json:"undo_map,omitempty"`
+	RedoMap          *CellMapArchive          `protobuf:"bytes,3,req,name=redo_map" json:"redo_map,omitempty"`
 	CellFormat       *TSK.FormatStructArchive `protobuf:"bytes,4,req,name=cell_format" json:"cell_format,omitempty"`
 	Super            *TableCommandArchive     `protobuf:"bytes,7,req,name=super" json:"super,omitempty"`
 	XXX_unrecognized []byte                   `json:"-"`
@@ -466,11 +466,11 @@ func (m *CommandSetMultipleCellsCustomArchive) GetSuper() *TableCommandArchive {
 }
 
 type CommandSetMultipleCellsMultipleChoiceListArchive struct {
-	Selection        *SelectionArchive `protobuf:"bytes,1,req,name=selection" json:"selection,omitempty"`
-	UndoMap          *CellMapArchive   `protobuf:"bytes,2,req,name=undo_map" json:"undo_map,omitempty"`
-	RedoMap          *CellMapArchive   `protobuf:"bytes,3,req,name=redo_map" json:"redo_map,omitempty"`
-	Super            *TableCommandArchive   `protobuf:"bytes,5,req,name=super" json:"super,omitempty"`
-	XXX_unrecognized []byte                 `json:"-"`
+	Selection        *SelectionArchive    `protobuf:"bytes,1,req,name=selection" json:"selection,omitempty"`
+	UndoMap          *CellMapArchive      `protobuf:"bytes,2,req,name=undo_map" json:"undo_map,omitempty"`
+	RedoMap          *CellMapArchive      `protobuf:"bytes,3,req,name=redo_map" json:"redo_map,omitempty"`
+	Super            *TableCommandArchive `protobuf:"bytes,5,req,name=super" json:"super,omitempty"`
+	XXX_unrecognized []byte               `json:"-"`
 }
 
 func (m *CommandSetMultipleCellsMultipleChoiceListArchive) Reset() {
@@ -510,12 +510,12 @@ func (m *CommandSetMultipleCellsMultipleChoiceListArchive) GetSuper() *TableComm
 }
 
 type CommandCoerceMultipleCellsArchive struct {
-	Selection        *SelectionArchive `protobuf:"bytes,1,req,name=selection" json:"selection,omitempty"`
-	UndoMap          *CellMapArchive   `protobuf:"bytes,2,req,name=undo_map" json:"undo_map,omitempty"`
-	RedoMap          *CellMapArchive   `protobuf:"bytes,3,req,name=redo_map" json:"redo_map,omitempty"`
-	DesiredFormat    *int32                 `protobuf:"varint,4,req,name=desired_format" json:"desired_format,omitempty"`
-	Super            *TableCommandArchive   `protobuf:"bytes,6,req,name=super" json:"super,omitempty"`
-	XXX_unrecognized []byte                 `json:"-"`
+	Selection        *SelectionArchive    `protobuf:"bytes,1,req,name=selection" json:"selection,omitempty"`
+	UndoMap          *CellMapArchive      `protobuf:"bytes,2,req,name=undo_map" json:"undo_map,omitempty"`
+	RedoMap          *CellMapArchive      `protobuf:"bytes,3,req,name=redo_map" json:"redo_map,omitempty"`
+	DesiredFormat    *int32               `protobuf:"varint,4,req,name=desired_format" json:"desired_format,omitempty"`
+	Super            *TableCommandArchive `protobuf:"bytes,6,req,name=super" json:"super,omitempty"`
+	XXX_unrecognized []byte               `json:"-"`
 }
 
 func (m *CommandCoerceMultipleCellsArchive) Reset()         { *m = CommandCoerceMultipleCellsArchive{} }
@@ -558,11 +558,11 @@ func (m *CommandCoerceMultipleCellsArchive) GetSuper() *TableCommandArchive {
 }
 
 type CommandSetControlCellsDisplayNumberFormatArchive struct {
-	Selection        *SelectionArchive `protobuf:"bytes,1,req,name=selection" json:"selection,omitempty"`
-	UndoMap          *CellMapArchive   `protobuf:"bytes,2,req,name=undo_map" json:"undo_map,omitempty"`
-	RedoMap          *CellMapArchive   `protobuf:"bytes,3,req,name=redo_map" json:"redo_map,omitempty"`
-	Super            *TableCommandArchive   `protobuf:"bytes,6,req,name=super" json:"super,omitempty"`
-	XXX_unrecognized []byte                 `json:"-"`
+	Selection        *SelectionArchive    `protobuf:"bytes,1,req,name=selection" json:"selection,omitempty"`
+	UndoMap          *CellMapArchive      `protobuf:"bytes,2,req,name=undo_map" json:"undo_map,omitempty"`
+	RedoMap          *CellMapArchive      `protobuf:"bytes,3,req,name=redo_map" json:"redo_map,omitempty"`
+	Super            *TableCommandArchive `protobuf:"bytes,6,req,name=super" json:"super,omitempty"`
+	XXX_unrecognized []byte               `json:"-"`
 }
 
 func (m *CommandSetControlCellsDisplayNumberFormatArchive) Reset() {
@@ -602,11 +602,11 @@ func (m *CommandSetControlCellsDisplayNumberFormatArchive) GetSuper() *TableComm
 }
 
 type CommandSetAutomaticFormatArchive struct {
-	Selection        *SelectionArchive `protobuf:"bytes,1,req,name=selection" json:"selection,omitempty"`
-	UndoMap          *CellMapArchive   `protobuf:"bytes,2,req,name=undo_map" json:"undo_map,omitempty"`
-	RedoMap          *CellMapArchive   `protobuf:"bytes,3,req,name=redo_map" json:"redo_map,omitempty"`
-	Super            *TableCommandArchive   `protobuf:"bytes,6,req,name=super" json:"super,omitempty"`
-	XXX_unrecognized []byte                 `json:"-"`
+	Selection        *SelectionArchive    `protobuf:"bytes,1,req,name=selection" json:"selection,omitempty"`
+	UndoMap          *CellMapArchive      `protobuf:"bytes,2,req,name=undo_map" json:"undo_map,omitempty"`
+	RedoMap          *CellMapArchive      `protobuf:"bytes,3,req,name=redo_map" json:"redo_map,omitempty"`
+	Super            *TableCommandArchive `protobuf:"bytes,6,req,name=super" json:"super,omitempty"`
+	XXX_unrecognized []byte               `json:"-"`
 }
 
 func (m *CommandSetAutomaticFormatArchive) Reset()         { *m = CommandSetAutomaticFormatArchive{} }
@@ -642,12 +642,12 @@ func (m *CommandSetAutomaticFormatArchive) GetSuper() *TableCommandArchive {
 }
 
 type CommandSetAutomaticDurationUnitsArchive struct {
-	Selection        *SelectionArchive `protobuf:"bytes,1,req,name=selection" json:"selection,omitempty"`
-	UndoMap          *CellMapArchive   `protobuf:"bytes,2,req,name=undo_map" json:"undo_map,omitempty"`
-	RedoMap          *CellMapArchive   `protobuf:"bytes,3,req,name=redo_map" json:"redo_map,omitempty"`
-	AutomaticUnits   *bool                  `protobuf:"varint,4,opt,name=automatic_units" json:"automatic_units,omitempty"`
-	Super            *TableCommandArchive   `protobuf:"bytes,6,req,name=super" json:"super,omitempty"`
-	XXX_unrecognized []byte                 `json:"-"`
+	Selection        *SelectionArchive    `protobuf:"bytes,1,req,name=selection" json:"selection,omitempty"`
+	UndoMap          *CellMapArchive      `protobuf:"bytes,2,req,name=undo_map" json:"undo_map,omitempty"`
+	RedoMap          *CellMapArchive      `protobuf:"bytes,3,req,name=redo_map" json:"redo_map,omitempty"`
+	AutomaticUnits   *bool                `protobuf:"varint,4,opt,name=automatic_units" json:"automatic_units,omitempty"`
+	Super            *TableCommandArchive `protobuf:"bytes,6,req,name=super" json:"super,omitempty"`
+	XXX_unrecognized []byte               `json:"-"`
 }
 
 func (m *CommandSetAutomaticDurationUnitsArchive) Reset() {
@@ -702,7 +702,7 @@ type CommandInsertColumnsOrRowsArchive struct {
 	FooterCount             *uint32                                             `protobuf:"varint,13,req,name=footer_count" json:"footer_count,omitempty"`
 	FootersAdded            *uint32                                             `protobuf:"varint,14,req,name=footers_added" json:"footers_added,omitempty"`
 	RowColumnStyle          *TSP.Reference                                      `protobuf:"bytes,8,opt,name=row_column_style" json:"row_column_style,omitempty"`
-	CellStyleRedo           *CellMapArchive                                `protobuf:"bytes,9,opt,name=cell_style_redo" json:"cell_style_redo,omitempty"`
+	CellStyleRedo           *CellMapArchive                                     `protobuf:"bytes,9,opt,name=cell_style_redo" json:"cell_style_redo,omitempty"`
 	Super                   *TableCommandArchive                                `protobuf:"bytes,10,req,name=super" json:"super,omitempty"`
 	FormulaRewriteCommand   *TSP.Reference                                      `protobuf:"bytes,15,opt,name=formula_rewrite_command" json:"formula_rewrite_command,omitempty"`
 	WidthFactor             *float32                                            `protobuf:"fixed32,16,req,name=width_factor" json:"width_factor,omitempty"`
@@ -904,15 +904,15 @@ func (m *CommandInsertColumnsOrRowsArchive_StyleIndexPair) GetIndex() uint32 {
 }
 
 type CommandPasteArchive struct {
-	UserSelection          *SelectionArchive `protobuf:"bytes,1,req,name=user_selection" json:"user_selection,omitempty"`
-	FinalSelection         *SelectionArchive `protobuf:"bytes,2,req,name=final_selection" json:"final_selection,omitempty"`
-	UndoCellMap            *CellMapArchive   `protobuf:"bytes,3,req,name=undo_cell_map" json:"undo_cell_map,omitempty"`
-	RedoCellMap            *CellMapArchive   `protobuf:"bytes,4,req,name=redo_cell_map" json:"redo_cell_map,omitempty"`
-	CommandUndo            *TSP.Reference         `protobuf:"bytes,6,opt,name=command_undo" json:"command_undo,omitempty"`
-	InvalidateComments     *bool                  `protobuf:"varint,7,req,name=invalidate_comments" json:"invalidate_comments,omitempty"`
-	Super                  *TableCommandArchive   `protobuf:"bytes,11,req,name=super" json:"super,omitempty"`
-	FormulaRewriteCommands []*TSP.Reference       `protobuf:"bytes,15,rep,name=formula_rewrite_commands" json:"formula_rewrite_commands,omitempty"`
-	XXX_unrecognized       []byte                 `json:"-"`
+	UserSelection          *SelectionArchive    `protobuf:"bytes,1,req,name=user_selection" json:"user_selection,omitempty"`
+	FinalSelection         *SelectionArchive    `protobuf:"bytes,2,req,name=final_selection" json:"final_selection,omitempty"`
+	UndoCellMap            *CellMapArchive      `protobuf:"bytes,3,req,name=undo_cell_map" json:"undo_cell_map,omitempty"`
+	RedoCellMap            *CellMapArchive      `protobuf:"bytes,4,req,name=redo_cell_map" json:"redo_cell_map,omitempty"`
+	CommandUndo            *TSP.Reference       `protobuf:"bytes,6,opt,name=command_undo" json:"command_undo,omitempty"`
+	InvalidateComments     *bool                `protobuf:"varint,7,req,name=invalidate_comments" json:"invalidate_comments,omitempty"`
+	Super                  *TableCommandArchive `protobuf:"bytes,11,req,name=super" json:"super,omitempty"`
+	FormulaRewriteCommands []*TSP.Reference     `protobuf:"bytes,15,rep,name=formula_rewrite_commands" json:"formula_rewrite_commands,omitempty"`
+	XXX_unrecognized       []byte               `json:"-"`
 }
 
 func (m *CommandPasteArchive) Reset()         { *m = CommandPasteArchive{} }
@@ -979,7 +979,7 @@ type CommandRemoveColumnsOrRowsArchive struct {
 	Super                   *TableCommandArchive     `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
 	Direction               *CommandDirectionArchive `protobuf:"varint,2,req,name=direction,enum=CommandDirectionArchive" json:"direction,omitempty"`
 	IndicesToRemove         *TSP.IndexSet            `protobuf:"bytes,3,req,name=indices_to_remove" json:"indices_to_remove,omitempty"`
-	CellMap                 *CellMapArchive     `protobuf:"bytes,4,opt,name=cellMap" json:"cellMap,omitempty"`
+	CellMap                 *CellMapArchive          `protobuf:"bytes,4,opt,name=cellMap" json:"cellMap,omitempty"`
 	Oldgeom                 *TSD.GeometryArchive     `protobuf:"bytes,5,req,name=oldgeom" json:"oldgeom,omitempty"`
 	Newgeom                 *TSD.GeometryArchive     `protobuf:"bytes,6,req,name=newgeom" json:"newgeom,omitempty"`
 	Subsizes                []float32                `protobuf:"fixed32,7,rep,name=subsizes" json:"subsizes,omitempty"`
@@ -1208,9 +1208,9 @@ func (m *CommandResizeColumnOrRowArchive) GetSuper() *TableCommandArchive {
 }
 
 type CommandSetCellArchive struct {
-	CellID                *CellID         `protobuf:"bytes,1,req,name=cellID" json:"cellID,omitempty"`
-	Newcell               *Cell           `protobuf:"bytes,2,opt,name=newcell" json:"newcell,omitempty"`
-	Oldcell               *Cell           `protobuf:"bytes,3,opt,name=oldcell" json:"oldcell,omitempty"`
+	CellID                *CellID              `protobuf:"bytes,1,req,name=cellID" json:"cellID,omitempty"`
+	Newcell               *Cell                `protobuf:"bytes,2,opt,name=newcell" json:"newcell,omitempty"`
+	Oldcell               *Cell                `protobuf:"bytes,3,opt,name=oldcell" json:"oldcell,omitempty"`
 	Super                 *TableCommandArchive `protobuf:"bytes,5,req,name=super" json:"super,omitempty"`
 	PostUndoRedoSelection *bool                `protobuf:"varint,6,opt,name=post_undo_redo_selection" json:"post_undo_redo_selection,omitempty"`
 	XXX_unrecognized      []byte               `json:"-"`
@@ -1256,12 +1256,12 @@ func (m *CommandSetCellArchive) GetPostUndoRedoSelection() bool {
 }
 
 type CommandTextPreflightInsertCellArchive struct {
-	EditingCellID         *CellID         `protobuf:"bytes,1,req,name=editing_cellID" json:"editing_cellID,omitempty"`
+	EditingCellID         *CellID              `protobuf:"bytes,1,req,name=editing_cellID" json:"editing_cellID,omitempty"`
 	Super                 *TableCommandArchive `protobuf:"bytes,3,req,name=super" json:"super,omitempty"`
 	CoalescedTextcommand  *TSP.Reference       `protobuf:"bytes,6,opt,name=coalesced_textcommand" json:"coalesced_textcommand,omitempty"`
 	Postflightcommand     *TSP.Reference       `protobuf:"bytes,8,opt,name=postflightcommand" json:"postflightcommand,omitempty"`
 	GroupedWithPostflight *bool                `protobuf:"varint,9,opt,name=grouped_with_postflight" json:"grouped_with_postflight,omitempty"`
-	EditingCell           *Cell           `protobuf:"bytes,10,req,name=editing_cell" json:"editing_cell,omitempty"`
+	EditingCell           *Cell                `protobuf:"bytes,10,req,name=editing_cell" json:"editing_cell,omitempty"`
 	EditingStorage        *TSP.Reference       `protobuf:"bytes,11,req,name=editing_storage" json:"editing_storage,omitempty"`
 	LastColumnHitByTap    *uint32              `protobuf:"varint,12,opt,name=last_column_hit_by_tap" json:"last_column_hit_by_tap,omitempty"`
 	XXX_unrecognized      []byte               `json:"-"`
@@ -1328,11 +1328,11 @@ func (m *CommandTextPreflightInsertCellArchive) GetLastColumnHitByTap() uint32 {
 }
 
 type CommandPostflightSetCellArchive struct {
-	CellID             *CellID         `protobuf:"bytes,1,req,name=cellID" json:"cellID,omitempty"`
+	CellID             *CellID              `protobuf:"bytes,1,req,name=cellID" json:"cellID,omitempty"`
 	Super              *TableCommandArchive `protobuf:"bytes,3,req,name=super" json:"super,omitempty"`
 	Childcommandundo   *TSP.Reference       `protobuf:"bytes,4,opt,name=childcommandundo" json:"childcommandundo,omitempty"`
-	EditingCell        *Cell           `protobuf:"bytes,6,req,name=editing_cell" json:"editing_cell,omitempty"`
-	NewCell            *Cell           `protobuf:"bytes,7,req,name=new_cell" json:"new_cell,omitempty"`
+	EditingCell        *Cell                `protobuf:"bytes,6,req,name=editing_cell" json:"editing_cell,omitempty"`
+	NewCell            *Cell                `protobuf:"bytes,7,req,name=new_cell" json:"new_cell,omitempty"`
 	EditingStorage     *TSP.Reference       `protobuf:"bytes,8,req,name=editing_storage" json:"editing_storage,omitempty"`
 	LastColumnHitByTap *uint32              `protobuf:"varint,9,opt,name=last_column_hit_by_tap" json:"last_column_hit_by_tap,omitempty"`
 	XXX_unrecognized   []byte               `json:"-"`
@@ -1436,8 +1436,8 @@ func (m *CommandSetNumberOfHeadersOrFootersArchive) GetSuper() *TableCommandArch
 type CommandFixWPStylesInRowsOrColumnsArchive struct {
 	Direction        *CommandDirectionArchive `protobuf:"varint,1,req,name=direction,enum=CommandDirectionArchive" json:"direction,omitempty"`
 	Index            *uint32                  `protobuf:"varint,2,req,name=index" json:"index,omitempty"`
-	UndoCellMap      *CellMapArchive     `protobuf:"bytes,3,req,name=undo_cell_map" json:"undo_cell_map,omitempty"`
-	RedoCellMap      *CellMapArchive     `protobuf:"bytes,4,req,name=redo_cell_map" json:"redo_cell_map,omitempty"`
+	UndoCellMap      *CellMapArchive          `protobuf:"bytes,3,req,name=undo_cell_map" json:"undo_cell_map,omitempty"`
+	RedoCellMap      *CellMapArchive          `protobuf:"bytes,4,req,name=redo_cell_map" json:"redo_cell_map,omitempty"`
 	Super            *TableCommandArchive     `protobuf:"bytes,6,req,name=super" json:"super,omitempty"`
 	ReferenceIndex   *uint32                  `protobuf:"varint,7,req,name=reference_index" json:"reference_index,omitempty"`
 	InheritStyles    *bool                    `protobuf:"varint,8,req,name=inherit_styles" json:"inherit_styles,omitempty"`
@@ -1511,8 +1511,8 @@ type CommandFixStylesInHeadersOrFootersArchive struct {
 	Region           *CommandRegionArchive `protobuf:"varint,1,req,name=region,enum=CommandRegionArchive" json:"region,omitempty"`
 	OldNumber        *uint32               `protobuf:"varint,2,req,name=old_number" json:"old_number,omitempty"`
 	NewNumber        *uint32               `protobuf:"varint,3,req,name=new_number" json:"new_number,omitempty"`
-	RedoCellMap      *CellMapArchive  `protobuf:"bytes,4,req,name=redo_cell_map" json:"redo_cell_map,omitempty"`
-	UndoCellMap      *CellMapArchive  `protobuf:"bytes,5,req,name=undo_cell_map" json:"undo_cell_map,omitempty"`
+	RedoCellMap      *CellMapArchive       `protobuf:"bytes,4,req,name=redo_cell_map" json:"redo_cell_map,omitempty"`
+	UndoCellMap      *CellMapArchive       `protobuf:"bytes,5,req,name=undo_cell_map" json:"undo_cell_map,omitempty"`
 	Super            *TableCommandArchive  `protobuf:"bytes,6,req,name=super" json:"super,omitempty"`
 	Textundo         *TSP.Reference        `protobuf:"bytes,7,opt,name=textundo" json:"textundo,omitempty"`
 	XXX_unrecognized []byte                `json:"-"`
@@ -1680,8 +1680,8 @@ func (m *CommandSetTableNameEnabledArchive) GetSuper() *TableCommandArchive {
 type CommandSetTableFontSizeArchive struct {
 	Super              *TableCommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
 	ScaleFactor        *float32             `protobuf:"fixed32,9,req,name=scale_factor" json:"scale_factor,omitempty"`
-	UndoCellMap        *CellMapArchive `protobuf:"bytes,5,opt,name=undo_cell_map" json:"undo_cell_map,omitempty"`
-	RedoCellMap        *CellMapArchive `protobuf:"bytes,6,opt,name=redo_cell_map" json:"redo_cell_map,omitempty"`
+	UndoCellMap        *CellMapArchive      `protobuf:"bytes,5,opt,name=undo_cell_map" json:"undo_cell_map,omitempty"`
+	RedoCellMap        *CellMapArchive      `protobuf:"bytes,6,opt,name=redo_cell_map" json:"redo_cell_map,omitempty"`
 	ResizeDefaultCells *bool                `protobuf:"varint,7,opt,name=resize_default_cells" json:"resize_default_cells,omitempty"`
 	TextUndo           *TSP.Reference       `protobuf:"bytes,8,opt,name=text_undo" json:"text_undo,omitempty"`
 	XXX_unrecognized   []byte               `json:"-"`
@@ -1738,8 +1738,8 @@ type CommandSetTableFontNameArchive struct {
 	FontName         *string              `protobuf:"bytes,2,req,name=font_name" json:"font_name,omitempty"`
 	OldFontName      *string              `protobuf:"bytes,3,req,name=old_font_name" json:"old_font_name,omitempty"`
 	PreserveFace     *bool                `protobuf:"varint,5,opt,name=preserve_face" json:"preserve_face,omitempty"`
-	UndoCellMap      *CellMapArchive `protobuf:"bytes,6,opt,name=undo_cell_map" json:"undo_cell_map,omitempty"`
-	RedoCellMap      *CellMapArchive `protobuf:"bytes,7,opt,name=redo_cell_map" json:"redo_cell_map,omitempty"`
+	UndoCellMap      *CellMapArchive      `protobuf:"bytes,6,opt,name=undo_cell_map" json:"undo_cell_map,omitempty"`
+	RedoCellMap      *CellMapArchive      `protobuf:"bytes,7,opt,name=redo_cell_map" json:"redo_cell_map,omitempty"`
 	TextUndo         *TSP.Reference       `protobuf:"bytes,8,opt,name=text_undo" json:"text_undo,omitempty"`
 	XXX_unrecognized []byte               `json:"-"`
 }
@@ -1832,9 +1832,9 @@ func (m *CommandSetTableNameHeightArchive) GetNewTableNameHeight() float64 {
 type CommandStyleCellsArchive struct {
 	Super            *TableCommandArchive     `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
 	FormatProperties *TSP.ReferenceDictionary `protobuf:"bytes,2,opt,name=format_properties" json:"format_properties,omitempty"`
-	Selection        *SelectionArchive   `protobuf:"bytes,3,req,name=selection" json:"selection,omitempty"`
-	UndoCellMap      *CellMapArchive     `protobuf:"bytes,4,req,name=undo_cell_map" json:"undo_cell_map,omitempty"`
-	RedoCellMap      *CellMapArchive     `protobuf:"bytes,5,req,name=redo_cell_map" json:"redo_cell_map,omitempty"`
+	Selection        *SelectionArchive        `protobuf:"bytes,3,req,name=selection" json:"selection,omitempty"`
+	UndoCellMap      *CellMapArchive          `protobuf:"bytes,4,req,name=undo_cell_map" json:"undo_cell_map,omitempty"`
+	RedoCellMap      *CellMapArchive          `protobuf:"bytes,5,req,name=redo_cell_map" json:"redo_cell_map,omitempty"`
 	TextUndo         *TSP.Reference           `protobuf:"bytes,6,opt,name=text_undo" json:"text_undo,omitempty"`
 	XXX_unrecognized []byte                   `json:"-"`
 }
@@ -1926,7 +1926,7 @@ func (m *CommandStyleTableArchive) GetNewStyle() *TSP.Reference {
 }
 
 type CommandFillCellsArchive struct {
-	Super            *TableCommandArchive       `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
+	Super            *TableCommandArchive  `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
 	Sourceselection  *SelectionArchive     `protobuf:"bytes,2,req,name=sourceselection" json:"sourceselection,omitempty"`
 	Sourcecellrange  *CellRange            `protobuf:"bytes,3,req,name=sourcecellrange" json:"sourcecellrange,omitempty"`
 	Targetcellrange  *CellRange            `protobuf:"bytes,4,req,name=targetcellrange" json:"targetcellrange,omitempty"`
@@ -1934,7 +1934,7 @@ type CommandFillCellsArchive struct {
 	FillDirection    *FillDirectionArchive `protobuf:"varint,6,req,name=fillDirection,enum=FillDirectionArchive" json:"fillDirection,omitempty"`
 	Targetselection  *SelectionArchive     `protobuf:"bytes,7,req,name=targetselection" json:"targetselection,omitempty"`
 	RedoCellMap      *CellMapArchive       `protobuf:"bytes,8,req,name=redo_cell_map" json:"redo_cell_map,omitempty"`
-	XXX_unrecognized []byte                     `json:"-"`
+	XXX_unrecognized []byte                `json:"-"`
 }
 
 func (m *CommandFillCellsArchive) Reset()         { *m = CommandFillCellsArchive{} }
@@ -1998,9 +1998,9 @@ func (m *CommandFillCellsArchive) GetRedoCellMap() *CellMapArchive {
 }
 
 type CommandReplaceTextArchive struct {
-	CellID           *CellID         `protobuf:"bytes,1,req,name=cellID" json:"cellID,omitempty"`
-	Newcell          *Cell           `protobuf:"bytes,2,req,name=newcell" json:"newcell,omitempty"`
-	Oldcell          *Cell           `protobuf:"bytes,3,req,name=oldcell" json:"oldcell,omitempty"`
+	CellID           *CellID              `protobuf:"bytes,1,req,name=cellID" json:"cellID,omitempty"`
+	Newcell          *Cell                `protobuf:"bytes,2,req,name=newcell" json:"newcell,omitempty"`
+	Oldcell          *Cell                `protobuf:"bytes,3,req,name=oldcell" json:"oldcell,omitempty"`
 	Super            *TableCommandArchive `protobuf:"bytes,4,req,name=super" json:"super,omitempty"`
 	ChildCommandUndo *TSP.Reference       `protobuf:"bytes,5,opt,name=child_command_undo" json:"child_command_undo,omitempty"`
 	XXX_unrecognized []byte               `json:"-"`
@@ -2046,10 +2046,10 @@ func (m *CommandReplaceTextArchive) GetChildCommandUndo() *TSP.Reference {
 }
 
 type CommandReplaceAllTextArchive struct {
-	TableInfo        *TSP.Reference       `protobuf:"bytes,1,req,name=tableInfo" json:"tableInfo,omitempty"`
+	TableInfo        *TSP.Reference  `protobuf:"bytes,1,req,name=tableInfo" json:"tableInfo,omitempty"`
 	UndoCellMap      *CellMapArchive `protobuf:"bytes,2,req,name=undo_cell_map" json:"undo_cell_map,omitempty"`
 	RedoCellMap      *CellMapArchive `protobuf:"bytes,3,req,name=redo_cell_map" json:"redo_cell_map,omitempty"`
-	XXX_unrecognized []byte               `json:"-"`
+	XXX_unrecognized []byte          `json:"-"`
 }
 
 func (m *CommandReplaceAllTextArchive) Reset()         { *m = CommandReplaceAllTextArchive{} }
@@ -2136,12 +2136,12 @@ func (m *CommandSetFiltersEnabledArchive) GetSuper() *TableCommandArchive {
 }
 
 type CommandAddQuickFilterRulesArchive struct {
-	Super            *TableCommandArchive      `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
+	Super            *TableCommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
 	Rules            []*FilterRuleArchive `protobuf:"bytes,2,rep,name=rules" json:"rules,omitempty"`
-	FilterIndex      *uint32                   `protobuf:"varint,3,req,name=filter_index" json:"filter_index,omitempty"`
-	RuleIndices      []uint32                  `protobuf:"varint,4,rep,name=rule_indices" json:"rule_indices,omitempty"`
-	FilterSetEnabled *bool                     `protobuf:"varint,5,req,name=filter_set_enabled" json:"filter_set_enabled,omitempty"`
-	XXX_unrecognized []byte                    `json:"-"`
+	FilterIndex      *uint32              `protobuf:"varint,3,req,name=filter_index" json:"filter_index,omitempty"`
+	RuleIndices      []uint32             `protobuf:"varint,4,rep,name=rule_indices" json:"rule_indices,omitempty"`
+	FilterSetEnabled *bool                `protobuf:"varint,5,req,name=filter_set_enabled" json:"filter_set_enabled,omitempty"`
+	XXX_unrecognized []byte               `json:"-"`
 }
 
 func (m *CommandAddQuickFilterRulesArchive) Reset()         { *m = CommandAddQuickFilterRulesArchive{} }
@@ -2184,13 +2184,13 @@ func (m *CommandAddQuickFilterRulesArchive) GetFilterSetEnabled() bool {
 }
 
 type CommandDeleteFilterRulesArchive struct {
-	Super            *TableCommandArchive      `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
+	Super            *TableCommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
 	UndoRules        []*FilterRuleArchive `protobuf:"bytes,2,rep,name=undo_rules" json:"undo_rules,omitempty"`
-	RuleIndices      []uint32                  `protobuf:"varint,3,rep,name=rule_indices" json:"rule_indices,omitempty"`
-	FilterRemoved    *bool                     `protobuf:"varint,4,req,name=filter_removed" json:"filter_removed,omitempty"`
-	FilterIndex      *uint32                   `protobuf:"varint,5,req,name=filter_index" json:"filter_index,omitempty"`
-	FilterSetEnabled *bool                     `protobuf:"varint,6,req,name=filter_set_enabled" json:"filter_set_enabled,omitempty"`
-	XXX_unrecognized []byte                    `json:"-"`
+	RuleIndices      []uint32             `protobuf:"varint,3,rep,name=rule_indices" json:"rule_indices,omitempty"`
+	FilterRemoved    *bool                `protobuf:"varint,4,req,name=filter_removed" json:"filter_removed,omitempty"`
+	FilterIndex      *uint32              `protobuf:"varint,5,req,name=filter_index" json:"filter_index,omitempty"`
+	FilterSetEnabled *bool                `protobuf:"varint,6,req,name=filter_set_enabled" json:"filter_set_enabled,omitempty"`
+	XXX_unrecognized []byte               `json:"-"`
 }
 
 func (m *CommandDeleteFilterRulesArchive) Reset()         { *m = CommandDeleteFilterRulesArchive{} }
@@ -2240,12 +2240,12 @@ func (m *CommandDeleteFilterRulesArchive) GetFilterSetEnabled() bool {
 }
 
 type CommandModifyFilterRuleArchive struct {
-	Super            *TableCommandArchive    `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	UndoRule         *FilterRuleArchive `protobuf:"bytes,2,req,name=undo_rule" json:"undo_rule,omitempty"`
-	RedoRule         *FilterRuleArchive `protobuf:"bytes,3,req,name=redo_rule" json:"redo_rule,omitempty"`
-	RuleIndex        *uint32                 `protobuf:"varint,4,req,name=rule_index" json:"rule_index,omitempty"`
-	FilterIndex      *uint32                 `protobuf:"varint,5,req,name=filter_index" json:"filter_index,omitempty"`
-	XXX_unrecognized []byte                  `json:"-"`
+	Super            *TableCommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
+	UndoRule         *FilterRuleArchive   `protobuf:"bytes,2,req,name=undo_rule" json:"undo_rule,omitempty"`
+	RedoRule         *FilterRuleArchive   `protobuf:"bytes,3,req,name=redo_rule" json:"redo_rule,omitempty"`
+	RuleIndex        *uint32              `protobuf:"varint,4,req,name=rule_index" json:"rule_index,omitempty"`
+	FilterIndex      *uint32              `protobuf:"varint,5,req,name=filter_index" json:"filter_index,omitempty"`
+	XXX_unrecognized []byte               `json:"-"`
 }
 
 func (m *CommandModifyFilterRuleArchive) Reset()         { *m = CommandModifyFilterRuleArchive{} }
@@ -2288,13 +2288,13 @@ func (m *CommandModifyFilterRuleArchive) GetFilterIndex() uint32 {
 }
 
 type CommandApplyStrokePresetArchive struct {
-	Super             *TableCommandArchive   `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	UndoCellMap       *CellMapArchive   `protobuf:"bytes,2,req,name=undo_cell_map" json:"undo_cell_map,omitempty"`
-	RedoCellMap       *CellMapArchive   `protobuf:"bytes,4,req,name=redo_cell_map" json:"redo_cell_map,omitempty"`
-	Selection         *SelectionArchive `protobuf:"bytes,3,req,name=selection" json:"selection,omitempty"`
-	ExpandedSelection *SelectionArchive `protobuf:"bytes,6,opt,name=expanded_selection" json:"expanded_selection,omitempty"`
-	PresetIndex       *int32                 `protobuf:"varint,5,req,name=preset_index" json:"preset_index,omitempty"`
-	XXX_unrecognized  []byte                 `json:"-"`
+	Super             *TableCommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
+	UndoCellMap       *CellMapArchive      `protobuf:"bytes,2,req,name=undo_cell_map" json:"undo_cell_map,omitempty"`
+	RedoCellMap       *CellMapArchive      `protobuf:"bytes,4,req,name=redo_cell_map" json:"redo_cell_map,omitempty"`
+	Selection         *SelectionArchive    `protobuf:"bytes,3,req,name=selection" json:"selection,omitempty"`
+	ExpandedSelection *SelectionArchive    `protobuf:"bytes,6,opt,name=expanded_selection" json:"expanded_selection,omitempty"`
+	PresetIndex       *int32               `protobuf:"varint,5,req,name=preset_index" json:"preset_index,omitempty"`
+	XXX_unrecognized  []byte               `json:"-"`
 }
 
 func (m *CommandApplyStrokePresetArchive) Reset()         { *m = CommandApplyStrokePresetArchive{} }
@@ -2345,11 +2345,11 @@ func (m *CommandApplyStrokePresetArchive) GetPresetIndex() int32 {
 
 type CommandApplyTableStylePresetArchive struct {
 	Super                             *TableCommandArchive                                   `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	UndoCellMap                       *CellMapArchive                                   `protobuf:"bytes,2,req,name=undo_cell_map" json:"undo_cell_map,omitempty"`
-	RedoCellMap                       *CellMapArchive                                   `protobuf:"bytes,4,req,name=redo_cell_map" json:"redo_cell_map,omitempty"`
+	UndoCellMap                       *CellMapArchive                                        `protobuf:"bytes,2,req,name=undo_cell_map" json:"undo_cell_map,omitempty"`
+	RedoCellMap                       *CellMapArchive                                        `protobuf:"bytes,4,req,name=redo_cell_map" json:"redo_cell_map,omitempty"`
 	PresetIndex                       *int32                                                 `protobuf:"varint,5,req,name=preset_index" json:"preset_index,omitempty"`
-	OldTableStyles                    *TableStyleNetworkArchive                         `protobuf:"bytes,7,req,name=old_table_styles" json:"old_table_styles,omitempty"`
-	NewTableStyles                    *TableStyleNetworkArchive                         `protobuf:"bytes,8,req,name=new_table_styles" json:"new_table_styles,omitempty"`
+	OldTableStyles                    *TableStyleNetworkArchive                              `protobuf:"bytes,7,req,name=old_table_styles" json:"old_table_styles,omitempty"`
+	NewTableStyles                    *TableStyleNetworkArchive                              `protobuf:"bytes,8,req,name=new_table_styles" json:"new_table_styles,omitempty"`
 	ApplyClearsAll                    *bool                                                  `protobuf:"varint,10,opt,name=apply_clears_all" json:"apply_clears_all,omitempty"`
 	FontSizeCommand                   *TSP.Reference                                         `protobuf:"bytes,11,opt,name=font_size_command" json:"font_size_command,omitempty"`
 	SetStyleApplyClearsAllFlagCommand *TSP.Reference                                         `protobuf:"bytes,12,opt,name=set_style_apply_clears_all_flag_command" json:"set_style_apply_clears_all_flag_command,omitempty"`
@@ -2502,12 +2502,12 @@ func (m *CommandSetStyleApplyClearsAllFlagArchive) GetApplyClearsAll() bool {
 }
 
 type CommandApplyThemeToTableArchive struct {
-	Super            *TableCommandArchive           `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
+	Super            *TableCommandArchive      `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
 	UndoCellMap      *CellMapArchive           `protobuf:"bytes,2,req,name=undo_cell_map" json:"undo_cell_map,omitempty"`
 	RedoCellMap      *CellMapArchive           `protobuf:"bytes,4,req,name=redo_cell_map" json:"redo_cell_map,omitempty"`
 	OldTableStyles   *TableStyleNetworkArchive `protobuf:"bytes,7,req,name=old_table_styles" json:"old_table_styles,omitempty"`
 	NewTableStyles   *TableStyleNetworkArchive `protobuf:"bytes,8,req,name=new_table_styles" json:"new_table_styles,omitempty"`
-	XXX_unrecognized []byte                         `json:"-"`
+	XXX_unrecognized []byte                    `json:"-"`
 }
 
 func (m *CommandApplyThemeToTableArchive) Reset()         { *m = CommandApplyThemeToTableArchive{} }
@@ -2574,17 +2574,17 @@ func (m *CommandApplyThemeChildForTableArchive) GetApplyCommand() *TSP.Reference
 }
 
 type CommandToggleTextPropertyArchive struct {
-	Super            *TableCommandArchive   `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	Selection        *SelectionArchive `protobuf:"bytes,2,req,name=selection" json:"selection,omitempty"`
-	Property         *uint32                `protobuf:"varint,3,req,name=property" json:"property,omitempty"`
-	UndoCellMap      *CellMapArchive   `protobuf:"bytes,4,req,name=undo_cell_map" json:"undo_cell_map,omitempty"`
-	RedoCellMap      *CellMapArchive   `protobuf:"bytes,5,req,name=redo_cell_map" json:"redo_cell_map,omitempty"`
-	DefaultBodyCell  *Cell             `protobuf:"bytes,6,req,name=default_body_cell" json:"default_body_cell,omitempty"`
-	DefaultHrCell    *Cell             `protobuf:"bytes,7,req,name=default_hr_cell" json:"default_hr_cell,omitempty"`
-	DefaultHcCell    *Cell             `protobuf:"bytes,8,req,name=default_hc_cell" json:"default_hc_cell,omitempty"`
-	DefaultFrCell    *Cell             `protobuf:"bytes,9,req,name=default_fr_cell" json:"default_fr_cell,omitempty"`
-	TextUndo         *TSP.Reference         `protobuf:"bytes,10,opt,name=text_undo" json:"text_undo,omitempty"`
-	XXX_unrecognized []byte                 `json:"-"`
+	Super            *TableCommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
+	Selection        *SelectionArchive    `protobuf:"bytes,2,req,name=selection" json:"selection,omitempty"`
+	Property         *uint32              `protobuf:"varint,3,req,name=property" json:"property,omitempty"`
+	UndoCellMap      *CellMapArchive      `protobuf:"bytes,4,req,name=undo_cell_map" json:"undo_cell_map,omitempty"`
+	RedoCellMap      *CellMapArchive      `protobuf:"bytes,5,req,name=redo_cell_map" json:"redo_cell_map,omitempty"`
+	DefaultBodyCell  *Cell                `protobuf:"bytes,6,req,name=default_body_cell" json:"default_body_cell,omitempty"`
+	DefaultHrCell    *Cell                `protobuf:"bytes,7,req,name=default_hr_cell" json:"default_hr_cell,omitempty"`
+	DefaultHcCell    *Cell                `protobuf:"bytes,8,req,name=default_hc_cell" json:"default_hc_cell,omitempty"`
+	DefaultFrCell    *Cell                `protobuf:"bytes,9,req,name=default_fr_cell" json:"default_fr_cell,omitempty"`
+	TextUndo         *TSP.Reference       `protobuf:"bytes,10,opt,name=text_undo" json:"text_undo,omitempty"`
+	XXX_unrecognized []byte               `json:"-"`
 }
 
 func (m *CommandToggleTextPropertyArchive) Reset()         { *m = CommandToggleTextPropertyArchive{} }
@@ -2662,11 +2662,11 @@ func (m *CommandToggleTextPropertyArchive) GetTextUndo() *TSP.Reference {
 }
 
 type CommandResetFillPropertyToDefault struct {
-	Super            *TableCommandArchive   `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	Selection        *SelectionArchive `protobuf:"bytes,2,req,name=selection" json:"selection,omitempty"`
-	UndoCellMap      *CellMapArchive   `protobuf:"bytes,4,req,name=undo_cell_map" json:"undo_cell_map,omitempty"`
-	RedoCellMap      *CellMapArchive   `protobuf:"bytes,5,req,name=redo_cell_map" json:"redo_cell_map,omitempty"`
-	XXX_unrecognized []byte                 `json:"-"`
+	Super            *TableCommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
+	Selection        *SelectionArchive    `protobuf:"bytes,2,req,name=selection" json:"selection,omitempty"`
+	UndoCellMap      *CellMapArchive      `protobuf:"bytes,4,req,name=undo_cell_map" json:"undo_cell_map,omitempty"`
+	RedoCellMap      *CellMapArchive      `protobuf:"bytes,5,req,name=redo_cell_map" json:"redo_cell_map,omitempty"`
+	XXX_unrecognized []byte               `json:"-"`
 }
 
 func (m *CommandResetFillPropertyToDefault) Reset()         { *m = CommandResetFillPropertyToDefault{} }
@@ -2702,11 +2702,11 @@ func (m *CommandResetFillPropertyToDefault) GetRedoCellMap() *CellMapArchive {
 }
 
 type CommandSetSingleNumberFormatParameterArchive struct {
-	Super            *TableCommandArchive   `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	Selection        *SelectionArchive `protobuf:"bytes,2,req,name=selection" json:"selection,omitempty"`
-	UndoCellMap      *CellMapArchive   `protobuf:"bytes,3,req,name=undo_cell_map" json:"undo_cell_map,omitempty"`
-	RedoCellMap      *CellMapArchive   `protobuf:"bytes,4,req,name=redo_cell_map" json:"redo_cell_map,omitempty"`
-	XXX_unrecognized []byte                 `json:"-"`
+	Super            *TableCommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
+	Selection        *SelectionArchive    `protobuf:"bytes,2,req,name=selection" json:"selection,omitempty"`
+	UndoCellMap      *CellMapArchive      `protobuf:"bytes,3,req,name=undo_cell_map" json:"undo_cell_map,omitempty"`
+	RedoCellMap      *CellMapArchive      `protobuf:"bytes,4,req,name=redo_cell_map" json:"redo_cell_map,omitempty"`
+	XXX_unrecognized []byte               `json:"-"`
 }
 
 func (m *CommandSetSingleNumberFormatParameterArchive) Reset() {
@@ -3067,10 +3067,10 @@ func (m *CommandSetNegativeNumberStyleArchive) GetNegativeNumberStyle() uint32 {
 
 type CommandSetExplicitFormatArchive struct {
 	Super            *TableCommandArchive     `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	Selection        *SelectionArchive   `protobuf:"bytes,2,req,name=selection" json:"selection,omitempty"`
+	Selection        *SelectionArchive        `protobuf:"bytes,2,req,name=selection" json:"selection,omitempty"`
 	CellFormat       *TSK.FormatStructArchive `protobuf:"bytes,3,req,name=cell_format" json:"cell_format,omitempty"`
-	UndoCellMap      *CellMapArchive     `protobuf:"bytes,4,req,name=undo_cell_map" json:"undo_cell_map,omitempty"`
-	RedoCellMap      *CellMapArchive     `protobuf:"bytes,5,req,name=redo_cell_map" json:"redo_cell_map,omitempty"`
+	UndoCellMap      *CellMapArchive          `protobuf:"bytes,4,req,name=undo_cell_map" json:"undo_cell_map,omitempty"`
+	RedoCellMap      *CellMapArchive          `protobuf:"bytes,5,req,name=redo_cell_map" json:"redo_cell_map,omitempty"`
 	XXX_unrecognized []byte                   `json:"-"`
 }
 
@@ -3206,15 +3206,15 @@ func (m *CommandSetUseAccountingStyleArchive) GetUseAccountingStyle() bool {
 }
 
 type CommandMoveRowsArchive struct {
-	Super                       *TableCommandArchive   `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	Selection                   *SelectionArchive `protobuf:"bytes,2,opt,name=selection" json:"selection,omitempty"`
-	StartRowIndex               *uint32                `protobuf:"varint,3,req,name=start_row_index" json:"start_row_index,omitempty"`
-	DestRowIndex                *uint32                `protobuf:"varint,4,req,name=dest_row_index" json:"dest_row_index,omitempty"`
-	NumberOfRows                *uint32                `protobuf:"varint,5,req,name=number_of_rows" json:"number_of_rows,omitempty"`
-	FormulaRewriteCommand       *TSP.Reference         `protobuf:"bytes,7,opt,name=formula_rewrite_command" json:"formula_rewrite_command,omitempty"`
-	ShowCommand                 *TSP.Reference         `protobuf:"bytes,8,opt,name=show_command" json:"show_command,omitempty"`
-	UnmergeInvalidRangesCommand *TSP.Reference         `protobuf:"bytes,9,opt,name=unmerge_invalid_ranges_command" json:"unmerge_invalid_ranges_command,omitempty"`
-	XXX_unrecognized            []byte                 `json:"-"`
+	Super                       *TableCommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
+	Selection                   *SelectionArchive    `protobuf:"bytes,2,opt,name=selection" json:"selection,omitempty"`
+	StartRowIndex               *uint32              `protobuf:"varint,3,req,name=start_row_index" json:"start_row_index,omitempty"`
+	DestRowIndex                *uint32              `protobuf:"varint,4,req,name=dest_row_index" json:"dest_row_index,omitempty"`
+	NumberOfRows                *uint32              `protobuf:"varint,5,req,name=number_of_rows" json:"number_of_rows,omitempty"`
+	FormulaRewriteCommand       *TSP.Reference       `protobuf:"bytes,7,opt,name=formula_rewrite_command" json:"formula_rewrite_command,omitempty"`
+	ShowCommand                 *TSP.Reference       `protobuf:"bytes,8,opt,name=show_command" json:"show_command,omitempty"`
+	UnmergeInvalidRangesCommand *TSP.Reference       `protobuf:"bytes,9,opt,name=unmerge_invalid_ranges_command" json:"unmerge_invalid_ranges_command,omitempty"`
+	XXX_unrecognized            []byte               `json:"-"`
 }
 
 func (m *CommandMoveRowsArchive) Reset()         { *m = CommandMoveRowsArchive{} }
@@ -3278,14 +3278,14 @@ func (m *CommandMoveRowsArchive) GetUnmergeInvalidRangesCommand() *TSP.Reference
 }
 
 type CommandMoveColumnsArchive struct {
-	Super                 *TableCommandArchive   `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	Selection             *SelectionArchive `protobuf:"bytes,2,opt,name=selection" json:"selection,omitempty"`
-	StartColumnIndex      *uint32                `protobuf:"varint,3,req,name=start_column_index" json:"start_column_index,omitempty"`
-	DestColumnIndex       *uint32                `protobuf:"varint,4,req,name=dest_column_index" json:"dest_column_index,omitempty"`
-	NumberOfColumns       *uint32                `protobuf:"varint,5,req,name=number_of_columns" json:"number_of_columns,omitempty"`
-	FormulaRewriteCommand *TSP.Reference         `protobuf:"bytes,7,opt,name=formula_rewrite_command" json:"formula_rewrite_command,omitempty"`
-	ShowCommand           *TSP.Reference         `protobuf:"bytes,8,opt,name=show_command" json:"show_command,omitempty"`
-	XXX_unrecognized      []byte                 `json:"-"`
+	Super                 *TableCommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
+	Selection             *SelectionArchive    `protobuf:"bytes,2,opt,name=selection" json:"selection,omitempty"`
+	StartColumnIndex      *uint32              `protobuf:"varint,3,req,name=start_column_index" json:"start_column_index,omitempty"`
+	DestColumnIndex       *uint32              `protobuf:"varint,4,req,name=dest_column_index" json:"dest_column_index,omitempty"`
+	NumberOfColumns       *uint32              `protobuf:"varint,5,req,name=number_of_columns" json:"number_of_columns,omitempty"`
+	FormulaRewriteCommand *TSP.Reference       `protobuf:"bytes,7,opt,name=formula_rewrite_command" json:"formula_rewrite_command,omitempty"`
+	ShowCommand           *TSP.Reference       `protobuf:"bytes,8,opt,name=show_command" json:"show_command,omitempty"`
+	XXX_unrecognized      []byte               `json:"-"`
 }
 
 func (m *CommandMoveColumnsArchive) Reset()         { *m = CommandMoveColumnsArchive{} }
@@ -3840,14 +3840,14 @@ func (m *CommandRewriteConditionalStylesForCellMergeArchive) GetConditionalStyle
 }
 
 type CommandMergeUnmergeArchive struct {
-	Super                     *TableCommandArchive     `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	MergeAction               *MergeActionArchive `protobuf:"varint,2,req,name=merge_action,enum=MergeActionArchive" json:"merge_action,omitempty"`
-	Selection                 *SelectionArchive   `protobuf:"bytes,3,req,name=selection" json:"selection,omitempty"`
-	UndoCellMap               *CellMapArchive     `protobuf:"bytes,4,req,name=undo_cell_map" json:"undo_cell_map,omitempty"`
-	RedoCellMap               *CellMapArchive     `protobuf:"bytes,5,req,name=redo_cell_map" json:"redo_cell_map,omitempty"`
-	OldMergeRanges            *TSP.Reference           `protobuf:"bytes,8,opt,name=old_merge_ranges" json:"old_merge_ranges,omitempty"`
-	UndoFormulaRewriteCommand *TSP.Reference           `protobuf:"bytes,9,opt,name=undo_formula_rewrite_command" json:"undo_formula_rewrite_command,omitempty"`
-	XXX_unrecognized          []byte                   `json:"-"`
+	Super                     *TableCommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
+	MergeAction               *MergeActionArchive  `protobuf:"varint,2,req,name=merge_action,enum=MergeActionArchive" json:"merge_action,omitempty"`
+	Selection                 *SelectionArchive    `protobuf:"bytes,3,req,name=selection" json:"selection,omitempty"`
+	UndoCellMap               *CellMapArchive      `protobuf:"bytes,4,req,name=undo_cell_map" json:"undo_cell_map,omitempty"`
+	RedoCellMap               *CellMapArchive      `protobuf:"bytes,5,req,name=redo_cell_map" json:"redo_cell_map,omitempty"`
+	OldMergeRanges            *TSP.Reference       `protobuf:"bytes,8,opt,name=old_merge_ranges" json:"old_merge_ranges,omitempty"`
+	UndoFormulaRewriteCommand *TSP.Reference       `protobuf:"bytes,9,opt,name=undo_formula_rewrite_command" json:"undo_formula_rewrite_command,omitempty"`
+	XXX_unrecognized          []byte               `json:"-"`
 }
 
 func (m *CommandMergeUnmergeArchive) Reset()         { *m = CommandMergeUnmergeArchive{} }
@@ -3904,13 +3904,13 @@ func (m *CommandMergeUnmergeArchive) GetUndoFormulaRewriteCommand() *TSP.Referen
 }
 
 type CommandHideShowArchive struct {
-	Super            *TableCommandArchive        `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	Direction        *CommandDirectionArchive    `protobuf:"varint,2,req,name=direction,enum=CommandDirectionArchive" json:"direction,omitempty"`
-	HideShowAction   *HideShowActionArchive `protobuf:"varint,3,req,name=hide_show_action,enum=HideShowActionArchive" json:"hide_show_action,omitempty"`
-	HidingAction     *uint32                     `protobuf:"varint,4,req,name=hiding_action" json:"hiding_action,omitempty"`
-	ElementsAffected *TSP.IndexSet               `protobuf:"bytes,5,req,name=elements_affected" json:"elements_affected,omitempty"`
-	OldHidingStates  []uint32                    `protobuf:"varint,7,rep,name=old_hiding_states" json:"old_hiding_states,omitempty"`
-	XXX_unrecognized []byte                      `json:"-"`
+	Super            *TableCommandArchive     `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
+	Direction        *CommandDirectionArchive `protobuf:"varint,2,req,name=direction,enum=CommandDirectionArchive" json:"direction,omitempty"`
+	HideShowAction   *HideShowActionArchive   `protobuf:"varint,3,req,name=hide_show_action,enum=HideShowActionArchive" json:"hide_show_action,omitempty"`
+	HidingAction     *uint32                  `protobuf:"varint,4,req,name=hiding_action" json:"hiding_action,omitempty"`
+	ElementsAffected *TSP.IndexSet            `protobuf:"bytes,5,req,name=elements_affected" json:"elements_affected,omitempty"`
+	OldHidingStates  []uint32                 `protobuf:"varint,7,rep,name=old_hiding_states" json:"old_hiding_states,omitempty"`
+	XXX_unrecognized []byte                   `json:"-"`
 }
 
 func (m *CommandHideShowArchive) Reset()         { *m = CommandHideShowArchive{} }
@@ -4196,12 +4196,12 @@ func (m *FormulaEditingCommandSelectionBehaviorArchive) GetStorage() *TSP.Refere
 }
 
 type UndoRedoStateCommandSelectionBehaviorArchive struct {
-	BeforeUndoRedoState  *TSP.Reference         `protobuf:"bytes,1,opt,name=before_undo_redo_state" json:"before_undo_redo_state,omitempty"`
-	AfterUndoRedoState   *TSP.Reference         `protobuf:"bytes,2,opt,name=after_undo_redo_state" json:"after_undo_redo_state,omitempty"`
-	TableInfo            *TSP.Reference         `protobuf:"bytes,3,opt,name=table_info" json:"table_info,omitempty"`
+	BeforeUndoRedoState  *TSP.Reference    `protobuf:"bytes,1,opt,name=before_undo_redo_state" json:"before_undo_redo_state,omitempty"`
+	AfterUndoRedoState   *TSP.Reference    `protobuf:"bytes,2,opt,name=after_undo_redo_state" json:"after_undo_redo_state,omitempty"`
+	TableInfo            *TSP.Reference    `protobuf:"bytes,3,opt,name=table_info" json:"table_info,omitempty"`
 	BeforeTableSelection *SelectionArchive `protobuf:"bytes,4,opt,name=before_table_selection" json:"before_table_selection,omitempty"`
 	AfterTableSelection  *SelectionArchive `protobuf:"bytes,6,opt,name=after_table_selection" json:"after_table_selection,omitempty"`
-	XXX_unrecognized     []byte                 `json:"-"`
+	XXX_unrecognized     []byte            `json:"-"`
 }
 
 func (m *UndoRedoStateCommandSelectionBehaviorArchive) Reset() {
@@ -4250,9 +4250,9 @@ func (m *UndoRedoStateCommandSelectionBehaviorArchive) GetAfterTableSelection() 
 type TableCommandSelectionBehaviorArchive struct {
 	BeforeTableSelection *SelectionArchive `protobuf:"bytes,1,opt,name=before_table_selection" json:"before_table_selection,omitempty"`
 	AfterTableSelection  *SelectionArchive `protobuf:"bytes,2,opt,name=after_table_selection" json:"after_table_selection,omitempty"`
-	TableInfo            *TSP.Reference         `protobuf:"bytes,3,opt,name=table_info" json:"table_info,omitempty"`
-	LastColumnHitByTap   *uint32                `protobuf:"varint,4,opt,name=last_column_hit_by_tap" json:"last_column_hit_by_tap,omitempty"`
-	XXX_unrecognized     []byte                 `json:"-"`
+	TableInfo            *TSP.Reference    `protobuf:"bytes,3,opt,name=table_info" json:"table_info,omitempty"`
+	LastColumnHitByTap   *uint32           `protobuf:"varint,4,opt,name=last_column_hit_by_tap" json:"last_column_hit_by_tap,omitempty"`
+	XXX_unrecognized     []byte            `json:"-"`
 }
 
 func (m *TableCommandSelectionBehaviorArchive) Reset()         { *m = TableCommandSelectionBehaviorArchive{} }
@@ -4307,7 +4307,7 @@ func (m *DisableTableNameSelectionBehaviorArchive) GetSuper() *TableCommandSelec
 
 type CommandApplyCellCommentArchive struct {
 	Super             *TableCommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	CellId            *CellID         `protobuf:"bytes,2,req,name=cell_id" json:"cell_id,omitempty"`
+	CellId            *CellID              `protobuf:"bytes,2,req,name=cell_id" json:"cell_id,omitempty"`
 	OldCommentStorage *TSP.Reference       `protobuf:"bytes,3,opt,name=old_comment_storage" json:"old_comment_storage,omitempty"`
 	NewCommentStorage *TSP.Reference       `protobuf:"bytes,4,opt,name=new_comment_storage" json:"new_comment_storage,omitempty"`
 	XXX_unrecognized  []byte               `json:"-"`
@@ -4346,11 +4346,11 @@ func (m *CommandApplyCellCommentArchive) GetNewCommentStorage() *TSP.Reference {
 }
 
 type CommandApplyConditionalStyleSetArchive struct {
-	Super            *TableCommandArchive   `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	Selection        *SelectionArchive `protobuf:"bytes,2,req,name=selection" json:"selection,omitempty"`
-	UndoCellMap      *CellMapArchive   `protobuf:"bytes,3,req,name=undo_cell_map" json:"undo_cell_map,omitempty"`
-	RedoCellMap      *CellMapArchive   `protobuf:"bytes,4,req,name=redo_cell_map" json:"redo_cell_map,omitempty"`
-	XXX_unrecognized []byte                 `json:"-"`
+	Super            *TableCommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
+	Selection        *SelectionArchive    `protobuf:"bytes,2,req,name=selection" json:"selection,omitempty"`
+	UndoCellMap      *CellMapArchive      `protobuf:"bytes,3,req,name=undo_cell_map" json:"undo_cell_map,omitempty"`
+	RedoCellMap      *CellMapArchive      `protobuf:"bytes,4,req,name=redo_cell_map" json:"redo_cell_map,omitempty"`
+	XXX_unrecognized []byte               `json:"-"`
 }
 
 func (m *CommandApplyConditionalStyleSetArchive) Reset() {
@@ -4484,10 +4484,10 @@ func (m *CommandSetFilterRuleEnabledArchive) GetEnabled() bool {
 }
 
 type CommandSetFilterSetTypeArchive struct {
-	Super            *TableCommandArchive                 `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
+	Super            *TableCommandArchive            `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
 	OldFilterSetType *FilterSetArchive_FilterSetType `protobuf:"varint,2,req,name=old_filter_set_type,enum=FilterSetArchive_FilterSetType" json:"old_filter_set_type,omitempty"`
 	NewFilterSetType *FilterSetArchive_FilterSetType `protobuf:"varint,3,req,name=new_filter_set_type,enum=FilterSetArchive_FilterSetType" json:"new_filter_set_type,omitempty"`
-	XXX_unrecognized []byte                               `json:"-"`
+	XXX_unrecognized []byte                          `json:"-"`
 }
 
 func (m *CommandSetFilterSetTypeArchive) Reset()         { *m = CommandSetFilterSetTypeArchive{} }
@@ -4516,10 +4516,10 @@ func (m *CommandSetFilterSetTypeArchive) GetNewFilterSetType() FilterSetArchive_
 }
 
 type CommandSetStyleNetworkArchive struct {
-	Super            *TableCommandArchive           `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
+	Super            *TableCommandArchive      `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
 	OldStyleNetwork  *TableStyleNetworkArchive `protobuf:"bytes,2,req,name=old_style_network" json:"old_style_network,omitempty"`
 	NewStyleNetwork  *TableStyleNetworkArchive `protobuf:"bytes,3,req,name=new_style_network" json:"new_style_network,omitempty"`
-	XXX_unrecognized []byte                         `json:"-"`
+	XXX_unrecognized []byte                    `json:"-"`
 }
 
 func (m *CommandSetStyleNetworkArchive) Reset()         { *m = CommandSetStyleNetworkArchive{} }
@@ -4548,11 +4548,11 @@ func (m *CommandSetStyleNetworkArchive) GetNewStyleNetwork() *TableStyleNetworkA
 }
 
 type CommandMutateCellsArchive struct {
-	Super            *TableCommandArchive   `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	UndoCellMap      *CellMapArchive   `protobuf:"bytes,2,req,name=undo_cell_map" json:"undo_cell_map,omitempty"`
-	RedoCellMap      *CellMapArchive   `protobuf:"bytes,3,req,name=redo_cell_map" json:"redo_cell_map,omitempty"`
-	Selection        *SelectionArchive `protobuf:"bytes,4,opt,name=selection" json:"selection,omitempty"`
-	XXX_unrecognized []byte                 `json:"-"`
+	Super            *TableCommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
+	UndoCellMap      *CellMapArchive      `protobuf:"bytes,2,req,name=undo_cell_map" json:"undo_cell_map,omitempty"`
+	RedoCellMap      *CellMapArchive      `protobuf:"bytes,3,req,name=redo_cell_map" json:"redo_cell_map,omitempty"`
+	Selection        *SelectionArchive    `protobuf:"bytes,4,opt,name=selection" json:"selection,omitempty"`
+	XXX_unrecognized []byte               `json:"-"`
 }
 
 func (m *CommandMutateCellsArchive) Reset()         { *m = CommandMutateCellsArchive{} }
@@ -4623,9 +4623,9 @@ func (m *CommandDisableFilterRulesForColumnArchive) GetRuleIndices() []uint32 {
 
 type CommandSetTextStyleArchive struct {
 	Super            *TableCommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	Region           *CellRegion     `protobuf:"bytes,2,req,name=region" json:"region,omitempty"`
-	UndoCellMap      *CellMapArchive `protobuf:"bytes,3,opt,name=undo_cell_map" json:"undo_cell_map,omitempty"`
-	RedoCellMap      *CellMapArchive `protobuf:"bytes,4,opt,name=redo_cell_map" json:"redo_cell_map,omitempty"`
+	Region           *CellRegion          `protobuf:"bytes,2,req,name=region" json:"region,omitempty"`
+	UndoCellMap      *CellMapArchive      `protobuf:"bytes,3,opt,name=undo_cell_map" json:"undo_cell_map,omitempty"`
+	RedoCellMap      *CellMapArchive      `protobuf:"bytes,4,opt,name=redo_cell_map" json:"redo_cell_map,omitempty"`
 	Subcommands      *TSP.Reference       `protobuf:"bytes,5,opt,name=subcommands" json:"subcommands,omitempty"`
 	XXX_unrecognized []byte               `json:"-"`
 }

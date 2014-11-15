@@ -78,27 +78,27 @@ type ChartArchive struct {
 	ChartType                           *ChartType                   `protobuf:"varint,1,opt,name=chart_type,enum=ChartType" json:"chart_type,omitempty"`
 	ScatterFormat                       *ScatterFormat               `protobuf:"varint,2,opt,name=scatter_format,enum=ScatterFormat" json:"scatter_format,omitempty"`
 	LegendFrame                         *RectArchive                 `protobuf:"bytes,3,opt,name=legend_frame" json:"legend_frame,omitempty"`
-	Preset                              *TSP.Reference                     `protobuf:"bytes,4,opt,name=preset" json:"preset,omitempty"`
+	Preset                              *TSP.Reference               `protobuf:"bytes,4,opt,name=preset" json:"preset,omitempty"`
 	SeriesDirection                     *SeriesDirection             `protobuf:"varint,5,opt,name=series_direction,enum=SeriesDirection" json:"series_direction,omitempty"`
-	ContainsDefaultData                 *bool                              `protobuf:"varint,6,opt,name=contains_default_data" json:"contains_default_data,omitempty"`
-	Grid                                *ChartGridArchive                  `protobuf:"bytes,7,opt,name=grid" json:"grid,omitempty"`
-	Mediator                            *TSP.Reference                     `protobuf:"bytes,8,opt,name=mediator" json:"mediator,omitempty"`
-	ChartStyle                          *TSP.Reference                     `protobuf:"bytes,9,opt,name=chart_style" json:"chart_style,omitempty"`
-	ChartNonStyle                       *TSP.Reference                     `protobuf:"bytes,10,opt,name=chart_non_style" json:"chart_non_style,omitempty"`
-	LegendStyle                         *TSP.Reference                     `protobuf:"bytes,11,opt,name=legend_style" json:"legend_style,omitempty"`
-	LegendNonStyle                      *TSP.Reference                     `protobuf:"bytes,12,opt,name=legend_non_style" json:"legend_non_style,omitempty"`
-	ValueAxisStyles                     []*TSP.Reference                   `protobuf:"bytes,13,rep,name=value_axis_styles" json:"value_axis_styles,omitempty"`
-	ValueAxisNonstyles                  []*TSP.Reference                   `protobuf:"bytes,14,rep,name=value_axis_nonstyles" json:"value_axis_nonstyles,omitempty"`
-	CategoryAxisStyles                  []*TSP.Reference                   `protobuf:"bytes,15,rep,name=category_axis_styles" json:"category_axis_styles,omitempty"`
-	CategoryAxisNonstyles               []*TSP.Reference                   `protobuf:"bytes,16,rep,name=category_axis_nonstyles" json:"category_axis_nonstyles,omitempty"`
-	SeriesThemeStyles                   []*TSP.Reference                   `protobuf:"bytes,17,rep,name=series_theme_styles" json:"series_theme_styles,omitempty"`
+	ContainsDefaultData                 *bool                        `protobuf:"varint,6,opt,name=contains_default_data" json:"contains_default_data,omitempty"`
+	Grid                                *ChartGridArchive            `protobuf:"bytes,7,opt,name=grid" json:"grid,omitempty"`
+	Mediator                            *TSP.Reference               `protobuf:"bytes,8,opt,name=mediator" json:"mediator,omitempty"`
+	ChartStyle                          *TSP.Reference               `protobuf:"bytes,9,opt,name=chart_style" json:"chart_style,omitempty"`
+	ChartNonStyle                       *TSP.Reference               `protobuf:"bytes,10,opt,name=chart_non_style" json:"chart_non_style,omitempty"`
+	LegendStyle                         *TSP.Reference               `protobuf:"bytes,11,opt,name=legend_style" json:"legend_style,omitempty"`
+	LegendNonStyle                      *TSP.Reference               `protobuf:"bytes,12,opt,name=legend_non_style" json:"legend_non_style,omitempty"`
+	ValueAxisStyles                     []*TSP.Reference             `protobuf:"bytes,13,rep,name=value_axis_styles" json:"value_axis_styles,omitempty"`
+	ValueAxisNonstyles                  []*TSP.Reference             `protobuf:"bytes,14,rep,name=value_axis_nonstyles" json:"value_axis_nonstyles,omitempty"`
+	CategoryAxisStyles                  []*TSP.Reference             `protobuf:"bytes,15,rep,name=category_axis_styles" json:"category_axis_styles,omitempty"`
+	CategoryAxisNonstyles               []*TSP.Reference             `protobuf:"bytes,16,rep,name=category_axis_nonstyles" json:"category_axis_nonstyles,omitempty"`
+	SeriesThemeStyles                   []*TSP.Reference             `protobuf:"bytes,17,rep,name=series_theme_styles" json:"series_theme_styles,omitempty"`
 	SeriesPrivateStyles                 *SparseReferenceArrayArchive `protobuf:"bytes,18,opt,name=series_private_styles" json:"series_private_styles,omitempty"`
 	SeriesNonStyles                     *SparseReferenceArrayArchive `protobuf:"bytes,19,opt,name=series_non_styles" json:"series_non_styles,omitempty"`
-	ParagraphStyles                     []*TSP.Reference                   `protobuf:"bytes,20,rep,name=paragraph_styles" json:"paragraph_styles,omitempty"`
-	MultidatasetIndex                   *uint32                            `protobuf:"varint,21,opt,name=multidataset_index" json:"multidataset_index,omitempty"`
-	NeedsCalcEngineDeferredImportAction *bool                              `protobuf:"varint,22,opt,name=needs_calc_engine_deferred_import_action" json:"needs_calc_engine_deferred_import_action,omitempty"`
-	XXX_extensions                      map[int32]proto.Extension          `json:"-"`
-	XXX_unrecognized                    []byte                             `json:"-"`
+	ParagraphStyles                     []*TSP.Reference             `protobuf:"bytes,20,rep,name=paragraph_styles" json:"paragraph_styles,omitempty"`
+	MultidatasetIndex                   *uint32                      `protobuf:"varint,21,opt,name=multidataset_index" json:"multidataset_index,omitempty"`
+	NeedsCalcEngineDeferredImportAction *bool                        `protobuf:"varint,22,opt,name=needs_calc_engine_deferred_import_action" json:"needs_calc_engine_deferred_import_action,omitempty"`
+	XXX_extensions                      map[int32]proto.Extension    `json:"-"`
+	XXX_unrecognized                    []byte                       `json:"-"`
 }
 
 func (m *ChartArchive) Reset()         { *m = ChartArchive{} }
@@ -498,10 +498,10 @@ var E_ChartPresetsArchive_Extension = &proto.ExtensionDesc{
 }
 
 type PropertyValueStorageContainerArchive struct {
-	ChartStyle            *TSP.Reference                     `protobuf:"bytes,1,opt,name=chart_style" json:"chart_style,omitempty"`
-	ChartNonstyle         *TSP.Reference                     `protobuf:"bytes,2,opt,name=chart_nonstyle" json:"chart_nonstyle,omitempty"`
-	LegendStyle           *TSP.Reference                     `protobuf:"bytes,3,opt,name=legend_style" json:"legend_style,omitempty"`
-	LegendNonstyle        *TSP.Reference                     `protobuf:"bytes,4,opt,name=legend_nonstyle" json:"legend_nonstyle,omitempty"`
+	ChartStyle            *TSP.Reference               `protobuf:"bytes,1,opt,name=chart_style" json:"chart_style,omitempty"`
+	ChartNonstyle         *TSP.Reference               `protobuf:"bytes,2,opt,name=chart_nonstyle" json:"chart_nonstyle,omitempty"`
+	LegendStyle           *TSP.Reference               `protobuf:"bytes,3,opt,name=legend_style" json:"legend_style,omitempty"`
+	LegendNonstyle        *TSP.Reference               `protobuf:"bytes,4,opt,name=legend_nonstyle" json:"legend_nonstyle,omitempty"`
 	ValueAxisStyles       *SparseReferenceArrayArchive `protobuf:"bytes,5,opt,name=value_axis_styles" json:"value_axis_styles,omitempty"`
 	ValueAxisNonstyles    *SparseReferenceArrayArchive `protobuf:"bytes,6,opt,name=value_axis_nonstyles" json:"value_axis_nonstyles,omitempty"`
 	CategoryAxisStyles    *SparseReferenceArrayArchive `protobuf:"bytes,7,opt,name=category_axis_styles" json:"category_axis_styles,omitempty"`
@@ -510,7 +510,7 @@ type PropertyValueStorageContainerArchive struct {
 	SeriesPrivateStyles   *SparseReferenceArrayArchive `protobuf:"bytes,10,opt,name=series_private_styles" json:"series_private_styles,omitempty"`
 	SeriesNonstyles       *SparseReferenceArrayArchive `protobuf:"bytes,11,opt,name=series_nonstyles" json:"series_nonstyles,omitempty"`
 	ParagraphStyles       *SparseReferenceArrayArchive `protobuf:"bytes,12,opt,name=paragraph_styles" json:"paragraph_styles,omitempty"`
-	XXX_unrecognized      []byte                             `json:"-"`
+	XXX_unrecognized      []byte                       `json:"-"`
 }
 
 func (m *PropertyValueStorageContainerArchive) Reset()         { *m = PropertyValueStorageContainerArchive{} }
@@ -659,8 +659,8 @@ func (m *ChartSelectionPathTypeArchive) GetPathName() string {
 
 type ChartAxisIDArchive struct {
 	AxisType         *AxisType `protobuf:"varint,1,opt,name=axis_type,enum=AxisType" json:"axis_type,omitempty"`
-	Ordinal          *uint32         `protobuf:"varint,2,opt,name=ordinal" json:"ordinal,omitempty"`
-	XXX_unrecognized []byte          `json:"-"`
+	Ordinal          *uint32   `protobuf:"varint,2,opt,name=ordinal" json:"ordinal,omitempty"`
+	XXX_unrecognized []byte    `json:"-"`
 }
 
 func (m *ChartAxisIDArchive) Reset()         { *m = ChartAxisIDArchive{} }

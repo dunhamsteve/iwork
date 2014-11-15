@@ -2529,10 +2529,10 @@ func (m *FilterRuleArchive) GetDisabled() bool {
 }
 
 type TableStyleArchive struct {
-	Super            *TSS.StyleArchive                 `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	OverrideCount    *uint32                           `protobuf:"varint,10,opt,name=override_count,def=0" json:"override_count,omitempty"`
+	Super            *TSS.StyleArchive            `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
+	OverrideCount    *uint32                      `protobuf:"varint,10,opt,name=override_count,def=0" json:"override_count,omitempty"`
 	TableProperties  *TableStylePropertiesArchive `protobuf:"bytes,11,opt,name=table_properties" json:"table_properties,omitempty"`
-	XXX_unrecognized []byte                            `json:"-"`
+	XXX_unrecognized []byte                       `json:"-"`
 }
 
 func (m *TableStyleArchive) Reset()         { *m = TableStyleArchive{} }
@@ -2563,10 +2563,10 @@ func (m *TableStyleArchive) GetTableProperties() *TableStylePropertiesArchive {
 }
 
 type CellStyleArchive struct {
-	Super            *TSS.StyleArchive                `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	OverrideCount    *uint32                          `protobuf:"varint,10,opt,name=override_count,def=0" json:"override_count,omitempty"`
+	Super            *TSS.StyleArchive           `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
+	OverrideCount    *uint32                     `protobuf:"varint,10,opt,name=override_count,def=0" json:"override_count,omitempty"`
 	CellProperties   *CellStylePropertiesArchive `protobuf:"bytes,11,opt,name=cell_properties" json:"cell_properties,omitempty"`
-	XXX_unrecognized []byte                           `json:"-"`
+	XXX_unrecognized []byte                      `json:"-"`
 }
 
 func (m *CellStyleArchive) Reset()         { *m = CellStyleArchive{} }

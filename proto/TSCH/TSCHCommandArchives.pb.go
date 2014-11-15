@@ -197,11 +197,11 @@ func (x *ApplyPresetBehavior) UnmarshalJSON(data []byte) error {
 
 type CommandSetChartTypeArchive struct {
 	Super                   *ChartCommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	OldChartType            *ChartType     `protobuf:"varint,2,req,name=oldChartType,enum=ChartType" json:"oldChartType,omitempty"`
-	NewChartType            *ChartType     `protobuf:"varint,3,req,name=newChartType,enum=ChartType" json:"newChartType,omitempty"`
+	OldChartType            *ChartType           `protobuf:"varint,2,req,name=oldChartType,enum=ChartType" json:"oldChartType,omitempty"`
+	NewChartType            *ChartType           `protobuf:"varint,3,req,name=newChartType,enum=ChartType" json:"newChartType,omitempty"`
 	InfoGeometryCommand     *TSP.Reference       `protobuf:"bytes,5,opt,name=info_geometry_command" json:"info_geometry_command,omitempty"`
 	AnchorAttachmentCommand *TSP.Reference       `protobuf:"bytes,6,opt,name=anchor_attachment_command" json:"anchor_attachment_command,omitempty"`
-	OriginalLegendRect      *RectArchive   `protobuf:"bytes,7,opt,name=original_legend_rect" json:"original_legend_rect,omitempty"`
+	OriginalLegendRect      *RectArchive         `protobuf:"bytes,7,opt,name=original_legend_rect" json:"original_legend_rect,omitempty"`
 	XXX_unrecognized        []byte               `json:"-"`
 }
 
@@ -1015,8 +1015,8 @@ func (m *CommandSetMultiDataSetIndexArchive) GetNewindex() uint32 {
 
 type CommandSetLegendFrameArchive struct {
 	Super            *ChartCommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	OldLegendFrame   *RectArchive   `protobuf:"bytes,2,req,name=old_legend_frame" json:"old_legend_frame,omitempty"`
-	NewLegendFrame   *RectArchive   `protobuf:"bytes,3,req,name=new_legend_frame" json:"new_legend_frame,omitempty"`
+	OldLegendFrame   *RectArchive         `protobuf:"bytes,2,req,name=old_legend_frame" json:"old_legend_frame,omitempty"`
+	NewLegendFrame   *RectArchive         `protobuf:"bytes,3,req,name=new_legend_frame" json:"new_legend_frame,omitempty"`
 	XXX_unrecognized []byte               `json:"-"`
 }
 
@@ -1227,7 +1227,7 @@ type CommandCleanupGeometryArchive struct {
 	Super                   *ChartCommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
 	InfoGeometryCommand     *TSP.Reference       `protobuf:"bytes,2,opt,name=info_geometry_command" json:"info_geometry_command,omitempty"`
 	AnchorAttachmentCommand *TSP.Reference       `protobuf:"bytes,3,opt,name=anchor_attachment_command" json:"anchor_attachment_command,omitempty"`
-	OriginalLegendRect      *RectArchive   `protobuf:"bytes,4,opt,name=original_legend_rect" json:"original_legend_rect,omitempty"`
+	OriginalLegendRect      *RectArchive         `protobuf:"bytes,4,opt,name=original_legend_rect" json:"original_legend_rect,omitempty"`
 	XXX_unrecognized        []byte               `json:"-"`
 }
 

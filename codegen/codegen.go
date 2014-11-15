@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"os"
-    "text/template"
+	"text/template"
 )
 
 func must(err error) {

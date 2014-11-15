@@ -448,13 +448,13 @@ func (m *ContainerReorderChildrenCommandArchive) GetChildrenIndices() *TSP.Index
 }
 
 type InfoGeometryCommandArchive struct {
-	Super                             *TSK.CommandArchive   `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	Info                              *TSP.Reference        `protobuf:"bytes,2,opt,name=info" json:"info,omitempty"`
-	NewGeometry                       *GeometryArchive `protobuf:"bytes,3,opt,name=newGeometry" json:"newGeometry,omitempty"`
-	OldGeometry                       *GeometryArchive `protobuf:"bytes,4,opt,name=oldGeometry" json:"oldGeometry,omitempty"`
-	ShouldClearObjectPlaceholderFlag  *bool                 `protobuf:"varint,5,opt,name=shouldClearObjectPlaceholderFlag" json:"shouldClearObjectPlaceholderFlag,omitempty"`
-	DidMatchObjectPlaceholderGeometry *bool                 `protobuf:"varint,6,opt,name=didMatchObjectPlaceholderGeometry" json:"didMatchObjectPlaceholderGeometry,omitempty"`
-	XXX_unrecognized                  []byte                `json:"-"`
+	Super                             *TSK.CommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
+	Info                              *TSP.Reference      `protobuf:"bytes,2,opt,name=info" json:"info,omitempty"`
+	NewGeometry                       *GeometryArchive    `protobuf:"bytes,3,opt,name=newGeometry" json:"newGeometry,omitempty"`
+	OldGeometry                       *GeometryArchive    `protobuf:"bytes,4,opt,name=oldGeometry" json:"oldGeometry,omitempty"`
+	ShouldClearObjectPlaceholderFlag  *bool               `protobuf:"varint,5,opt,name=shouldClearObjectPlaceholderFlag" json:"shouldClearObjectPlaceholderFlag,omitempty"`
+	DidMatchObjectPlaceholderGeometry *bool               `protobuf:"varint,6,opt,name=didMatchObjectPlaceholderGeometry" json:"didMatchObjectPlaceholderGeometry,omitempty"`
+	XXX_unrecognized                  []byte              `json:"-"`
 }
 
 func (m *InfoGeometryCommandArchive) Reset()         { *m = InfoGeometryCommandArchive{} }
@@ -504,11 +504,11 @@ func (m *InfoGeometryCommandArchive) GetDidMatchObjectPlaceholderGeometry() bool
 }
 
 type DrawablePathSourceCommandArchive struct {
-	Super            *TSK.CommandArchive     `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	Info             *TSP.Reference          `protobuf:"bytes,2,opt,name=info" json:"info,omitempty"`
-	Oldpathsource    *PathSourceArchive `protobuf:"bytes,3,opt,name=oldpathsource" json:"oldpathsource,omitempty"`
-	Newpathsource    *PathSourceArchive `protobuf:"bytes,4,opt,name=newpathsource" json:"newpathsource,omitempty"`
-	XXX_unrecognized []byte                  `json:"-"`
+	Super            *TSK.CommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
+	Info             *TSP.Reference      `protobuf:"bytes,2,opt,name=info" json:"info,omitempty"`
+	Oldpathsource    *PathSourceArchive  `protobuf:"bytes,3,opt,name=oldpathsource" json:"oldpathsource,omitempty"`
+	Newpathsource    *PathSourceArchive  `protobuf:"bytes,4,opt,name=newpathsource" json:"newpathsource,omitempty"`
+	XXX_unrecognized []byte              `json:"-"`
 }
 
 func (m *DrawablePathSourceCommandArchive) Reset()         { *m = DrawablePathSourceCommandArchive{} }
@@ -586,8 +586,8 @@ func (m *InstantAlphaCommandArchive) GetNewpath() *TSP.Path {
 type DrawableShadowCommandArchive struct {
 	Super            *TSK.CommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
 	Info             *TSP.Reference      `protobuf:"bytes,2,opt,name=info" json:"info,omitempty"`
-	Oldshadow        *ShadowArchive `protobuf:"bytes,3,opt,name=oldshadow" json:"oldshadow,omitempty"`
-	Newshadow        *ShadowArchive `protobuf:"bytes,4,opt,name=newshadow" json:"newshadow,omitempty"`
+	Oldshadow        *ShadowArchive      `protobuf:"bytes,3,opt,name=oldshadow" json:"oldshadow,omitempty"`
+	Newshadow        *ShadowArchive      `protobuf:"bytes,4,opt,name=newshadow" json:"newshadow,omitempty"`
 	XXX_unrecognized []byte              `json:"-"`
 }
 
@@ -745,7 +745,7 @@ func (m *ShapePathSourceFlipCommandArchive) GetOldVerticalFlip() bool {
 
 type ShapeStyleSetValueCommandArchive struct {
 	Super            *StyledInfoSetStyleCommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	ShapeProperties  *ShapeStylePropertiesArchive `protobuf:"bytes,4,opt,name=shape_properties" json:"shape_properties,omitempty"`
+	ShapeProperties  *ShapeStylePropertiesArchive      `protobuf:"bytes,4,opt,name=shape_properties" json:"shape_properties,omitempty"`
 	XXX_unrecognized []byte                            `json:"-"`
 }
 
@@ -771,8 +771,8 @@ type ShapeApplyPresetCommandArchive struct {
 	Super            *StyledInfoSetStyleCommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
 	Stylepreset      *TSP.Reference                    `protobuf:"bytes,10,opt,name=stylepreset" json:"stylepreset,omitempty"`
 	Colorpreset      *TSP.Color                        `protobuf:"bytes,11,opt,name=colorpreset" json:"colorpreset,omitempty"`
-	Fillpreset       *FillArchive                 `protobuf:"bytes,12,opt,name=fillpreset" json:"fillpreset,omitempty"`
-	Shadowpreset     *ShadowArchive               `protobuf:"bytes,13,opt,name=shadowpreset" json:"shadowpreset,omitempty"`
+	Fillpreset       *FillArchive                      `protobuf:"bytes,12,opt,name=fillpreset" json:"fillpreset,omitempty"`
+	Shadowpreset     *ShadowArchive                    `protobuf:"bytes,13,opt,name=shadowpreset" json:"shadowpreset,omitempty"`
 	XXX_unrecognized []byte                            `json:"-"`
 }
 
@@ -816,11 +816,11 @@ func (m *ShapeApplyPresetCommandArchive) GetShadowpreset() *ShadowArchive {
 }
 
 type ShapeSetLineEndCommandArchive struct {
-	Super            *TSK.CommandArchive  `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	Shape            *TSP.Reference       `protobuf:"bytes,2,opt,name=shape" json:"shape,omitempty"`
-	LineEnd          *LineEndArchive `protobuf:"bytes,3,opt,name=line_end" json:"line_end,omitempty"`
-	IsHeadLineEnd    *bool                `protobuf:"varint,4,opt,name=is_head_line_end" json:"is_head_line_end,omitempty"`
-	XXX_unrecognized []byte               `json:"-"`
+	Super            *TSK.CommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
+	Shape            *TSP.Reference      `protobuf:"bytes,2,opt,name=shape" json:"shape,omitempty"`
+	LineEnd          *LineEndArchive     `protobuf:"bytes,3,opt,name=line_end" json:"line_end,omitempty"`
+	IsHeadLineEnd    *bool               `protobuf:"varint,4,opt,name=is_head_line_end" json:"is_head_line_end,omitempty"`
+	XXX_unrecognized []byte              `json:"-"`
 }
 
 func (m *ShapeSetLineEndCommandArchive) Reset()         { *m = ShapeSetLineEndCommandArchive{} }
@@ -987,7 +987,7 @@ func (m *MovieSetValueCommandArchive_PropertyValue) GetImportedauxiliarymedia() 
 
 type MediaStyleSetValueCommandArchive struct {
 	Super            *StyledInfoSetStyleCommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	MediaProperties  *MediaStylePropertiesArchive `protobuf:"bytes,4,opt,name=media_properties" json:"media_properties,omitempty"`
+	MediaProperties  *MediaStylePropertiesArchive      `protobuf:"bytes,4,opt,name=media_properties" json:"media_properties,omitempty"`
 	XXX_unrecognized []byte                            `json:"-"`
 }
 
@@ -1010,21 +1010,21 @@ func (m *MediaStyleSetValueCommandArchive) GetMediaProperties() *MediaStylePrope
 }
 
 type ImageMediaCommandArchive struct {
-	Super                        *TSK.CommandArchive           `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	Info                         *TSP.Reference                `protobuf:"bytes,2,opt,name=info" json:"info,omitempty"`
-	NewImageData                 *TSP.DataReference            `protobuf:"bytes,8,opt,name=newImageData" json:"newImageData,omitempty"`
-	OldImageData                 *TSP.DataReference            `protobuf:"bytes,9,opt,name=oldImageData" json:"oldImageData,omitempty"`
-	OldOriginalImageData         *TSP.DataReference            `protobuf:"bytes,10,opt,name=oldOriginalImageData" json:"oldOriginalImageData,omitempty"`
-	OldNaturalSize               *TSP.Size                     `protobuf:"bytes,6,opt,name=oldNaturalSize" json:"oldNaturalSize,omitempty"`
-	NewOriginalImageData         *TSP.DataReference            `protobuf:"bytes,11,opt,name=newOriginalImageData" json:"newOriginalImageData,omitempty"`
+	Super                        *TSK.CommandArchive      `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
+	Info                         *TSP.Reference           `protobuf:"bytes,2,opt,name=info" json:"info,omitempty"`
+	NewImageData                 *TSP.DataReference       `protobuf:"bytes,8,opt,name=newImageData" json:"newImageData,omitempty"`
+	OldImageData                 *TSP.DataReference       `protobuf:"bytes,9,opt,name=oldImageData" json:"oldImageData,omitempty"`
+	OldOriginalImageData         *TSP.DataReference       `protobuf:"bytes,10,opt,name=oldOriginalImageData" json:"oldOriginalImageData,omitempty"`
+	OldNaturalSize               *TSP.Size                `protobuf:"bytes,6,opt,name=oldNaturalSize" json:"oldNaturalSize,omitempty"`
+	NewOriginalImageData         *TSP.DataReference       `protobuf:"bytes,11,opt,name=newOriginalImageData" json:"newOriginalImageData,omitempty"`
 	OldImageAdjustments          *ImageAdjustmentsArchive `protobuf:"bytes,12,opt,name=oldImageAdjustments" json:"oldImageAdjustments,omitempty"`
-	OldAdjustedImageData         *TSP.DataReference            `protobuf:"bytes,13,opt,name=oldAdjustedImageData" json:"oldAdjustedImageData,omitempty"`
-	OldEnhancedImageData         *TSP.DataReference            `protobuf:"bytes,14,opt,name=oldEnhancedImageData" json:"oldEnhancedImageData,omitempty"`
-	DatabaseNewImageData         *TSP.Reference                `protobuf:"bytes,3,opt,name=database_newImageData" json:"database_newImageData,omitempty"`
-	DatabaseOldImageData         *TSP.Reference                `protobuf:"bytes,4,opt,name=database_oldImageData" json:"database_oldImageData,omitempty"`
-	DatabaseOldOriginalImageData *TSP.Reference                `protobuf:"bytes,5,opt,name=database_oldOriginalImageData" json:"database_oldOriginalImageData,omitempty"`
-	DatabaseNewOriginalImageData *TSP.Reference                `protobuf:"bytes,7,opt,name=database_newOriginalImageData" json:"database_newOriginalImageData,omitempty"`
-	XXX_unrecognized             []byte                        `json:"-"`
+	OldAdjustedImageData         *TSP.DataReference       `protobuf:"bytes,13,opt,name=oldAdjustedImageData" json:"oldAdjustedImageData,omitempty"`
+	OldEnhancedImageData         *TSP.DataReference       `protobuf:"bytes,14,opt,name=oldEnhancedImageData" json:"oldEnhancedImageData,omitempty"`
+	DatabaseNewImageData         *TSP.Reference           `protobuf:"bytes,3,opt,name=database_newImageData" json:"database_newImageData,omitempty"`
+	DatabaseOldImageData         *TSP.Reference           `protobuf:"bytes,4,opt,name=database_oldImageData" json:"database_oldImageData,omitempty"`
+	DatabaseOldOriginalImageData *TSP.Reference           `protobuf:"bytes,5,opt,name=database_oldOriginalImageData" json:"database_oldOriginalImageData,omitempty"`
+	DatabaseNewOriginalImageData *TSP.Reference           `protobuf:"bytes,7,opt,name=database_newOriginalImageData" json:"database_newOriginalImageData,omitempty"`
+	XXX_unrecognized             []byte                   `json:"-"`
 }
 
 func (m *ImageMediaCommandArchive) Reset()         { *m = ImageMediaCommandArchive{} }
@@ -1212,7 +1212,7 @@ func (m *ImageMaskCommandArchive) GetOldMaskInfo() *TSP.Reference {
 type MediaApplyPresetCommandArchive struct {
 	Super            *StyledInfoSetStyleCommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
 	Stylepreset      *TSP.Reference                    `protobuf:"bytes,10,opt,name=stylepreset" json:"stylepreset,omitempty"`
-	Shadowpreset     *ShadowArchive               `protobuf:"bytes,11,opt,name=shadowpreset" json:"shadowpreset,omitempty"`
+	Shadowpreset     *ShadowArchive                    `protobuf:"bytes,11,opt,name=shadowpreset" json:"shadowpreset,omitempty"`
 	XXX_unrecognized []byte                            `json:"-"`
 }
 
@@ -1242,14 +1242,14 @@ func (m *MediaApplyPresetCommandArchive) GetShadowpreset() *ShadowArchive {
 }
 
 type ImageAdjustmentsCommandArchive struct {
-	Super                     *TSK.CommandArchive           `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
+	Super                     *TSK.CommandArchive      `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
 	OldImageAdjustments       *ImageAdjustmentsArchive `protobuf:"bytes,2,opt,name=old_image_adjustments" json:"old_image_adjustments,omitempty"`
 	NewImageAdjustments       *ImageAdjustmentsArchive `protobuf:"bytes,3,opt,name=new_image_adjustments" json:"new_image_adjustments,omitempty"`
-	AdjustedImageData         *TSP.DataReference            `protobuf:"bytes,4,opt,name=adjustedImageData" json:"adjustedImageData,omitempty"`
-	ReplacedAdjustedImageData *TSP.DataReference            `protobuf:"bytes,5,opt,name=replacedAdjustedImageData" json:"replacedAdjustedImageData,omitempty"`
-	EnhancedImageData         *TSP.DataReference            `protobuf:"bytes,6,opt,name=enhancedImageData" json:"enhancedImageData,omitempty"`
-	ReplacedEnhancedImageData *TSP.DataReference            `protobuf:"bytes,7,opt,name=replacedEnhancedImageData" json:"replacedEnhancedImageData,omitempty"`
-	XXX_unrecognized          []byte                        `json:"-"`
+	AdjustedImageData         *TSP.DataReference       `protobuf:"bytes,4,opt,name=adjustedImageData" json:"adjustedImageData,omitempty"`
+	ReplacedAdjustedImageData *TSP.DataReference       `protobuf:"bytes,5,opt,name=replacedAdjustedImageData" json:"replacedAdjustedImageData,omitempty"`
+	EnhancedImageData         *TSP.DataReference       `protobuf:"bytes,6,opt,name=enhancedImageData" json:"enhancedImageData,omitempty"`
+	ReplacedEnhancedImageData *TSP.DataReference       `protobuf:"bytes,7,opt,name=replacedEnhancedImageData" json:"replacedEnhancedImageData,omitempty"`
+	XXX_unrecognized          []byte                   `json:"-"`
 }
 
 func (m *ImageAdjustmentsCommandArchive) Reset()         { *m = ImageAdjustmentsCommandArchive{} }
@@ -1339,7 +1339,7 @@ func (m *MediaFlagsCommandArchive) GetFlags() uint32 {
 
 type DrawablesCommandGroupArchive struct {
 	Super             *TSK.CommandGroupArchive                                `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	ObsoleteSelection *CanvasSelectionArchive                            `protobuf:"bytes,2,opt,name=obsolete_selection" json:"obsolete_selection,omitempty"`
+	ObsoleteSelection *CanvasSelectionArchive                                 `protobuf:"bytes,2,opt,name=obsolete_selection" json:"obsolete_selection,omitempty"`
 	Modelforselection *TSP.Reference                                          `protobuf:"bytes,3,opt,name=modelforselection" json:"modelforselection,omitempty"`
 	Type              *DrawablesCommandGroupArchive_DrawablesCommandGroupType `protobuf:"varint,4,opt,name=type,enum=DrawablesCommandGroupArchive_DrawablesCommandGroupType" json:"type,omitempty"`
 	ForDrag           *bool                                                   `protobuf:"varint,5,opt,name=forDrag" json:"forDrag,omitempty"`
@@ -1418,9 +1418,9 @@ func (m *ExteriorTextWrapCommandArchive) GetInfoAndWrap() []*ExteriorTextWrapCom
 }
 
 type ExteriorTextWrapCommandArchive_InfoAndWrap struct {
-	Info             *TSP.Reference                `protobuf:"bytes,1,opt,name=info" json:"info,omitempty"`
+	Info             *TSP.Reference           `protobuf:"bytes,1,opt,name=info" json:"info,omitempty"`
 	ExteriorTextWrap *ExteriorTextWrapArchive `protobuf:"bytes,2,opt,name=exterior_text_wrap" json:"exterior_text_wrap,omitempty"`
-	XXX_unrecognized []byte                        `json:"-"`
+	XXX_unrecognized []byte                   `json:"-"`
 }
 
 func (m *ExteriorTextWrapCommandArchive_InfoAndWrap) Reset() {
@@ -1656,8 +1656,8 @@ func (m *CommentStorageApplyCommandArchive) GetOldCommentString() string {
 type GuideCommandArchive struct {
 	Super            *TSK.CommandArchive                   `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
 	Storage          *TSP.Reference                        `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
-	OldGuide         *UserDefinedGuideArchive         `protobuf:"bytes,3,opt,name=old_guide" json:"old_guide,omitempty"`
-	NewGuide         *UserDefinedGuideArchive         `protobuf:"bytes,4,opt,name=new_guide" json:"new_guide,omitempty"`
+	OldGuide         *UserDefinedGuideArchive              `protobuf:"bytes,3,opt,name=old_guide" json:"old_guide,omitempty"`
+	NewGuide         *UserDefinedGuideArchive              `protobuf:"bytes,4,opt,name=new_guide" json:"new_guide,omitempty"`
 	Mode             *GuideCommandArchive_GuideCommandMode `protobuf:"varint,5,opt,name=mode,enum=GuideCommandArchive_GuideCommandMode" json:"mode,omitempty"`
 	XXX_unrecognized []byte                                `json:"-"`
 }

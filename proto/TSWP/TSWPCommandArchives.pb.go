@@ -168,7 +168,7 @@ func (m *DummyCommandArchive) GetFoo() uint32 {
 type TextCommandArchive struct {
 	Super                    *TSK.CommandArchive      `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
 	Storage                  *TSP.Reference           `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
-	UndoTransaction          *UndoTransaction   `protobuf:"bytes,3,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
+	UndoTransaction          *UndoTransaction         `protobuf:"bytes,3,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
 	RestoreRangeLocation     *uint32                  `protobuf:"varint,4,opt,name=restore_range_location" json:"restore_range_location,omitempty"`
 	RestoreRangeLength       *uint32                  `protobuf:"varint,5,opt,name=restore_range_length" json:"restore_range_length,omitempty"`
 	RedoRestoreRangeLocation *uint32                  `protobuf:"varint,6,opt,name=redo_restore_range_location" json:"redo_restore_range_location,omitempty"`
@@ -250,7 +250,7 @@ func (m *TextCommandArchive) GetKind() TextCommandArchive_Kind {
 type ReplaceAllTextCommandArchive struct {
 	Super            *TSK.ReplaceAllChildCommandArchive `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
 	Storage          *TSP.Reference                     `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
-	UndoTransaction  *UndoTransaction             `protobuf:"bytes,3,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
+	UndoTransaction  *UndoTransaction                   `protobuf:"bytes,3,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
 	XXX_unrecognized []byte                             `json:"-"`
 }
 
@@ -280,13 +280,13 @@ func (m *ReplaceAllTextCommandArchive) GetUndoTransaction() *UndoTransaction {
 }
 
 type FormatTextCommandArchive struct {
-	Super                  *TSK.CommandArchive    `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
-	Storage                *TSP.Reference         `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
-	UndoTransaction        *UndoTransaction `protobuf:"bytes,3,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
-	SelectionRangeLocation *uint32                `protobuf:"varint,8,opt,name=selection_range_location" json:"selection_range_location,omitempty"`
-	SelectionRangeLength   *uint32                `protobuf:"varint,9,opt,name=selection_range_length" json:"selection_range_length,omitempty"`
-	TextCommandFlags       *uint32                `protobuf:"varint,11,opt,name=text_command_flags" json:"text_command_flags,omitempty"`
-	XXX_unrecognized       []byte                 `json:"-"`
+	Super                  *TSK.CommandArchive `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
+	Storage                *TSP.Reference      `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
+	UndoTransaction        *UndoTransaction    `protobuf:"bytes,3,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
+	SelectionRangeLocation *uint32             `protobuf:"varint,8,opt,name=selection_range_location" json:"selection_range_location,omitempty"`
+	SelectionRangeLength   *uint32             `protobuf:"varint,9,opt,name=selection_range_length" json:"selection_range_length,omitempty"`
+	TextCommandFlags       *uint32             `protobuf:"varint,11,opt,name=text_command_flags" json:"text_command_flags,omitempty"`
+	XXX_unrecognized       []byte              `json:"-"`
 }
 
 func (m *FormatTextCommandArchive) Reset()         { *m = FormatTextCommandArchive{} }
@@ -336,10 +336,10 @@ func (m *FormatTextCommandArchive) GetTextCommandFlags() uint32 {
 }
 
 type SetColumnStyleCommandArchive struct {
-	Super            *TSK.CommandArchive    `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
-	Storage          *TSP.Reference         `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
-	UndoTransaction  *UndoTransaction `protobuf:"bytes,3,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
-	XXX_unrecognized []byte                 `json:"-"`
+	Super            *TSK.CommandArchive `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
+	Storage          *TSP.Reference      `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
+	UndoTransaction  *UndoTransaction    `protobuf:"bytes,3,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
+	XXX_unrecognized []byte              `json:"-"`
 }
 
 func (m *SetColumnStyleCommandArchive) Reset()         { *m = SetColumnStyleCommandArchive{} }
@@ -368,10 +368,10 @@ func (m *SetColumnStyleCommandArchive) GetUndoTransaction() *UndoTransaction {
 }
 
 type ReplaceAllUsesOfStyleCommandArchive struct {
-	Super            *TSK.CommandArchive    `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
-	Storage          *TSP.Reference         `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
-	UndoTransaction  *UndoTransaction `protobuf:"bytes,3,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
-	XXX_unrecognized []byte                 `json:"-"`
+	Super            *TSK.CommandArchive `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
+	Storage          *TSP.Reference      `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
+	UndoTransaction  *UndoTransaction    `protobuf:"bytes,3,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
+	XXX_unrecognized []byte              `json:"-"`
 }
 
 func (m *ReplaceAllUsesOfStyleCommandArchive) Reset()         { *m = ReplaceAllUsesOfStyleCommandArchive{} }
@@ -400,16 +400,16 @@ func (m *ReplaceAllUsesOfStyleCommandArchive) GetUndoTransaction() *UndoTransact
 }
 
 type InsertAttachmentCommandArchive struct {
-	Super                    *TSK.CommandArchive    `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
-	Storage                  *TSP.Reference         `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
-	SelectionRangeLocation   *uint32                `protobuf:"varint,3,opt,name=selection_range_location" json:"selection_range_location,omitempty"`
-	SelectionRangeLength     *uint32                `protobuf:"varint,4,opt,name=selection_range_length" json:"selection_range_length,omitempty"`
-	Attachment               *TSP.Reference         `protobuf:"bytes,5,opt,name=attachment" json:"attachment,omitempty"`
-	UndoTransaction          *UndoTransaction `protobuf:"bytes,6,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
-	TextCommandFlags         *uint32                `protobuf:"varint,7,opt,name=text_command_flags" json:"text_command_flags,omitempty"`
-	RedoRestoreRangeLocation *uint32                `protobuf:"varint,8,opt,name=redo_restore_range_location" json:"redo_restore_range_location,omitempty"`
-	RedoRestoreRangeLength   *uint32                `protobuf:"varint,9,opt,name=redo_restore_range_length" json:"redo_restore_range_length,omitempty"`
-	XXX_unrecognized         []byte                 `json:"-"`
+	Super                    *TSK.CommandArchive `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
+	Storage                  *TSP.Reference      `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
+	SelectionRangeLocation   *uint32             `protobuf:"varint,3,opt,name=selection_range_location" json:"selection_range_location,omitempty"`
+	SelectionRangeLength     *uint32             `protobuf:"varint,4,opt,name=selection_range_length" json:"selection_range_length,omitempty"`
+	Attachment               *TSP.Reference      `protobuf:"bytes,5,opt,name=attachment" json:"attachment,omitempty"`
+	UndoTransaction          *UndoTransaction    `protobuf:"bytes,6,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
+	TextCommandFlags         *uint32             `protobuf:"varint,7,opt,name=text_command_flags" json:"text_command_flags,omitempty"`
+	RedoRestoreRangeLocation *uint32             `protobuf:"varint,8,opt,name=redo_restore_range_location" json:"redo_restore_range_location,omitempty"`
+	RedoRestoreRangeLength   *uint32             `protobuf:"varint,9,opt,name=redo_restore_range_length" json:"redo_restore_range_length,omitempty"`
+	XXX_unrecognized         []byte              `json:"-"`
 }
 
 func (m *InsertAttachmentCommandArchive) Reset()         { *m = InsertAttachmentCommandArchive{} }
@@ -480,12 +480,12 @@ func (m *InsertAttachmentCommandArchive) GetRedoRestoreRangeLength() uint32 {
 }
 
 type InsertColumnsCommandArchive struct {
-	Super            *TSK.CommandArchive    `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
-	Storage          *TSP.Reference         `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
-	ColumnIndex      *uint32                `protobuf:"varint,3,opt,name=column_index" json:"column_index,omitempty"`
-	ColumnCount      *uint32                `protobuf:"varint,4,opt,name=column_count" json:"column_count,omitempty"`
-	UndoTransaction  *UndoTransaction `protobuf:"bytes,5,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
-	XXX_unrecognized []byte                 `json:"-"`
+	Super            *TSK.CommandArchive `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
+	Storage          *TSP.Reference      `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
+	ColumnIndex      *uint32             `protobuf:"varint,3,opt,name=column_index" json:"column_index,omitempty"`
+	ColumnCount      *uint32             `protobuf:"varint,4,opt,name=column_count" json:"column_count,omitempty"`
+	UndoTransaction  *UndoTransaction    `protobuf:"bytes,5,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
+	XXX_unrecognized []byte              `json:"-"`
 }
 
 func (m *InsertColumnsCommandArchive) Reset()         { *m = InsertColumnsCommandArchive{} }
@@ -528,12 +528,12 @@ func (m *InsertColumnsCommandArchive) GetUndoTransaction() *UndoTransaction {
 }
 
 type InsertRowsCommandArchive struct {
-	Super            *TSK.CommandArchive    `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
-	Storage          *TSP.Reference         `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
-	RowIndex         *uint32                `protobuf:"varint,3,opt,name=row_index" json:"row_index,omitempty"`
-	RowCount         *uint32                `protobuf:"varint,4,opt,name=row_count" json:"row_count,omitempty"`
-	UndoTransaction  *UndoTransaction `protobuf:"bytes,5,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
-	XXX_unrecognized []byte                 `json:"-"`
+	Super            *TSK.CommandArchive `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
+	Storage          *TSP.Reference      `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
+	RowIndex         *uint32             `protobuf:"varint,3,opt,name=row_index" json:"row_index,omitempty"`
+	RowCount         *uint32             `protobuf:"varint,4,opt,name=row_count" json:"row_count,omitempty"`
+	UndoTransaction  *UndoTransaction    `protobuf:"bytes,5,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
+	XXX_unrecognized []byte              `json:"-"`
 }
 
 func (m *InsertRowsCommandArchive) Reset()         { *m = InsertRowsCommandArchive{} }
@@ -576,12 +576,12 @@ func (m *InsertRowsCommandArchive) GetUndoTransaction() *UndoTransaction {
 }
 
 type RemoveColumnsCommandArchive struct {
-	Super            *TSK.CommandArchive    `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
-	Storage          *TSP.Reference         `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
-	ColumnIndex      *uint32                `protobuf:"varint,3,opt,name=column_index" json:"column_index,omitempty"`
-	ColumnCount      *uint32                `protobuf:"varint,4,opt,name=column_count" json:"column_count,omitempty"`
-	UndoTransaction  *UndoTransaction `protobuf:"bytes,5,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
-	XXX_unrecognized []byte                 `json:"-"`
+	Super            *TSK.CommandArchive `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
+	Storage          *TSP.Reference      `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
+	ColumnIndex      *uint32             `protobuf:"varint,3,opt,name=column_index" json:"column_index,omitempty"`
+	ColumnCount      *uint32             `protobuf:"varint,4,opt,name=column_count" json:"column_count,omitempty"`
+	UndoTransaction  *UndoTransaction    `protobuf:"bytes,5,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
+	XXX_unrecognized []byte              `json:"-"`
 }
 
 func (m *RemoveColumnsCommandArchive) Reset()         { *m = RemoveColumnsCommandArchive{} }
@@ -624,12 +624,12 @@ func (m *RemoveColumnsCommandArchive) GetUndoTransaction() *UndoTransaction {
 }
 
 type RemoveRowsCommandArchive struct {
-	Super            *TSK.CommandArchive    `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
-	Storage          *TSP.Reference         `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
-	RowIndex         *uint32                `protobuf:"varint,3,opt,name=row_index" json:"row_index,omitempty"`
-	RowCount         *uint32                `protobuf:"varint,4,opt,name=row_count" json:"row_count,omitempty"`
-	UndoTransaction  *UndoTransaction `protobuf:"bytes,5,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
-	XXX_unrecognized []byte                 `json:"-"`
+	Super            *TSK.CommandArchive `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
+	Storage          *TSP.Reference      `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
+	RowIndex         *uint32             `protobuf:"varint,3,opt,name=row_index" json:"row_index,omitempty"`
+	RowCount         *uint32             `protobuf:"varint,4,opt,name=row_count" json:"row_count,omitempty"`
+	UndoTransaction  *UndoTransaction    `protobuf:"bytes,5,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
+	XXX_unrecognized []byte              `json:"-"`
 }
 
 func (m *RemoveRowsCommandArchive) Reset()         { *m = RemoveRowsCommandArchive{} }
@@ -672,14 +672,14 @@ func (m *RemoveRowsCommandArchive) GetUndoTransaction() *UndoTransaction {
 }
 
 type MergeCellsCommandArchive struct {
-	Super            *TSK.CommandArchive    `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
-	Storage          *TSP.Reference         `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
-	Row              *uint32                `protobuf:"varint,3,opt,name=row" json:"row,omitempty"`
-	Column           *uint32                `protobuf:"varint,4,opt,name=column" json:"column,omitempty"`
-	RowCount         *uint32                `protobuf:"varint,5,opt,name=row_count" json:"row_count,omitempty"`
-	ColumnCount      *uint32                `protobuf:"varint,6,opt,name=column_count" json:"column_count,omitempty"`
-	UndoTransaction  *UndoTransaction `protobuf:"bytes,7,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
-	XXX_unrecognized []byte                 `json:"-"`
+	Super            *TSK.CommandArchive `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
+	Storage          *TSP.Reference      `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
+	Row              *uint32             `protobuf:"varint,3,opt,name=row" json:"row,omitempty"`
+	Column           *uint32             `protobuf:"varint,4,opt,name=column" json:"column,omitempty"`
+	RowCount         *uint32             `protobuf:"varint,5,opt,name=row_count" json:"row_count,omitempty"`
+	ColumnCount      *uint32             `protobuf:"varint,6,opt,name=column_count" json:"column_count,omitempty"`
+	UndoTransaction  *UndoTransaction    `protobuf:"bytes,7,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
+	XXX_unrecognized []byte              `json:"-"`
 }
 
 func (m *MergeCellsCommandArchive) Reset()         { *m = MergeCellsCommandArchive{} }
@@ -736,12 +736,12 @@ func (m *MergeCellsCommandArchive) GetUndoTransaction() *UndoTransaction {
 }
 
 type ApplyPlaceholderTextCommandArchive struct {
-	Super                  *TSK.CommandArchive    `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
-	Storage                *TSP.Reference         `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
-	SelectionRangeLocation *uint32                `protobuf:"varint,3,opt,name=selection_range_location" json:"selection_range_location,omitempty"`
-	SelectionRangeLength   *uint32                `protobuf:"varint,4,opt,name=selection_range_length" json:"selection_range_length,omitempty"`
-	UndoTransaction        *UndoTransaction `protobuf:"bytes,5,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
-	XXX_unrecognized       []byte                 `json:"-"`
+	Super                  *TSK.CommandArchive `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
+	Storage                *TSP.Reference      `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
+	SelectionRangeLocation *uint32             `protobuf:"varint,3,opt,name=selection_range_location" json:"selection_range_location,omitempty"`
+	SelectionRangeLength   *uint32             `protobuf:"varint,4,opt,name=selection_range_length" json:"selection_range_length,omitempty"`
+	UndoTransaction        *UndoTransaction    `protobuf:"bytes,5,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
+	XXX_unrecognized       []byte              `json:"-"`
 }
 
 func (m *ApplyPlaceholderTextCommandArchive) Reset()         { *m = ApplyPlaceholderTextCommandArchive{} }
@@ -784,13 +784,13 @@ func (m *ApplyPlaceholderTextCommandArchive) GetUndoTransaction() *UndoTransacti
 }
 
 type ApplyHighlightTextCommandArchive struct {
-	Super                  *TSK.CommandArchive    `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
-	Storage                *TSP.Reference         `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
-	SelectionRangeLocation *uint32                `protobuf:"varint,3,opt,name=selection_range_location" json:"selection_range_location,omitempty"`
-	SelectionRangeLength   *uint32                `protobuf:"varint,4,opt,name=selection_range_length" json:"selection_range_length,omitempty"`
-	UndoTransaction        *UndoTransaction `protobuf:"bytes,5,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
-	Remove                 *bool                  `protobuf:"varint,6,opt,name=remove" json:"remove,omitempty"`
-	XXX_unrecognized       []byte                 `json:"-"`
+	Super                  *TSK.CommandArchive `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
+	Storage                *TSP.Reference      `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
+	SelectionRangeLocation *uint32             `protobuf:"varint,3,opt,name=selection_range_location" json:"selection_range_location,omitempty"`
+	SelectionRangeLength   *uint32             `protobuf:"varint,4,opt,name=selection_range_length" json:"selection_range_length,omitempty"`
+	UndoTransaction        *UndoTransaction    `protobuf:"bytes,5,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
+	Remove                 *bool               `protobuf:"varint,6,opt,name=remove" json:"remove,omitempty"`
+	XXX_unrecognized       []byte              `json:"-"`
 }
 
 func (m *ApplyHighlightTextCommandArchive) Reset()         { *m = ApplyHighlightTextCommandArchive{} }
@@ -840,13 +840,13 @@ func (m *ApplyHighlightTextCommandArchive) GetRemove() bool {
 }
 
 type CreateHyperlinkCommandArchive struct {
-	Super                  *TSK.CommandArchive    `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
-	Storage                *TSP.Reference         `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
-	SelectionRangeLocation *uint32                `protobuf:"varint,3,opt,name=selection_range_location" json:"selection_range_location,omitempty"`
-	SelectionRangeLength   *uint32                `protobuf:"varint,4,opt,name=selection_range_length" json:"selection_range_length,omitempty"`
-	UrlRef                 *string                `protobuf:"bytes,5,opt,name=url_ref" json:"url_ref,omitempty"`
-	UndoTransaction        *UndoTransaction `protobuf:"bytes,6,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
-	XXX_unrecognized       []byte                 `json:"-"`
+	Super                  *TSK.CommandArchive `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
+	Storage                *TSP.Reference      `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
+	SelectionRangeLocation *uint32             `protobuf:"varint,3,opt,name=selection_range_location" json:"selection_range_location,omitempty"`
+	SelectionRangeLength   *uint32             `protobuf:"varint,4,opt,name=selection_range_length" json:"selection_range_length,omitempty"`
+	UrlRef                 *string             `protobuf:"bytes,5,opt,name=url_ref" json:"url_ref,omitempty"`
+	UndoTransaction        *UndoTransaction    `protobuf:"bytes,6,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
+	XXX_unrecognized       []byte              `json:"-"`
 }
 
 func (m *CreateHyperlinkCommandArchive) Reset()         { *m = CreateHyperlinkCommandArchive{} }
@@ -896,13 +896,13 @@ func (m *CreateHyperlinkCommandArchive) GetUndoTransaction() *UndoTransaction {
 }
 
 type RemoveHyperlinkCommandArchive struct {
-	Super                  *TSK.CommandArchive    `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
-	Storage                *TSP.Reference         `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
-	SelectionRangeLocation *uint32                `protobuf:"varint,3,opt,name=selection_range_location" json:"selection_range_location,omitempty"`
-	SelectionRangeLength   *uint32                `protobuf:"varint,4,opt,name=selection_range_length" json:"selection_range_length,omitempty"`
-	UndoTransaction        *UndoTransaction `protobuf:"bytes,5,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
-	IsRemoveCharacterStyle *bool                  `protobuf:"varint,6,opt,name=is_remove_character_style,def=1" json:"is_remove_character_style,omitempty"`
-	XXX_unrecognized       []byte                 `json:"-"`
+	Super                  *TSK.CommandArchive `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
+	Storage                *TSP.Reference      `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
+	SelectionRangeLocation *uint32             `protobuf:"varint,3,opt,name=selection_range_location" json:"selection_range_location,omitempty"`
+	SelectionRangeLength   *uint32             `protobuf:"varint,4,opt,name=selection_range_length" json:"selection_range_length,omitempty"`
+	UndoTransaction        *UndoTransaction    `protobuf:"bytes,5,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
+	IsRemoveCharacterStyle *bool               `protobuf:"varint,6,opt,name=is_remove_character_style,def=1" json:"is_remove_character_style,omitempty"`
+	XXX_unrecognized       []byte              `json:"-"`
 }
 
 func (m *RemoveHyperlinkCommandArchive) Reset()         { *m = RemoveHyperlinkCommandArchive{} }
@@ -954,12 +954,12 @@ func (m *RemoveHyperlinkCommandArchive) GetIsRemoveCharacterStyle() bool {
 }
 
 type ModifyHyperlinkCommandArchive struct {
-	Super            *TSK.CommandArchive    `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
-	Hyperlink        *TSP.Reference         `protobuf:"bytes,2,opt,name=hyperlink" json:"hyperlink,omitempty"`
-	DisplayText      *string                `protobuf:"bytes,3,opt,name=display_text" json:"display_text,omitempty"`
-	UrlRef           *string                `protobuf:"bytes,4,opt,name=url_ref" json:"url_ref,omitempty"`
-	UndoTransaction  *UndoTransaction `protobuf:"bytes,5,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
-	XXX_unrecognized []byte                 `json:"-"`
+	Super            *TSK.CommandArchive `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
+	Hyperlink        *TSP.Reference      `protobuf:"bytes,2,opt,name=hyperlink" json:"hyperlink,omitempty"`
+	DisplayText      *string             `protobuf:"bytes,3,opt,name=display_text" json:"display_text,omitempty"`
+	UrlRef           *string             `protobuf:"bytes,4,opt,name=url_ref" json:"url_ref,omitempty"`
+	UndoTransaction  *UndoTransaction    `protobuf:"bytes,5,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
+	XXX_unrecognized []byte              `json:"-"`
 }
 
 func (m *ModifyHyperlinkCommandArchive) Reset()         { *m = ModifyHyperlinkCommandArchive{} }
@@ -1002,12 +1002,12 @@ func (m *ModifyHyperlinkCommandArchive) GetUndoTransaction() *UndoTransaction {
 }
 
 type UpdateDateTimeFieldCommandArchive struct {
-	Super            *TextCommandArchive                                     `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
-	DateTimeField    *TSP.Reference                                          `protobuf:"bytes,2,opt,name=date_time_field" json:"date_time_field,omitempty"`
-	Date             *TSP.Date                                               `protobuf:"bytes,3,opt,name=date" json:"date,omitempty"`
+	Super            *TextCommandArchive                               `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
+	DateTimeField    *TSP.Reference                                    `protobuf:"bytes,2,opt,name=date_time_field" json:"date_time_field,omitempty"`
+	Date             *TSP.Date                                         `protobuf:"bytes,3,opt,name=date" json:"date,omitempty"`
 	DateStyle        *DateTimeSmartFieldArchive_DateTimeFormatterStyle `protobuf:"varint,4,opt,name=date_style,enum=DateTimeSmartFieldArchive_DateTimeFormatterStyle" json:"date_style,omitempty"`
 	TimeStyle        *DateTimeSmartFieldArchive_DateTimeFormatterStyle `protobuf:"varint,5,opt,name=time_style,enum=DateTimeSmartFieldArchive_DateTimeFormatterStyle" json:"time_style,omitempty"`
-	XXX_unrecognized []byte                                                  `json:"-"`
+	XXX_unrecognized []byte                                            `json:"-"`
 }
 
 func (m *UpdateDateTimeFieldCommandArchive) Reset()         { *m = UpdateDateTimeFieldCommandArchive{} }
@@ -1050,13 +1050,13 @@ func (m *UpdateDateTimeFieldCommandArchive) GetTimeStyle() DateTimeSmartFieldArc
 }
 
 type ApplyRubyTextCommandArchive struct {
-	Super                  *TSK.CommandArchive    `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
-	Storage                *TSP.Reference         `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
-	SelectionRangeLocation *uint32                `protobuf:"varint,3,opt,name=selection_range_location" json:"selection_range_location,omitempty"`
-	SelectionRangeLength   *uint32                `protobuf:"varint,4,opt,name=selection_range_length" json:"selection_range_length,omitempty"`
-	RubyText               *string                `protobuf:"bytes,5,opt,name=ruby_text" json:"ruby_text,omitempty"`
-	UndoTransaction        *UndoTransaction `protobuf:"bytes,6,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
-	XXX_unrecognized       []byte                 `json:"-"`
+	Super                  *TSK.CommandArchive `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
+	Storage                *TSP.Reference      `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
+	SelectionRangeLocation *uint32             `protobuf:"varint,3,opt,name=selection_range_location" json:"selection_range_location,omitempty"`
+	SelectionRangeLength   *uint32             `protobuf:"varint,4,opt,name=selection_range_length" json:"selection_range_length,omitempty"`
+	RubyText               *string             `protobuf:"bytes,5,opt,name=ruby_text" json:"ruby_text,omitempty"`
+	UndoTransaction        *UndoTransaction    `protobuf:"bytes,6,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
+	XXX_unrecognized       []byte              `json:"-"`
 }
 
 func (m *ApplyRubyTextCommandArchive) Reset()         { *m = ApplyRubyTextCommandArchive{} }
@@ -1106,12 +1106,12 @@ func (m *ApplyRubyTextCommandArchive) GetUndoTransaction() *UndoTransaction {
 }
 
 type RemoveRubyTextCommandArchive struct {
-	Super                  *TSK.CommandArchive    `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
-	Storage                *TSP.Reference         `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
-	SelectionRangeLocation *uint32                `protobuf:"varint,3,opt,name=selection_range_location" json:"selection_range_location,omitempty"`
-	SelectionRangeLength   *uint32                `protobuf:"varint,4,opt,name=selection_range_length" json:"selection_range_length,omitempty"`
-	UndoTransaction        *UndoTransaction `protobuf:"bytes,5,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
-	XXX_unrecognized       []byte                 `json:"-"`
+	Super                  *TSK.CommandArchive `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
+	Storage                *TSP.Reference      `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
+	SelectionRangeLocation *uint32             `protobuf:"varint,3,opt,name=selection_range_location" json:"selection_range_location,omitempty"`
+	SelectionRangeLength   *uint32             `protobuf:"varint,4,opt,name=selection_range_length" json:"selection_range_length,omitempty"`
+	UndoTransaction        *UndoTransaction    `protobuf:"bytes,5,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
+	XXX_unrecognized       []byte              `json:"-"`
 }
 
 func (m *RemoveRubyTextCommandArchive) Reset()         { *m = RemoveRubyTextCommandArchive{} }
@@ -1154,12 +1154,12 @@ func (m *RemoveRubyTextCommandArchive) GetUndoTransaction() *UndoTransaction {
 }
 
 type ModifyRubyTextCommandArchive struct {
-	Super            *TSK.CommandArchive    `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
-	RubyField        *TSP.Reference         `protobuf:"bytes,2,opt,name=ruby_field" json:"ruby_field,omitempty"`
-	RubyText         *string                `protobuf:"bytes,3,opt,name=ruby_text" json:"ruby_text,omitempty"`
-	BaseText         *string                `protobuf:"bytes,4,opt,name=base_text" json:"base_text,omitempty"`
-	UndoTransaction  *UndoTransaction `protobuf:"bytes,5,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
-	XXX_unrecognized []byte                 `json:"-"`
+	Super            *TSK.CommandArchive `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
+	RubyField        *TSP.Reference      `protobuf:"bytes,2,opt,name=ruby_field" json:"ruby_field,omitempty"`
+	RubyText         *string             `protobuf:"bytes,3,opt,name=ruby_text" json:"ruby_text,omitempty"`
+	BaseText         *string             `protobuf:"bytes,4,opt,name=base_text" json:"base_text,omitempty"`
+	UndoTransaction  *UndoTransaction    `protobuf:"bytes,5,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
+	XXX_unrecognized []byte              `json:"-"`
 }
 
 func (m *ModifyRubyTextCommandArchive) Reset()         { *m = ModifyRubyTextCommandArchive{} }
@@ -1296,16 +1296,16 @@ func (m *ModifyTOCSettingsPresetForThemeCommandArchive) GetPresetIndex() uint32 
 }
 
 type AnchorAttachmentCommandArchive struct {
-	Super            *TSK.CommandArchive    `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
-	Storage          *TSP.Reference         `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
-	Attachment       *TSP.Reference         `protobuf:"bytes,3,opt,name=attachment" json:"attachment,omitempty"`
-	HOffsetType      *uint32                `protobuf:"varint,4,opt,name=h_offset_type" json:"h_offset_type,omitempty"`
-	HOffset          *float32               `protobuf:"fixed32,5,opt,name=h_offset" json:"h_offset,omitempty"`
-	VOffsetType      *uint32                `protobuf:"varint,6,opt,name=v_offset_type" json:"v_offset_type,omitempty"`
-	VOffset          *float32               `protobuf:"fixed32,7,opt,name=v_offset" json:"v_offset,omitempty"`
-	UndoTransaction  *UndoTransaction `protobuf:"bytes,8,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
-	IsHtmlWrap       *bool                  `protobuf:"varint,9,opt,name=is_html_wrap" json:"is_html_wrap,omitempty"`
-	XXX_unrecognized []byte                 `json:"-"`
+	Super            *TSK.CommandArchive `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
+	Storage          *TSP.Reference      `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
+	Attachment       *TSP.Reference      `protobuf:"bytes,3,opt,name=attachment" json:"attachment,omitempty"`
+	HOffsetType      *uint32             `protobuf:"varint,4,opt,name=h_offset_type" json:"h_offset_type,omitempty"`
+	HOffset          *float32            `protobuf:"fixed32,5,opt,name=h_offset" json:"h_offset,omitempty"`
+	VOffsetType      *uint32             `protobuf:"varint,6,opt,name=v_offset_type" json:"v_offset_type,omitempty"`
+	VOffset          *float32            `protobuf:"fixed32,7,opt,name=v_offset" json:"v_offset,omitempty"`
+	UndoTransaction  *UndoTransaction    `protobuf:"bytes,8,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
+	IsHtmlWrap       *bool               `protobuf:"varint,9,opt,name=is_html_wrap" json:"is_html_wrap,omitempty"`
+	XXX_unrecognized []byte              `json:"-"`
 }
 
 func (m *AnchorAttachmentCommandArchive) Reset()         { *m = AnchorAttachmentCommandArchive{} }
@@ -1378,7 +1378,7 @@ func (m *AnchorAttachmentCommandArchive) GetIsHtmlWrap() bool {
 type TextApplyThemeCommandArchive struct {
 	Super            *TSS.ApplyThemeChildCommandArchive `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
 	Storage          *TSP.Reference                     `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
-	UndoTransaction  *UndoTransaction             `protobuf:"bytes,6,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
+	UndoTransaction  *UndoTransaction                   `protobuf:"bytes,6,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
 	XXX_unrecognized []byte                             `json:"-"`
 }
 
@@ -1408,13 +1408,13 @@ func (m *TextApplyThemeCommandArchive) GetUndoTransaction() *UndoTransaction {
 }
 
 type MoveColumnsCommandArchive struct {
-	Super            *TSK.CommandArchive    `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
-	Storage          *TSP.Reference         `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
-	SrcIndex         *uint32                `protobuf:"varint,3,opt,name=src_index" json:"src_index,omitempty"`
-	DstIndex         *uint32                `protobuf:"varint,4,opt,name=dst_index" json:"dst_index,omitempty"`
-	Count            *uint32                `protobuf:"varint,5,opt,name=count" json:"count,omitempty"`
-	UndoTransaction  *UndoTransaction `protobuf:"bytes,6,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
-	XXX_unrecognized []byte                 `json:"-"`
+	Super            *TSK.CommandArchive `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
+	Storage          *TSP.Reference      `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
+	SrcIndex         *uint32             `protobuf:"varint,3,opt,name=src_index" json:"src_index,omitempty"`
+	DstIndex         *uint32             `protobuf:"varint,4,opt,name=dst_index" json:"dst_index,omitempty"`
+	Count            *uint32             `protobuf:"varint,5,opt,name=count" json:"count,omitempty"`
+	UndoTransaction  *UndoTransaction    `protobuf:"bytes,6,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
+	XXX_unrecognized []byte              `json:"-"`
 }
 
 func (m *MoveColumnsCommandArchive) Reset()         { *m = MoveColumnsCommandArchive{} }
@@ -1464,13 +1464,13 @@ func (m *MoveColumnsCommandArchive) GetUndoTransaction() *UndoTransaction {
 }
 
 type MoveRowsCommandArchive struct {
-	Super            *TSK.CommandArchive    `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
-	Storage          *TSP.Reference         `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
-	SrcIndex         *uint32                `protobuf:"varint,3,opt,name=src_index" json:"src_index,omitempty"`
-	DstIndex         *uint32                `protobuf:"varint,4,opt,name=dst_index" json:"dst_index,omitempty"`
-	Count            *uint32                `protobuf:"varint,5,opt,name=count" json:"count,omitempty"`
-	UndoTransaction  *UndoTransaction `protobuf:"bytes,6,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
-	XXX_unrecognized []byte                 `json:"-"`
+	Super            *TSK.CommandArchive `protobuf:"bytes,1,opt,name=super" json:"super,omitempty"`
+	Storage          *TSP.Reference      `protobuf:"bytes,2,opt,name=storage" json:"storage,omitempty"`
+	SrcIndex         *uint32             `protobuf:"varint,3,opt,name=src_index" json:"src_index,omitempty"`
+	DstIndex         *uint32             `protobuf:"varint,4,opt,name=dst_index" json:"dst_index,omitempty"`
+	Count            *uint32             `protobuf:"varint,5,opt,name=count" json:"count,omitempty"`
+	UndoTransaction  *UndoTransaction    `protobuf:"bytes,6,opt,name=undo_transaction" json:"undo_transaction,omitempty"`
+	XXX_unrecognized []byte              `json:"-"`
 }
 
 func (m *MoveRowsCommandArchive) Reset()         { *m = MoveRowsCommandArchive{} }
@@ -1521,7 +1521,7 @@ func (m *MoveRowsCommandArchive) GetUndoTransaction() *UndoTransaction {
 
 type ShapeApplyPresetCommandArchive struct {
 	Super            *TSD.ShapeApplyPresetCommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	XXX_unrecognized []byte                               `json:"-"`
+	XXX_unrecognized []byte                              `json:"-"`
 }
 
 func (m *ShapeApplyPresetCommandArchive) Reset()         { *m = ShapeApplyPresetCommandArchive{} }
@@ -1537,10 +1537,10 @@ func (m *ShapeApplyPresetCommandArchive) GetSuper() *TSD.ShapeApplyPresetCommand
 
 type ShapePasteStyleCommandArchive struct {
 	Super            *TSD.PasteStyleCommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	ParagraphStyle   *TSP.Reference                 `protobuf:"bytes,2,opt,name=paragraph_style" json:"paragraph_style,omitempty"`
-	ListStyle        *TSP.Reference                 `protobuf:"bytes,3,opt,name=list_style" json:"list_style,omitempty"`
-	CharacterStyle   *TSP.Reference                 `protobuf:"bytes,4,opt,name=character_style" json:"character_style,omitempty"`
-	XXX_unrecognized []byte                         `json:"-"`
+	ParagraphStyle   *TSP.Reference                `protobuf:"bytes,2,opt,name=paragraph_style" json:"paragraph_style,omitempty"`
+	ListStyle        *TSP.Reference                `protobuf:"bytes,3,opt,name=list_style" json:"list_style,omitempty"`
+	CharacterStyle   *TSP.Reference                `protobuf:"bytes,4,opt,name=character_style" json:"character_style,omitempty"`
+	XXX_unrecognized []byte                        `json:"-"`
 }
 
 func (m *ShapePasteStyleCommandArchive) Reset()         { *m = ShapePasteStyleCommandArchive{} }

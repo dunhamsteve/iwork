@@ -60,7 +60,7 @@ func (x *DatabaseImageDataArchive_ImageType) UnmarshalJSON(data []byte) error {
 
 type DatabaseData struct {
 	Data             *DataReference `protobuf:"bytes,1,req,name=data" json:"data,omitempty"`
-	XXX_unrecognized []byte              `json:"-"`
+	XXX_unrecognized []byte         `json:"-"`
 }
 
 func (m *DatabaseData) Reset()         { *m = DatabaseData{} }
@@ -76,12 +76,12 @@ func (m *DatabaseData) GetData() *DataReference {
 
 type DatabaseDataArchive struct {
 	Data             *Reference `protobuf:"bytes,1,opt,name=data" json:"data,omitempty"`
-	AppRelativePath  *string         `protobuf:"bytes,2,opt,name=app_relative_path" json:"app_relative_path,omitempty"`
-	DisplayName      *string         `protobuf:"bytes,3,req,name=display_name" json:"display_name,omitempty"`
-	Length           *uint64         `protobuf:"varint,4,opt,name=length" json:"length,omitempty"`
-	Hash             *uint32         `protobuf:"varint,5,opt,name=hash" json:"hash,omitempty"`
-	Sharable         *bool           `protobuf:"varint,6,req,name=sharable,def=1" json:"sharable,omitempty"`
-	XXX_unrecognized []byte          `json:"-"`
+	AppRelativePath  *string    `protobuf:"bytes,2,opt,name=app_relative_path" json:"app_relative_path,omitempty"`
+	DisplayName      *string    `protobuf:"bytes,3,req,name=display_name" json:"display_name,omitempty"`
+	Length           *uint64    `protobuf:"varint,4,opt,name=length" json:"length,omitempty"`
+	Hash             *uint32    `protobuf:"varint,5,opt,name=hash" json:"hash,omitempty"`
+	Sharable         *bool      `protobuf:"varint,6,req,name=sharable,def=1" json:"sharable,omitempty"`
+	XXX_unrecognized []byte     `json:"-"`
 }
 
 func (m *DatabaseDataArchive) Reset()         { *m = DatabaseDataArchive{} }

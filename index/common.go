@@ -3,6 +3,7 @@ package index
 import (
 	"errors"
 	"fmt"
+
 	"github.com/dunhamsteve/iwork/proto/TSA"
 	"github.com/dunhamsteve/iwork/proto/TSCE"
 	"github.com/dunhamsteve/iwork/proto/TSCH"

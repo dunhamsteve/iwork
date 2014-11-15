@@ -1548,26 +1548,26 @@ func (m *CanvasSelectionArchive) GetContainer() *TSP.Reference {
 }
 
 type ViewStateArchive struct {
-	OBSOLETEViewScale                        *float32              `protobuf:"fixed32,1,opt,name=OBSOLETE_view_scale" json:"OBSOLETE_view_scale,omitempty"`
-	VisibleRectOrigin                        *TSP.Point            `protobuf:"bytes,2,opt,name=visible_rect_origin" json:"visible_rect_origin,omitempty"`
-	OBSOLETELandscape                        *bool                 `protobuf:"varint,3,opt,name=OBSOLETE_landscape" json:"OBSOLETE_landscape,omitempty"`
-	Selection                                *TSP.Reference        `protobuf:"bytes,4,opt,name=selection" json:"selection,omitempty"`
-	SelectionModel                           *TSP.Reference        `protobuf:"bytes,5,opt,name=selection_model" json:"selection_model,omitempty"`
-	MasterDrawablesSelectable                *bool                 `protobuf:"varint,6,opt,name=master_drawables_selectable" json:"master_drawables_selectable,omitempty"`
-	VisibleRectSize                          *TSP.Size             `protobuf:"bytes,7,opt,name=visible_rect_size" json:"visible_rect_size,omitempty"`
+	OBSOLETEViewScale                        *float32             `protobuf:"fixed32,1,opt,name=OBSOLETE_view_scale" json:"OBSOLETE_view_scale,omitempty"`
+	VisibleRectOrigin                        *TSP.Point           `protobuf:"bytes,2,opt,name=visible_rect_origin" json:"visible_rect_origin,omitempty"`
+	OBSOLETELandscape                        *bool                `protobuf:"varint,3,opt,name=OBSOLETE_landscape" json:"OBSOLETE_landscape,omitempty"`
+	Selection                                *TSP.Reference       `protobuf:"bytes,4,opt,name=selection" json:"selection,omitempty"`
+	SelectionModel                           *TSP.Reference       `protobuf:"bytes,5,opt,name=selection_model" json:"selection_model,omitempty"`
+	MasterDrawablesSelectable                *bool                `protobuf:"varint,6,opt,name=master_drawables_selectable" json:"master_drawables_selectable,omitempty"`
+	VisibleRectSize                          *TSP.Size            `protobuf:"bytes,7,opt,name=visible_rect_size" json:"visible_rect_size,omitempty"`
 	ChartUiState                             []*TSCH.ChartUIState `protobuf:"bytes,8,rep,name=chart_ui_state" json:"chart_ui_state,omitempty"`
-	RulerVisible                             *bool                 `protobuf:"varint,9,opt,name=ruler_visible,def=1" json:"ruler_visible,omitempty"`
-	LayoutBordersVisible                     *bool                 `protobuf:"varint,10,opt,name=layout_borders_visible,def=0" json:"layout_borders_visible,omitempty"`
-	WordCountHudVisible                      *bool                 `protobuf:"varint,11,opt,name=word_count_hud_visible,def=0" json:"word_count_hud_visible,omitempty"`
-	ShowsComments                            *bool                 `protobuf:"varint,12,opt,name=shows_comments,def=1" json:"shows_comments,omitempty"`
-	ShowsPageNavigator                       *bool                 `protobuf:"varint,13,opt,name=shows_page_navigator,def=0" json:"shows_page_navigator,omitempty"`
-	ViewScaleMode                            *ViewScaleMode        `protobuf:"varint,14,opt,name=view_scale_mode,enum=TP.ViewScaleMode,def=0" json:"view_scale_mode,omitempty"`
-	ViewScale                                *float32              `protobuf:"fixed32,15,opt,name=view_scale,def=1.25" json:"view_scale,omitempty"`
-	WindowFrameOrigin                        *TSP.Point            `protobuf:"bytes,16,opt,name=window_frame_origin" json:"window_frame_origin,omitempty"`
-	WindowFrameSize                          *TSP.Size             `protobuf:"bytes,17,opt,name=window_frame_size" json:"window_frame_size,omitempty"`
-	SelectedInspectorSwitchSegmentIdentifier *string               `protobuf:"bytes,18,opt,name=selected_inspector_switch_segment_identifier" json:"selected_inspector_switch_segment_identifier,omitempty"`
-	InspectorHidden                          *bool                 `protobuf:"varint,19,opt,name=inspector_hidden" json:"inspector_hidden,omitempty"`
-	XXX_unrecognized                         []byte                `json:"-"`
+	RulerVisible                             *bool                `protobuf:"varint,9,opt,name=ruler_visible,def=1" json:"ruler_visible,omitempty"`
+	LayoutBordersVisible                     *bool                `protobuf:"varint,10,opt,name=layout_borders_visible,def=0" json:"layout_borders_visible,omitempty"`
+	WordCountHudVisible                      *bool                `protobuf:"varint,11,opt,name=word_count_hud_visible,def=0" json:"word_count_hud_visible,omitempty"`
+	ShowsComments                            *bool                `protobuf:"varint,12,opt,name=shows_comments,def=1" json:"shows_comments,omitempty"`
+	ShowsPageNavigator                       *bool                `protobuf:"varint,13,opt,name=shows_page_navigator,def=0" json:"shows_page_navigator,omitempty"`
+	ViewScaleMode                            *ViewScaleMode       `protobuf:"varint,14,opt,name=view_scale_mode,enum=TP.ViewScaleMode,def=0" json:"view_scale_mode,omitempty"`
+	ViewScale                                *float32             `protobuf:"fixed32,15,opt,name=view_scale,def=1.25" json:"view_scale,omitempty"`
+	WindowFrameOrigin                        *TSP.Point           `protobuf:"bytes,16,opt,name=window_frame_origin" json:"window_frame_origin,omitempty"`
+	WindowFrameSize                          *TSP.Size            `protobuf:"bytes,17,opt,name=window_frame_size" json:"window_frame_size,omitempty"`
+	SelectedInspectorSwitchSegmentIdentifier *string              `protobuf:"bytes,18,opt,name=selected_inspector_switch_segment_identifier" json:"selected_inspector_switch_segment_identifier,omitempty"`
+	InspectorHidden                          *bool                `protobuf:"varint,19,opt,name=inspector_hidden" json:"inspector_hidden,omitempty"`
+	XXX_unrecognized                         []byte               `json:"-"`
 }
 
 func (m *ViewStateArchive) Reset()         { *m = ViewStateArchive{} }

@@ -500,7 +500,7 @@ func (m *MoveDrawablesPageIndexCommandArchive_Drawable) GetZOrder() uint32 {
 
 type InsertSectionBreakCommandArchive struct {
 	Super            *TSWP.TextCommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	XXX_unrecognized []byte                    `json:"-"`
+	XXX_unrecognized []byte                   `json:"-"`
 }
 
 func (m *InsertSectionBreakCommandArchive) Reset()         { *m = InsertSectionBreakCommandArchive{} }
@@ -532,7 +532,7 @@ func (m *DeleteSectionCommandArchive) GetSuper() *TSK.CommandArchive {
 
 type ReplaceSectionCommandArchive struct {
 	Super            *TSWP.TextCommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	XXX_unrecognized []byte                    `json:"-"`
+	XXX_unrecognized []byte                   `json:"-"`
 }
 
 func (m *ReplaceSectionCommandArchive) Reset()         { *m = ReplaceSectionCommandArchive{} }
@@ -1352,9 +1352,9 @@ func (m *MoveDrawablesFloatingCommandArchive_AttachedUndo) GetUndoTransaction() 
 
 type RemoveAnchoredDrawableCommandArchive struct {
 	Super            *TSWP.TextCommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	CharIndex        *uint32                   `protobuf:"varint,2,opt,name=char_index" json:"char_index,omitempty"`
-	ZOrder           *uint32                   `protobuf:"varint,3,opt,name=z_order" json:"z_order,omitempty"`
-	XXX_unrecognized []byte                    `json:"-"`
+	CharIndex        *uint32                  `protobuf:"varint,2,opt,name=char_index" json:"char_index,omitempty"`
+	ZOrder           *uint32                  `protobuf:"varint,3,opt,name=z_order" json:"z_order,omitempty"`
+	XXX_unrecognized []byte                   `json:"-"`
 }
 
 func (m *RemoveAnchoredDrawableCommandArchive) Reset()         { *m = RemoveAnchoredDrawableCommandArchive{} }
@@ -1644,7 +1644,7 @@ func (m *MoveAnchoredDrawableInlineCommandArchive) GetZOrder() uint32 {
 
 type InsertFootnoteCommandArchive struct {
 	Super            *TSWP.TextCommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	XXX_unrecognized []byte                    `json:"-"`
+	XXX_unrecognized []byte                   `json:"-"`
 }
 
 func (m *InsertFootnoteCommandArchive) Reset()         { *m = InsertFootnoteCommandArchive{} }
