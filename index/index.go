@@ -9,11 +9,12 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
-	"github.com/dunhamsteve/iwork/proto/TSP"
 	"log"
 	"os"
 	"path"
 	"strings"
+
+	"github.com/dunhamsteve/iwork/proto/TSP"
 
 	"code.google.com/p/goprotobuf/proto"
 	"code.google.com/p/snappy-go/snappy"
@@ -30,6 +31,10 @@ func Open(doc string) (*Index, error) {
 
 	fn := path.Join(doc, "Index.zip")
 	zf, err := zip.OpenReader(fn)
+	if err != nil {
+		// iWork 5.5
+		zf, err = zip.OpenReader(doc)
+	}
 	if err == nil {
 		defer zf.Close()
 		ix := &Index{}
@@ -78,8 +83,8 @@ func (ix *Index) loadSQL(db *sql.DB) error {
 func (ix *Index) loadZip(zf *zip.ReadCloser) error {
 	ix.Records = make(map[uint64]interface{})
 	for _, f := range zf.File {
-		fmt.Println(f.Name)
 		if strings.HasSuffix(f.Name, ".iwa") {
+			fmt.Println(f.Name)
 			rc, err := f.Open()
 			if err != nil {
 				return err
