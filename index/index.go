@@ -6,7 +6,6 @@ import (
 	"database/sql"
 	"encoding/binary"
 	"errors"
-	"fmt"
 	"io"
 	"io/ioutil"
 	"log"
@@ -84,7 +83,6 @@ func (ix *Index) loadZip(zf *zip.ReadCloser) error {
 	ix.Records = make(map[uint64]interface{})
 	for _, f := range zf.File {
 		if strings.HasSuffix(f.Name, ".iwa") {
-			fmt.Println(f.Name)
 			rc, err := f.Open()
 			if err != nil {
 				return err

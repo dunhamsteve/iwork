@@ -253,6 +253,7 @@ func decodePages(typ uint32, payload []byte) (interface{}, error) {
 		return value, err
 
 	default:
-		return nil, errors.New(fmt.Sprintf("Unknown type %d", typ))
+        // This is not really a big deal as it's a chunk we're not using.
+		return nil, errors.New(fmt.Sprintf("Unknown message type %d", typ))
 	}
 }
