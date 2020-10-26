@@ -17,8 +17,8 @@ var foo = `
 package index
 import (
     "errors"
-    "code.google.com/p/goprotobuf/proto"
-    "fmt"    
+    "github.com/golang/protobuf/proto"
+    "fmt"
 )
 
 func decode(typ uint32, payload []byte) (interface{}, error) {
@@ -31,7 +31,7 @@ func decode(typ uint32, payload []byte) (interface{}, error) {
         {{end}}
         default:
             return nil,errors.New(fmt.Sprintf("Unknown type %d", typ))
-    }    
+    }
 }
 `
 

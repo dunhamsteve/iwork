@@ -47,7 +47,7 @@ It has these top-level messages:
 */
 package TP
 
-import proto "code.google.com/p/goprotobuf/proto"
+import proto "github.com/golang/protobuf/proto"
 import math "math"
 import "github.com/dunhamsteve/iwork/proto/TSD"
 import "github.com/dunhamsteve/iwork/proto/TSK"

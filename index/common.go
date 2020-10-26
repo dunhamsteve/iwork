@@ -15,7 +15,7 @@ import (
 	"github.com/dunhamsteve/iwork/proto/TST"
 	"github.com/dunhamsteve/iwork/proto/TSWP"
 
-	"code.google.com/p/goprotobuf/proto"
+	"github.com/golang/protobuf/proto"
 )
 
 func decodeCommon(typ uint32, payload []byte) (interface{}, error) {
