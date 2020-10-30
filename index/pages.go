@@ -6,7 +6,7 @@ import (
 
 	"github.com/dunhamsteve/iwork/proto/TP"
 
-	"code.google.com/p/goprotobuf/proto"
+	"github.com/golang/protobuf/proto"
 )
 
 func decodePages(typ uint32, payload []byte) (interface{}, error) {

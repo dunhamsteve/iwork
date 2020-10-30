@@ -70,7 +70,7 @@ It has these top-level messages:
 */
 package TSWP
 
-import proto "code.google.com/p/goprotobuf/proto"
+import proto "github.com/golang/protobuf/proto"
 import math "math"
 import "github.com/dunhamsteve/iwork/proto/TSP"
 import "github.com/dunhamsteve/iwork/proto/TSS"

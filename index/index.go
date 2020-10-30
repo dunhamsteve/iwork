@@ -15,8 +15,8 @@ import (
 
 	"github.com/dunhamsteve/iwork/proto/TSP"
 
-	"code.google.com/p/goprotobuf/proto"
-	"code.google.com/p/snappy-go/snappy"
+	"github.com/golang/protobuf/proto"
+	"github.com/golang/snappy"
 	_ "github.com/mattn/go-sqlite3"
 )
 

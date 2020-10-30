@@ -31,7 +31,7 @@ It has these top-level messages:
 */
 package TP
 
-import proto "code.google.com/p/goprotobuf/proto"
+import proto "github.com/golang/protobuf/proto"
 import math "math"
 
 // discarding unused import TSD "TSDArchives.pb"
