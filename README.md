@@ -5,7 +5,29 @@ files, but I got carried away and wrote a converter for the current format and t
 
 It is very much a work in progress, but hopefully someone finds it useful.
 
-## Pages '13 
+# Setup process
+
+Download and build
+
+```bash
+go get https://github.com/dunhamsteve/iwork/pages2html
+```
+
+# Usage
+
+Export path
+
+```bash
+export PATH=$PATH:$(go env GOPATH)/bin
+```
+
+Run conventer
+
+```bash
+./pages2html infile.pages outfile.html
+```
+
+## Pages '13
 
 I'm building on [the work of Sean Patrick O'Brien](https://github.com/obriensp/iWorkFileFormat) on github. He determined
 the base format of the `.iwa` files in the iWork'13 were a snappy compressed sequence of protobuf-encoded records and wrote
