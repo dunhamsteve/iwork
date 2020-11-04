@@ -37,21 +37,23 @@ It has these top-level messages:
 */
 package TN
 
-import proto "github.com/golang/protobuf/proto"
-import math "math"
-import "github.com/dunhamsteve/iwork/proto/TSP"
-import "github.com/dunhamsteve/iwork/proto/TSK"
+import (
+	math "math"
 
-// discarding unused import TSCH2 "TSCHArchives.pb"
-import "github.com/dunhamsteve/iwork/proto/TSCH3"
-import "github.com/dunhamsteve/iwork/proto/TSCE"
+	"github.com/dunhamsteve/iwork/proto/TSCE"
+	"github.com/dunhamsteve/iwork/proto/TSCH"
+	"github.com/dunhamsteve/iwork/proto/TSK"
+	"github.com/dunhamsteve/iwork/proto/TSP"
+	proto "github.com/golang/protobuf/proto"
+)
+
+// discarding unused import TSCH "TSCHArchives.pb"
 
 // discarding unused import TSS "TSSArchives.pb"
 // discarding unused import TSD "TSDArchives.pb"
 // discarding unused import TSWP "TSWPArchives.pb"
 // discarding unused import TSA "TSAArchives.pb"
-// discarding unused import TST1 "TSTArchives.pb"
-import "github.com/dunhamsteve/iwork/proto/TN1"
+// discarding unused import TST "TSTArchives.pb"
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
@@ -798,12 +800,12 @@ func (m *CommandPasteDrawablesArchive) GetDrawables() []*TSP.Reference {
 }
 
 type CommandPasteSheetArchive struct {
-	Super            *TSK.CommandArchive      `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	Document         *TSP.Reference           `protobuf:"bytes,2,req,name=document" json:"document,omitempty"`
-	Sheet            *TSP.Reference           `protobuf:"bytes,3,req,name=sheet" json:"sheet,omitempty"`
-	SheetUistate     *TN1.SheetUIStateArchive `protobuf:"bytes,4,opt,name=sheet_uistate" json:"sheet_uistate,omitempty"`
-	SheetIndex       *uint32                  `protobuf:"varint,5,req,name=sheetIndex" json:"sheetIndex,omitempty"`
-	XXX_unrecognized []byte                   `json:"-"`
+	Super            *TSK.CommandArchive  `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
+	Document         *TSP.Reference       `protobuf:"bytes,2,req,name=document" json:"document,omitempty"`
+	Sheet            *TSP.Reference       `protobuf:"bytes,3,req,name=sheet" json:"sheet,omitempty"`
+	SheetUistate     *SheetUIStateArchive `protobuf:"bytes,4,opt,name=sheet_uistate" json:"sheet_uistate,omitempty"`
+	SheetIndex       *uint32              `protobuf:"varint,5,req,name=sheetIndex" json:"sheetIndex,omitempty"`
+	XXX_unrecognized []byte               `json:"-"`
 }
 
 func (m *CommandPasteSheetArchive) Reset()         { *m = CommandPasteSheetArchive{} }
@@ -831,7 +833,7 @@ func (m *CommandPasteSheetArchive) GetSheet() *TSP.Reference {
 	return nil
 }
 
-func (m *CommandPasteSheetArchive) GetSheetUistate() *TN1.SheetUIStateArchive {
+func (m *CommandPasteSheetArchive) GetSheetUistate() *SheetUIStateArchive {
 	if m != nil {
 		return m.SheetUistate
 	}
@@ -888,35 +890,35 @@ func (m *CommandReorderSidebarItemChildrenAchive) GetNewChildren() []*TSP.Refere
 }
 
 type CommandChartMediatorSetEditingState struct {
-	Super            *TSCH3.ChartCommandArchive       `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	OldFormulas      *TN1.ChartMediatorFormulaStorage `protobuf:"bytes,3,opt,name=old_formulas" json:"old_formulas,omitempty"`
-	NewFormulas      *TN1.ChartMediatorFormulaStorage `protobuf:"bytes,4,opt,name=new_formulas" json:"new_formulas,omitempty"`
-	OldDirection     *int32                           `protobuf:"varint,5,opt,name=old_direction" json:"old_direction,omitempty"`
-	NewDirection     *int32                           `protobuf:"varint,6,opt,name=new_direction" json:"new_direction,omitempty"`
-	OldScatterFormat *int32                           `protobuf:"varint,7,opt,name=old_scatter_format" json:"old_scatter_format,omitempty"`
-	NewScatterFormat *int32                           `protobuf:"varint,8,opt,name=new_scatter_format" json:"new_scatter_format,omitempty"`
-	XXX_unrecognized []byte                           `json:"-"`
+	Super            *TSCH.ChartCommandArchive    `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
+	OldFormulas      *ChartMediatorFormulaStorage `protobuf:"bytes,3,opt,name=old_formulas" json:"old_formulas,omitempty"`
+	NewFormulas      *ChartMediatorFormulaStorage `protobuf:"bytes,4,opt,name=new_formulas" json:"new_formulas,omitempty"`
+	OldDirection     *int32                       `protobuf:"varint,5,opt,name=old_direction" json:"old_direction,omitempty"`
+	NewDirection     *int32                       `protobuf:"varint,6,opt,name=new_direction" json:"new_direction,omitempty"`
+	OldScatterFormat *int32                       `protobuf:"varint,7,opt,name=old_scatter_format" json:"old_scatter_format,omitempty"`
+	NewScatterFormat *int32                       `protobuf:"varint,8,opt,name=new_scatter_format" json:"new_scatter_format,omitempty"`
+	XXX_unrecognized []byte                       `json:"-"`
 }
 
 func (m *CommandChartMediatorSetEditingState) Reset()         { *m = CommandChartMediatorSetEditingState{} }
 func (m *CommandChartMediatorSetEditingState) String() string { return proto.CompactTextString(m) }
 func (*CommandChartMediatorSetEditingState) ProtoMessage()    {}
 
-func (m *CommandChartMediatorSetEditingState) GetSuper() *TSCH3.ChartCommandArchive {
+func (m *CommandChartMediatorSetEditingState) GetSuper() *TSCH.ChartCommandArchive {
 	if m != nil {
 		return m.Super
 	}
 	return nil
 }
 
-func (m *CommandChartMediatorSetEditingState) GetOldFormulas() *TN1.ChartMediatorFormulaStorage {
+func (m *CommandChartMediatorSetEditingState) GetOldFormulas() *ChartMediatorFormulaStorage {
 	if m != nil {
 		return m.OldFormulas
 	}
 	return nil
 }
 
-func (m *CommandChartMediatorSetEditingState) GetNewFormulas() *TN1.ChartMediatorFormulaStorage {
+func (m *CommandChartMediatorSetEditingState) GetNewFormulas() *ChartMediatorFormulaStorage {
 	if m != nil {
 		return m.NewFormulas
 	}
@@ -952,18 +954,20 @@ func (m *CommandChartMediatorSetEditingState) GetNewScatterFormat() int32 {
 }
 
 type CommandChartMediatorUpdateForEntityDelete struct {
-	Super            *TSCH3.ChartCommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	Cmd              *TSP.Reference             `protobuf:"bytes,3,opt,name=cmd" json:"cmd,omitempty"`
-	XXX_unrecognized []byte                     `json:"-"`
+	Super            *TSCH.ChartCommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
+	Cmd              *TSP.Reference            `protobuf:"bytes,3,opt,name=cmd" json:"cmd,omitempty"`
+	XXX_unrecognized []byte                    `json:"-"`
 }
 
 func (m *CommandChartMediatorUpdateForEntityDelete) Reset() {
 	*m = CommandChartMediatorUpdateForEntityDelete{}
 }
-func (m *CommandChartMediatorUpdateForEntityDelete) String() string { return proto.CompactTextString(m) }
-func (*CommandChartMediatorUpdateForEntityDelete) ProtoMessage()    {}
+func (m *CommandChartMediatorUpdateForEntityDelete) String() string {
+	return proto.CompactTextString(m)
+}
+func (*CommandChartMediatorUpdateForEntityDelete) ProtoMessage() {}
 
-func (m *CommandChartMediatorUpdateForEntityDelete) GetSuper() *TSCH3.ChartCommandArchive {
+func (m *CommandChartMediatorUpdateForEntityDelete) GetSuper() *TSCH.ChartCommandArchive {
 	if m != nil {
 		return m.Super
 	}
@@ -978,19 +982,19 @@ func (m *CommandChartMediatorUpdateForEntityDelete) GetCmd() *TSP.Reference {
 }
 
 type ChartCommandSetSeriesNameArchive struct {
-	Super            *TSCH3.ChartCommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	Mediator         *TSP.Reference             `protobuf:"bytes,2,req,name=mediator" json:"mediator,omitempty"`
-	Seriesindex      *uint32                    `protobuf:"varint,3,req,name=seriesindex" json:"seriesindex,omitempty"`
-	OldFormula       *TSCE.FormulaArchive       `protobuf:"bytes,4,opt,name=old_formula" json:"old_formula,omitempty"`
-	NewFormula       *TSCE.FormulaArchive       `protobuf:"bytes,5,opt,name=new_formula" json:"new_formula,omitempty"`
-	XXX_unrecognized []byte                     `json:"-"`
+	Super            *TSCH.ChartCommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
+	Mediator         *TSP.Reference            `protobuf:"bytes,2,req,name=mediator" json:"mediator,omitempty"`
+	Seriesindex      *uint32                   `protobuf:"varint,3,req,name=seriesindex" json:"seriesindex,omitempty"`
+	OldFormula       *TSCE.FormulaArchive      `protobuf:"bytes,4,opt,name=old_formula" json:"old_formula,omitempty"`
+	NewFormula       *TSCE.FormulaArchive      `protobuf:"bytes,5,opt,name=new_formula" json:"new_formula,omitempty"`
+	XXX_unrecognized []byte                    `json:"-"`
 }
 
 func (m *ChartCommandSetSeriesNameArchive) Reset()         { *m = ChartCommandSetSeriesNameArchive{} }
 func (m *ChartCommandSetSeriesNameArchive) String() string { return proto.CompactTextString(m) }
 func (*ChartCommandSetSeriesNameArchive) ProtoMessage()    {}
 
-func (m *ChartCommandSetSeriesNameArchive) GetSuper() *TSCH3.ChartCommandArchive {
+func (m *ChartCommandSetSeriesNameArchive) GetSuper() *TSCH.ChartCommandArchive {
 	if m != nil {
 		return m.Super
 	}
@@ -1026,10 +1030,10 @@ func (m *ChartCommandSetSeriesNameArchive) GetNewFormula() *TSCE.FormulaArchive 
 }
 
 type ChartCommandSelectionBehaviorArchive struct {
-	DrawableInfo     *TSP.Reference             `protobuf:"bytes,1,req,name=drawable_info" json:"drawable_info,omitempty"`
-	BeginSelection   *TN1.ChartSelectionArchive `protobuf:"bytes,2,opt,name=begin_selection" json:"begin_selection,omitempty"`
-	EndSelection     *TN1.ChartSelectionArchive `protobuf:"bytes,3,opt,name=end_selection" json:"end_selection,omitempty"`
-	XXX_unrecognized []byte                     `json:"-"`
+	DrawableInfo     *TSP.Reference         `protobuf:"bytes,1,req,name=drawable_info" json:"drawable_info,omitempty"`
+	BeginSelection   *ChartSelectionArchive `protobuf:"bytes,2,opt,name=begin_selection" json:"begin_selection,omitempty"`
+	EndSelection     *ChartSelectionArchive `protobuf:"bytes,3,opt,name=end_selection" json:"end_selection,omitempty"`
+	XXX_unrecognized []byte                 `json:"-"`
 }
 
 func (m *ChartCommandSelectionBehaviorArchive) Reset()         { *m = ChartCommandSelectionBehaviorArchive{} }
@@ -1043,14 +1047,14 @@ func (m *ChartCommandSelectionBehaviorArchive) GetDrawableInfo() *TSP.Reference 
 	return nil
 }
 
-func (m *ChartCommandSelectionBehaviorArchive) GetBeginSelection() *TN1.ChartSelectionArchive {
+func (m *ChartCommandSelectionBehaviorArchive) GetBeginSelection() *ChartSelectionArchive {
 	if m != nil {
 		return m.BeginSelection
 	}
 	return nil
 }
 
-func (m *ChartCommandSelectionBehaviorArchive) GetEndSelection() *TN1.ChartSelectionArchive {
+func (m *ChartCommandSelectionBehaviorArchive) GetEndSelection() *ChartSelectionArchive {
 	if m != nil {
 		return m.EndSelection
 	}

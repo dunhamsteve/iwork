@@ -1,7 +1,6 @@
 package index
 
 import (
-	"errors"
 	"fmt"
 
 	"github.com/dunhamsteve/iwork/proto/TSA"
@@ -1707,6 +1706,6 @@ func decodeCommon(typ uint32, payload []byte) (interface{}, error) {
 		return value, err
 
 	default:
-		return nil, errors.New(fmt.Sprintf("Unknown type %d", typ))
+		return nil, fmt.Errorf("Unknown type %d", typ)
 	}
 }

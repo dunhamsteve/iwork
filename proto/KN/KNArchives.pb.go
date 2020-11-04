@@ -56,7 +56,7 @@ import "github.com/dunhamsteve/iwork/proto/TSS"
 import "github.com/dunhamsteve/iwork/proto/TSD"
 import "github.com/dunhamsteve/iwork/proto/TSWP"
 import "github.com/dunhamsteve/iwork/proto/TSA"
-import "github.com/dunhamsteve/iwork/proto/TSCH2"
+import "github.com/dunhamsteve/iwork/proto/TSCH"
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
@@ -1898,7 +1898,7 @@ type UIStateArchive struct {
 	DesktopCanvasViewScale            *float32              `protobuf:"fixed32,13,opt,name=desktop_canvas_view_scale" json:"desktop_canvas_view_scale,omitempty"`
 	DesktopCanvasOffset               *TSP.Point            `protobuf:"bytes,21,opt,name=desktop_canvas_offset" json:"desktop_canvas_offset,omitempty"`
 	LightTableZoomScale               *float32              `protobuf:"fixed32,14,opt,name=light_table_zoom_scale" json:"light_table_zoom_scale,omitempty"`
-	ChartUiState                      []*TSCH2.ChartUIState `protobuf:"bytes,15,rep,name=chart_ui_state" json:"chart_ui_state,omitempty"`
+	ChartUiState                      []*TSCH.ChartUIState `protobuf:"bytes,15,rep,name=chart_ui_state" json:"chart_ui_state,omitempty"`
 	ShowSlideGuides                   *bool                 `protobuf:"varint,16,opt,name=show_slide_guides" json:"show_slide_guides,omitempty"`
 	ShowMasterGuides                  *bool                 `protobuf:"varint,17,opt,name=show_master_guides" json:"show_master_guides,omitempty"`
 	ShowsComments                     *bool                 `protobuf:"varint,18,opt,name=shows_comments" json:"shows_comments,omitempty"`
@@ -2019,7 +2019,7 @@ func (m *UIStateArchive) GetLightTableZoomScale() float32 {
 	return 0
 }
 
-func (m *UIStateArchive) GetChartUiState() []*TSCH2.ChartUIState {
+func (m *UIStateArchive) GetChartUiState() []*TSCH.ChartUIState {
 	if m != nil {
 		return m.ChartUiState
 	}

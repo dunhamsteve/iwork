@@ -25,18 +25,21 @@ It has these top-level messages:
 */
 package TN
 
-import proto "github.com/golang/protobuf/proto"
-import math "math"
-import "github.com/dunhamsteve/iwork/proto/TSP"
+import (
+	math "math"
+
+	"github.com/dunhamsteve/iwork/proto/TSA"
+	"github.com/dunhamsteve/iwork/proto/TSCE"
+	"github.com/dunhamsteve/iwork/proto/TSCH"
+	"github.com/dunhamsteve/iwork/proto/TSD"
+	"github.com/dunhamsteve/iwork/proto/TSP"
+	"github.com/dunhamsteve/iwork/proto/TSS"
+	"github.com/dunhamsteve/iwork/proto/TST"
+	"github.com/dunhamsteve/iwork/proto/TSWP"
+	proto "github.com/golang/protobuf/proto"
+)
 
 // discarding unused import TSK "TSKArchives.pb"
-import "github.com/dunhamsteve/iwork/proto/TSCH2"
-import "github.com/dunhamsteve/iwork/proto/TSCE"
-import "github.com/dunhamsteve/iwork/proto/TSS"
-import "github.com/dunhamsteve/iwork/proto/TSD"
-import "github.com/dunhamsteve/iwork/proto/TSWP"
-import "github.com/dunhamsteve/iwork/proto/TSA"
-import "github.com/dunhamsteve/iwork/proto/TST1"
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
@@ -240,7 +243,7 @@ type UIStateArchive struct {
 	ActiveSheetIndex                    *uint32                               `protobuf:"varint,1,req,name=active_sheet_index" json:"active_sheet_index,omitempty"`
 	SelectedInfo                        []*TSP.Reference                      `protobuf:"bytes,2,rep,name=selected_info" json:"selected_info,omitempty"`
 	SheetUistateDictionaryEntry         []*SheetUIStateDictionaryEntryArchive `protobuf:"bytes,3,rep,name=sheet_uistate_dictionary_entry" json:"sheet_uistate_dictionary_entry,omitempty"`
-	TableSelection                      *TST1.SelectionArchive                `protobuf:"bytes,4,opt,name=table_selection" json:"table_selection,omitempty"`
+	TableSelection                      *TST.SelectionArchive                 `protobuf:"bytes,4,opt,name=table_selection" json:"table_selection,omitempty"`
 	EditingSheetIndex                   *uint32                               `protobuf:"varint,5,opt,name=editing_sheet_index" json:"editing_sheet_index,omitempty"`
 	DocumentMode                        *int32                                `protobuf:"varint,6,opt,name=document_mode" json:"document_mode,omitempty"`
 	EditModeSheetUistateDictionaryEntry []*SheetUIStateDictionaryEntryArchive `protobuf:"bytes,7,rep,name=edit_mode_sheet_uistate_dictionary_entry" json:"edit_mode_sheet_uistate_dictionary_entry,omitempty"`
@@ -287,7 +290,7 @@ func (m *UIStateArchive) GetSheetUistateDictionaryEntry() []*SheetUIStateDiction
 	return nil
 }
 
-func (m *UIStateArchive) GetTableSelection() *TST1.SelectionArchive {
+func (m *UIStateArchive) GetTableSelection() *TST.SelectionArchive {
 	if m != nil {
 		return m.TableSelection
 	}
@@ -808,7 +811,7 @@ func (m *ChartMediatorFormulaStorage) GetErrorCustomNegScatterXFormulae() []*TSC
 }
 
 type ChartMediatorArchive struct {
-	Super                      *TSCH2.ChartMediatorArchive  `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
+	Super                      *TSCH.ChartMediatorArchive   `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
 	EntityId                   *string                      `protobuf:"bytes,2,req,name=entity_id" json:"entity_id,omitempty"`
 	Formulas                   *ChartMediatorFormulaStorage `protobuf:"bytes,3,opt,name=formulas" json:"formulas,omitempty"`
 	ColumnsAreSeries           *bool                        `protobuf:"varint,4,opt,name=columns_are_series" json:"columns_are_series,omitempty"`
@@ -820,7 +823,7 @@ func (m *ChartMediatorArchive) Reset()         { *m = ChartMediatorArchive{} }
 func (m *ChartMediatorArchive) String() string { return proto.CompactTextString(m) }
 func (*ChartMediatorArchive) ProtoMessage()    {}
 
-func (m *ChartMediatorArchive) GetSuper() *TSCH2.ChartMediatorArchive {
+func (m *ChartMediatorArchive) GetSuper() *TSCH.ChartMediatorArchive {
 	if m != nil {
 		return m.Super
 	}
@@ -856,9 +859,9 @@ func (m *ChartMediatorArchive) GetIsRegisteredWithCalcEngine() bool {
 }
 
 type ChartSelectionArchive struct {
-	Reference        *TSCE.RangeReferenceArchive  `protobuf:"bytes,1,opt,name=reference" json:"reference,omitempty"`
-	Super            *TSCH2.ChartSelectionArchive `protobuf:"bytes,2,opt,name=super" json:"super,omitempty"`
-	XXX_unrecognized []byte                       `json:"-"`
+	Reference        *TSCE.RangeReferenceArchive `protobuf:"bytes,1,opt,name=reference" json:"reference,omitempty"`
+	Super            *TSCH.ChartSelectionArchive `protobuf:"bytes,2,opt,name=super" json:"super,omitempty"`
+	XXX_unrecognized []byte                      `json:"-"`
 }
 
 func (m *ChartSelectionArchive) Reset()         { *m = ChartSelectionArchive{} }
@@ -872,7 +875,7 @@ func (m *ChartSelectionArchive) GetReference() *TSCE.RangeReferenceArchive {
 	return nil
 }
 
-func (m *ChartSelectionArchive) GetSuper() *TSCH2.ChartSelectionArchive {
+func (m *ChartSelectionArchive) GetSuper() *TSCH.ChartSelectionArchive {
 	if m != nil {
 		return m.Super
 	}

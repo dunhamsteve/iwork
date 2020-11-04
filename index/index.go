@@ -11,23 +11,27 @@ import (
 	"log"
 	"os"
 	"path"
+	"path/filepath"
 	"strings"
 
 	"github.com/dunhamsteve/iwork/proto/TSP"
 
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/snappy"
+
+	// register sqlite3 driver
 	_ "github.com/mattn/go-sqlite3"
 )
 
-// Process iWork13 index (.iwa) files into memory
-
+// Index holds the content of an iwork file
 type Index struct {
+	Type    string
 	Records map[uint64]interface{}
 }
 
+// Open loads a document into an Index structure
 func Open(doc string) (*Index, error) {
-
+	indexType := filepath.Ext(doc)[1:]
 	fn := path.Join(doc, "Index.zip")
 	zf, err := zip.OpenReader(fn)
 	if err != nil {
@@ -36,7 +40,7 @@ func Open(doc string) (*Index, error) {
 	}
 	if err == nil {
 		defer zf.Close()
-		ix := &Index{}
+		ix := &Index{indexType, nil}
 		err = ix.loadZip(zf)
 
 		return ix, err
@@ -49,7 +53,7 @@ func Open(doc string) (*Index, error) {
 		db, err := sql.Open("sqlite3", fn)
 		if err == nil {
 			defer db.Close()
-			ix := &Index{}
+			ix := &Index{indexType, nil}
 			err = ix.loadSQL(db)
 			return ix, err
 		}
@@ -102,6 +106,7 @@ func (ix *Index) loadZip(zf *zip.ReadCloser) error {
 	return nil
 }
 
+// Deref returns the object pointed to by a TSP.Reference
 func (ix *Index) Deref(ref *TSP.Reference) interface{} {
 	if ref == nil {
 		return nil
@@ -152,8 +157,16 @@ func (ix *Index) loadIWA(data []byte) error {
 }
 
 func (ix *Index) decodePayload(id uint64, typ uint32, payload []byte) {
+	var value interface{}
+	var err error
+	if ix.Type == "pages" {
+		value, err = decodePages(typ, payload)
+	} else if ix.Type == "numbers" {
+		value, err = decodeNumbers(typ, payload)
+	} else {
+		log.Println("Cannot decode files of type", ix.Type)
+	}
 
-	value, err := decodePages(typ, payload)
 	if err != nil {
 		value, err = decodeCommon(typ, payload)
 	}
