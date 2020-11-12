@@ -7,9 +7,12 @@ import (
 	"fmt"
 	"io/ioutil"
 	"log"
+	"math"
 	"os"
+	"time"
 
 	"github.com/dunhamsteve/iwork/index"
+	"github.com/dunhamsteve/iwork/proto/TN"
 	"github.com/dunhamsteve/iwork/proto/TP"
 	"github.com/dunhamsteve/iwork/proto/TSD"
 	"github.com/dunhamsteve/iwork/proto/TSP"
@@ -88,9 +91,7 @@ func popcount(v uint16) int {
 	return c
 }
 
-func (ctx *Context) processTable(table *TST.WPTableInfoArchive) *html.Node {
-	tm := ctx.ix.Deref(table.Super.TableModel).(*TST.TableModelArchive)
-
+func (ctx *Context) processTable(tm *TST.TableModelArchive) *html.Node {
 	stringTable := ctx.ix.Deref(tm.DataStore.StringTable).(*TST.TableDataList).Entries
 	richTable := ctx.ix.Deref(tm.DataStore.RichTextPayloadTable).(*TST.TableDataList).Entries
 
@@ -102,7 +103,6 @@ func (ctx *Context) processTable(table *TST.WPTableInfoArchive) *html.Node {
 
 	// so for now we assume at most one tile per row, and rows are in the right order.  I suspect long rows (more than
 	// 255 columns) will have multiple tiles, however.  This would likely only happen in a spreadsheet.
-
 	rval := E("table")
 	for _, tinfo := range tm.DataStore.Tiles.Tiles {
 		tile := ctx.ix.Deref(tinfo.Tile).(*TST.Tile)
@@ -126,8 +126,15 @@ func (ctx *Context) processTable(table *TST.WPTableInfoArchive) *html.Node {
 					continue
 				}
 
-				// version := LE.Uint16(rinfo.CellStorageBuffer[offset : offset+2])
-				cellType := int(rinfo.CellStorageBuffer[offset+2])
+				var cellType int
+				// this has changed since I first wrote the code.  There is now a 4 in the first byte and the type in the next
+				// the "stingrayreader" site says there is a halfword "version" and then the type, which I think worked at one
+				// point, but I no longer have the file.
+				if rinfo.CellStorageBuffer[offset] == 4 {
+					cellType = int(rinfo.CellStorageBuffer[offset+1])
+				} else {
+					cellType = int(rinfo.CellStorageBuffer[offset+2])
+				}
 
 				// As far as I can tell, the records are variable length, with the pointer into the string/rich table at
 				// the end, but this field seems to contain one bit per uint32 before the pointer to the string table
@@ -137,9 +144,21 @@ func (ctx *Context) processTable(table *TST.WPTableInfoArchive) *html.Node {
 
 				key := LE.Uint32(rinfo.CellStorageBuffer[o : o+4])
 
-				// fmt.Printf("P %x %d %d %x\n", flags, popcount(flags), rinfo.CellStorageBuffer[o:o+4])
+				// fmt.Printf("P %d %x %d %x\n", cellType, flags, popcount(flags), rinfo.CellStorageBuffer[o:o+4])
+				// version := LE.Uint16(rinfo.CellStorageBuffer[offset : offset+2])
 				// fmt.Println("XXX", c, version, cellType, hex.EncodeToString(rinfo.CellStorageBuffer[offset:]))
 				switch cellType {
+				case 0:
+					// blank cells are type 0
+				case 2: // number
+					value := math.Float64frombits(LE.Uint64(rinfo.CellStorageBuffer[o : o+8]))
+					td.AppendChild(E("p", fmt.Sprint(value)))
+				case 5: // date
+					value := math.Float64frombits(LE.Uint64(rinfo.CellStorageBuffer[o : o+8]))
+					value += 978307200 // Apple to unix epoch
+					tm := time.Unix(int64(value), 0)
+					// We'll probably want to figure out formatting here.
+					td.AppendChild(E("p", fmt.Sprint(tm)))
 				case 3:
 					for _, entry := range stringTable {
 						if *entry.Key == key {
@@ -155,6 +174,8 @@ func (ctx *Context) processTable(table *TST.WPTableInfoArchive) *html.Node {
 							ctx.storageToNode(st, td)
 						}
 					}
+				default:
+					td.AppendChild(E("p", fmt.Sprintf("FIXME %d", cellType)))
 				}
 			}
 		}
@@ -168,7 +189,12 @@ func (ctx *Context) processAttachment(attach *TSWP.DrawableAttachmentArchive) *h
 	case *TSD.ImageArchive:
 		return ctx.processImage(item.(*TSD.ImageArchive))
 	case *TST.WPTableInfoArchive:
-		return ctx.processTable(item.(*TST.WPTableInfoArchive))
+		table := item.(*TST.WPTableInfoArchive)
+		tm := ctx.ix.Deref(table.Super.TableModel).(*TST.TableModelArchive)
+		return ctx.processTable(tm)
+	case *TST.TableInfoArchive:
+		tm := ctx.ix.Deref(item.(*TST.TableInfoArchive).TableModel).(*TST.TableModelArchive)
+		return ctx.processTable(tm)
 	default:
 		fmt.Printf("Unhandled attachment type %T\n", item)
 	}
@@ -337,13 +363,32 @@ Usage:
 
 	var err error
 	var ctx Context
-
 	ctx.styles = make(map[string]string)
 	ctx.ix, err = index.Open(os.Args[1])
 	must(err)
 
 	fmt.Println("Read", len(ctx.ix.Records), "records")
 
+	var doc *html.Node
+	switch ctx.ix.Type {
+	case "pages":
+		doc = ctx.processPages()
+	case "numbers":
+		doc = ctx.processNumbers()
+	}
+	if len(os.Args) > 2 {
+		w, err := os.Create(os.Args[2])
+		must(err)
+		defer w.Close()
+		fmt.Println("Writing", os.Args[2])
+		html.Render(w, doc)
+	} else {
+		// html.Render(os.Stdout, doc)
+	}
+}
+
+// processPages translates a pages file.
+func (ctx *Context) processPages() *html.Node {
 	// Root of output document
 	head, body := E("head", "\n", E("meta", []string{"charset", "utf-8"}), "\n"), E("body", "\n")
 	doc := E("", E("html"), "\n", E("html", head, "\n", body))
@@ -372,16 +417,39 @@ Usage:
 		style.AppendChild(T(fmt.Sprintf(".%s {\n%s}\n", k, v)))
 	}
 	head.AppendChild(style)
+	return doc
 
-	if len(os.Args) > 2 {
-		w, err := os.Create(os.Args[2])
-		must(err)
-		defer w.Close()
-		fmt.Println("Writing", os.Args[2])
-		html.Render(w, doc)
-	} else {
-		// html.Render(os.Stdout, doc)
+}
+
+func (ctx *Context) processNumbers() *html.Node {
+	// Root of output document
+	head, body := E("head", "\n", E("meta", []string{"charset", "utf-8"}), "\n"), E("body", "\n")
+	doc := E("", E("html"), "\n", E("html", head, "\n", body))
+	doc.Type = html.DocumentNode
+	doc.FirstChild.Type = html.DoctypeNode
+	da := ctx.ix.Records[1].(*TN.DocumentArchive)
+
+	for _, ref := range da.Sheets {
+		sheet := ctx.ix.Deref(ref).(*TN.SheetArchive)
+		section := E("section", E("h2", "Sheet - ", *sheet.Name))
+		doc.AppendChild(section)
+		for _, ref := range sheet.DrawableInfos {
+			// if this cast throws there are other kinds of drawables...
+			tia := ctx.ix.Deref(ref).(*TST.TableInfoArchive)
+			tm := ctx.ix.Deref(tia.TableModel).(*TST.TableModelArchive)
+			section.AppendChild(E("h3", *tm.TableName))
+			section.AppendChild(ctx.processTable(tm))
+		}
 	}
+
+	style := E("style")
+	style.AppendChild(T("\np { margin: 0; }\n")) // reset paragraphs
+	for k, v := range ctx.styles {
+		style.AppendChild(T(fmt.Sprintf(".%s {\n%s}\n", k, v)))
+	}
+	head.AppendChild(style)
+
+	return doc
 }
 
 func mergeCharProps(props *TSWP.CharacterStylePropertiesArchive, parent *TSWP.CharacterStylePropertiesArchive) {
@@ -471,7 +539,7 @@ func translateParaProps(props *TSWP.ParagraphStylePropertiesArchive) string {
 	return rval
 }
 
-// Debugging crap
+// Helper functions for debugging
 
 func must(err error) {
 	if err != nil {

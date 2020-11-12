@@ -21,14 +21,17 @@ It has these top-level messages:
 */
 package TST
 
-import proto "github.com/golang/protobuf/proto"
-import math "math"
-import "github.com/dunhamsteve/iwork/proto/TSP"
-import "github.com/dunhamsteve/iwork/proto/TSD"
+import (
+	math "math"
+
+	"github.com/dunhamsteve/iwork/proto/TSD"
+	"github.com/dunhamsteve/iwork/proto/TSP"
+	"github.com/dunhamsteve/iwork/proto/TSS"
+	"github.com/dunhamsteve/iwork/proto/TSWP"
+	proto "github.com/golang/protobuf/proto"
+)
 
 // discarding unused import TSK "TSKArchives.pb"
-import "github.com/dunhamsteve/iwork/proto/TSS"
-import "github.com/dunhamsteve/iwork/proto/TSWP"
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
@@ -699,7 +702,7 @@ func (m *TableStylePropertiesArchive) GetTableBodyVerticalStroke() *TSD.StrokeAr
 }
 
 type TableStylePresetArchive struct {
-	Index            *int32         `protobuf:"varint,1,req,name=index" json:"index,omitempty"`
+	Index            *int32         `protobuf:"varint,1,opt,name=index" json:"index,omitempty"`
 	Image            *TSP.Reference `protobuf:"bytes,2,opt,name=image" json:"image,omitempty"`
 	StyleNetwork     *TSP.Reference `protobuf:"bytes,3,opt,name=style_network" json:"style_network,omitempty"`
 	XXX_unrecognized []byte         `json:"-"`

@@ -168,12 +168,8 @@ func (ix *Index) decodePayload(id uint64, typ uint32, payload []byte) {
 	}
 
 	if err != nil {
-		value, err = decodeCommon(typ, payload)
-	}
-
-	if err != nil {
 		// These we don't care as much about
-		log.Println(err)
+		log.Println("ERR", id, typ, err)
 		return
 	}
 

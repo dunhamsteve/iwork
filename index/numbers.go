@@ -1,8 +1,6 @@
 package index
 
 import (
-	"fmt"
-
 	"github.com/dunhamsteve/iwork/proto/TN"
 	"github.com/dunhamsteve/iwork/proto/TSWP"
 	"github.com/golang/protobuf/proto"
@@ -167,6 +165,6 @@ func decodeNumbers(typ uint32, payload []byte) (interface{}, error) {
 		return value, err
 
 	default:
-		return nil, fmt.Errorf("Unknown type %d", typ)
+		return decodeCommon(typ, payload)
 	}
 }
