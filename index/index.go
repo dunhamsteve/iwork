@@ -6,9 +6,9 @@ import (
 	"database/sql"
 	"encoding/binary"
 	"errors"
+	"fmt"
 	"io"
 	"io/ioutil"
-	"log"
 	"os"
 	"path"
 	"path/filepath"
@@ -25,13 +25,13 @@ import (
 
 // Index holds the content of an iwork file
 type Index struct {
-	Type    string
-	Records map[uint64]interface{}
+	Type    string                 `json:"type"`
+	Records map[uint64]interface{} `json:"records"`
 }
 
 // Open loads a document into an Index structure
 func Open(doc string) (*Index, error) {
-	indexType := filepath.Ext(doc)[1:]
+	indexType := strings.TrimSuffix(filepath.Ext(doc)[1:], "-tef")
 	fn := path.Join(doc, "Index.zip")
 	zf, err := zip.OpenReader(fn)
 	if err != nil {
@@ -164,12 +164,12 @@ func (ix *Index) decodePayload(id uint64, typ uint32, payload []byte) {
 	} else if ix.Type == "numbers" {
 		value, err = decodeNumbers(typ, payload)
 	} else {
-		log.Println("Cannot decode files of type", ix.Type)
+		fmt.Println("Cannot decode files of type", ix.Type)
 	}
 
 	if err != nil {
 		// These we don't care as much about
-		log.Println("ERR", id, typ, err)
+		fmt.Println("ERR", id, typ, err)
 		return
 	}
 

@@ -3,12 +3,14 @@ package main
 import (
 	"bytes"
 	"encoding/binary"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
 	"math"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/dunhamsteve/iwork/index"
@@ -103,12 +105,13 @@ func (ctx *Context) processTable(tm *TST.TableModelArchive) *html.Node {
 
 	// so for now we assume at most one tile per row, and rows are in the right order.  I suspect long rows (more than
 	// 255 columns) will have multiple tiles, however.  This would likely only happen in a spreadsheet.
-	rval := E("table")
+
+	table := E("table")
 	for _, tinfo := range tm.DataStore.Tiles.Tiles {
 		tile := ctx.ix.Deref(tinfo.Tile).(*TST.Tile)
-		for _, rinfo := range tile.RowInfos {
+		for r, rinfo := range tile.RowInfos {
 			tr := E("tr")
-			rval.AppendChild(tr)
+			table.AppendChild(tr)
 
 			offsets := make([]uint16, len(rinfo.CellOffsets)/2)
 			binary.Read(bytes.NewBuffer(rinfo.CellOffsets), LE, offsets)
@@ -133,6 +136,7 @@ func (ctx *Context) processTable(tm *TST.TableModelArchive) *html.Node {
 				if rinfo.CellStorageBuffer[offset] == 4 {
 					cellType = int(rinfo.CellStorageBuffer[offset+1])
 				} else {
+					panic("not four")
 					cellType = int(rinfo.CellStorageBuffer[offset+2])
 				}
 
@@ -159,13 +163,21 @@ func (ctx *Context) processTable(tm *TST.TableModelArchive) *html.Node {
 					tm := time.Unix(int64(value), 0)
 					// We'll probably want to figure out formatting here.
 					td.AppendChild(E("p", fmt.Sprint(tm)))
+				case 6: // boolean
+					value := math.Float64frombits(LE.Uint64(rinfo.CellStorageBuffer[o : o+8]))
+					var label = "???"
+					if value == 0 {
+						label = "FALSE"
+					} else if value == 0xf03f {
+						label = "TRUE"
+					}
+					td.AppendChild(E("p", label))
 				case 3:
 					for _, entry := range stringTable {
 						if *entry.Key == key {
 							td.AppendChild(E("p", *entry.String_))
 						}
 					}
-
 				case 9:
 					for _, entry := range richTable {
 						if *entry.Key == key {
@@ -175,16 +187,23 @@ func (ctx *Context) processTable(tm *TST.TableModelArchive) *html.Node {
 						}
 					}
 				default:
-					td.AppendChild(E("p", fmt.Sprintf("FIXME %d", cellType)))
+					fmt.Printf("P %d %x %d %x\n", cellType, flags, popcount(flags), rinfo.CellStorageBuffer[o:o+8])
+					fmt.Printf("CELL %d:%d type %d %s\n", r, c, cellType, hex.EncodeToString(rinfo.CellStorageBuffer[offset:]))
+					td.AppendChild(E("p", fmt.Sprintf("UNKNOWN CELL TYPE %d", cellType)))
 				}
 			}
 		}
 	}
+	rval := E("div")
+	if tm.TableName != nil {
+		rval.AppendChild(E("h3", *tm.TableName))
+	}
+	rval.AppendChild(table)
 	return rval
 }
 
-func (ctx *Context) processAttachment(attach *TSWP.DrawableAttachmentArchive) *html.Node {
-	item := ctx.ix.Deref(attach.Drawable)
+func (ctx *Context) processDrawable(ref *TSP.Reference) *html.Node {
+	item := ctx.ix.Deref(ref)
 	switch item.(type) {
 	case *TSD.ImageArchive:
 		return ctx.processImage(item.(*TSD.ImageArchive))
@@ -196,7 +215,9 @@ func (ctx *Context) processAttachment(attach *TSWP.DrawableAttachmentArchive) *h
 		tm := ctx.ix.Deref(item.(*TST.TableInfoArchive).TableModel).(*TST.TableModelArchive)
 		return ctx.processTable(tm)
 	default:
-		fmt.Printf("Unhandled attachment type %T\n", item)
+		msg := fmt.Sprintf("*** Unhandled attachment type %T\n", item)
+		fmt.Println(msg)
+		return E("div", msg)
 	}
 	return nil
 }
@@ -208,7 +229,7 @@ func (ctx *Context) storageToNode(bs *TSWP.StorageArchive, body *html.Node) erro
 	texts := bs.Text
 
 	if len(texts) != 1 {
-		log.Printf("FIXME - Expecting exactly one text, got %d", len(texts))
+		fmt.Printf("FIXME - Expecting exactly one text, got %d", len(texts))
 	}
 	text := texts[0]
 
@@ -223,7 +244,7 @@ func (ctx *Context) storageToNode(bs *TSWP.StorageArchive, body *html.Node) erro
 		for _, entry := range bs.TableAttachment.Entries {
 			pos := *entry.CharacterIndex
 			archive := ctx.ix.Deref(entry.Object).(*TSWP.DrawableAttachmentArchive)
-			node := ctx.processAttachment(archive)
+			node := ctx.processDrawable(archive.Drawable)
 			if node != nil {
 				attachments = append(attachments, Attachment{pos, node})
 			}
@@ -381,7 +402,16 @@ Usage:
 		must(err)
 		defer w.Close()
 		fmt.Println("Writing", os.Args[2])
-		html.Render(w, doc)
+		if strings.HasSuffix(os.Args[2], ".json") {
+			out, err := json.MarshalIndent(ctx.ix, "", "  ")
+			must(err)
+			_, err = w.Write(out)
+			must(err)
+
+		} else {
+			html.Render(w, doc)
+		}
+
 	} else {
 		// html.Render(os.Stdout, doc)
 	}
@@ -435,10 +465,7 @@ func (ctx *Context) processNumbers() *html.Node {
 		doc.AppendChild(section)
 		for _, ref := range sheet.DrawableInfos {
 			// if this cast throws there are other kinds of drawables...
-			tia := ctx.ix.Deref(ref).(*TST.TableInfoArchive)
-			tm := ctx.ix.Deref(tia.TableModel).(*TST.TableModelArchive)
-			section.AppendChild(E("h3", *tm.TableName))
-			section.AppendChild(ctx.processTable(tm))
+			section.AppendChild(ctx.processDrawable(ref))
 		}
 	}
 
