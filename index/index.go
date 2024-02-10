@@ -6,28 +6,32 @@ import (
 	"database/sql"
 	"encoding/binary"
 	"errors"
+	"fmt"
 	"io"
 	"io/ioutil"
-	"log"
 	"os"
 	"path"
+	"path/filepath"
 	"strings"
 
 	"github.com/dunhamsteve/iwork/proto/TSP"
 
 	"github.com/golang/protobuf/proto"
 	"github.com/golang/snappy"
+
+	// register sqlite3 driver
 	_ "github.com/mattn/go-sqlite3"
 )
 
-// Process iWork13 index (.iwa) files into memory
-
+// Index holds the content of an iwork file
 type Index struct {
-	Records map[uint64]interface{}
+	Type    string                 `json:"type"`
+	Records map[uint64]interface{} `json:"records"`
 }
 
+// Open loads a document into an Index structure
 func Open(doc string) (*Index, error) {
-
+	indexType := strings.TrimSuffix(filepath.Ext(doc)[1:], "-tef")
 	fn := path.Join(doc, "Index.zip")
 	zf, err := zip.OpenReader(fn)
 	if err != nil {
@@ -36,7 +40,7 @@ func Open(doc string) (*Index, error) {
 	}
 	if err == nil {
 		defer zf.Close()
-		ix := &Index{}
+		ix := &Index{indexType, nil}
 		err = ix.loadZip(zf)
 
 		return ix, err
@@ -49,7 +53,7 @@ func Open(doc string) (*Index, error) {
 		db, err := sql.Open("sqlite3", fn)
 		if err == nil {
 			defer db.Close()
-			ix := &Index{}
+			ix := &Index{indexType, nil}
 			err = ix.loadSQL(db)
 			return ix, err
 		}
@@ -102,6 +106,7 @@ func (ix *Index) loadZip(zf *zip.ReadCloser) error {
 	return nil
 }
 
+// Deref returns the object pointed to by a TSP.Reference
 func (ix *Index) Deref(ref *TSP.Reference) interface{} {
 	if ref == nil {
 		return nil
@@ -152,15 +157,21 @@ func (ix *Index) loadIWA(data []byte) error {
 }
 
 func (ix *Index) decodePayload(id uint64, typ uint32, payload []byte) {
-
-	value, err := decodePages(typ, payload)
-	if err != nil {
-		value, err = decodeCommon(typ, payload)
+	var value interface{}
+	var err error
+	if ix.Type == "pages" {
+		value, err = decodePages(typ, payload)
+	} else if ix.Type == "numbers" {
+		value, err = decodeNumbers(typ, payload)
+	} else if ix.Type == "key" {
+		value, err = decodeKeynote(typ, payload)
+	} else {
+		fmt.Println("Cannot decode files of type", ix.Type)
 	}
 
 	if err != nil {
 		// These we don't care as much about
-		log.Println(err)
+		fmt.Println("ERR", id, typ, err)
 		return
 	}
 

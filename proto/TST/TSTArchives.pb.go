@@ -68,14 +68,17 @@ It has these top-level messages:
 */
 package TST
 
-import proto "github.com/golang/protobuf/proto"
-import math "math"
-import "github.com/dunhamsteve/iwork/proto/TSP"
-import "github.com/dunhamsteve/iwork/proto/TSD"
-import "github.com/dunhamsteve/iwork/proto/TSK"
-import "github.com/dunhamsteve/iwork/proto/TSS"
-import "github.com/dunhamsteve/iwork/proto/TSCE"
-import "github.com/dunhamsteve/iwork/proto/TSWP"
+import (
+	math "math"
+
+	"github.com/dunhamsteve/iwork/proto/TSCE"
+	"github.com/dunhamsteve/iwork/proto/TSD"
+	"github.com/dunhamsteve/iwork/proto/TSK"
+	"github.com/dunhamsteve/iwork/proto/TSP"
+	"github.com/dunhamsteve/iwork/proto/TSS"
+	"github.com/dunhamsteve/iwork/proto/TSWP"
+	proto "github.com/golang/protobuf/proto"
+)
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
@@ -1703,7 +1706,7 @@ type TableModelArchive struct {
 	DefaultRowHeight                  *float64            `protobuf:"fixed64,16,req,name=default_row_height" json:"default_row_height,omitempty"`
 	DefaultColumnWidth                *float64            `protobuf:"fixed64,17,req,name=default_column_width" json:"default_column_width,omitempty"`
 	OriginOffset                      *CellID             `protobuf:"bytes,23,opt,name=origin_offset" json:"origin_offset,omitempty"`
-	PresetIndex                       *uint32             `protobuf:"varint,28,req,name=preset_index" json:"preset_index,omitempty"`
+	PresetIndex                       *uint32             `protobuf:"varint,28,opt,name=preset_index" json:"preset_index,omitempty"`
 	RepeatingHeaderRowsEnabled        *bool               `protobuf:"varint,29,opt,name=repeating_header_rows_enabled" json:"repeating_header_rows_enabled,omitempty"`
 	RepeatingHeaderColumnsEnabled     *bool               `protobuf:"varint,32,opt,name=repeating_header_columns_enabled" json:"repeating_header_columns_enabled,omitempty"`
 	StyleApplyClearsAll               *bool               `protobuf:"varint,31,opt,name=style_apply_clears_all" json:"style_apply_clears_all,omitempty"`

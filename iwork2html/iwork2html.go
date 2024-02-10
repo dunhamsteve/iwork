@@ -1,15 +1,26 @@
 package main
 
 import (
+	"archive/zip"
 	"bytes"
+	"encoding/base64"
 	"encoding/binary"
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"log"
+	"math"
 	"os"
+	"path/filepath"
+	"sort"
+	"strings"
+	"time"
 
 	"github.com/dunhamsteve/iwork/index"
+	"github.com/dunhamsteve/iwork/proto/KN"
+	"github.com/dunhamsteve/iwork/proto/TN"
 	"github.com/dunhamsteve/iwork/proto/TP"
 	"github.com/dunhamsteve/iwork/proto/TSD"
 	"github.com/dunhamsteve/iwork/proto/TSP"
@@ -50,7 +61,9 @@ func E(tag string, children ...interface{}) *html.Node {
 
 type Context struct {
 	styles map[string]string
+	imgs   map[string]uint64
 	ix     *index.Index
+	zr     *zip.ReadCloser
 }
 
 type Attachment struct {
@@ -72,10 +85,11 @@ func (ctx *Context) processImage(image *TSD.ImageArchive) *html.Node {
 			}
 		}
 	}
+	ctx.imgs["Data/"+src] = dataId
 	// not sure if this is px or pt.  It's px on the html side.
 	width := fmt.Sprintf("%f", *image.OriginalSize.Width)
 	height := fmt.Sprintf("%f", *image.OriginalSize.Height)
-	return E("img", []string{"src", src, "width", width, "height", height})
+	return E("img", []string{"src", "", "width", width, "height", height, "class", "img_" + fmt.Sprint(dataId)})
 }
 
 var LE = binary.LittleEndian
@@ -88,9 +102,7 @@ func popcount(v uint16) int {
 	return c
 }
 
-func (ctx *Context) processTable(table *TST.WPTableInfoArchive) *html.Node {
-	tm := ctx.ix.Deref(table.Super.TableModel).(*TST.TableModelArchive)
-
+func (ctx *Context) processTable(tm *TST.TableModelArchive) *html.Node {
 	stringTable := ctx.ix.Deref(tm.DataStore.StringTable).(*TST.TableDataList).Entries
 	richTable := ctx.ix.Deref(tm.DataStore.RichTextPayloadTable).(*TST.TableDataList).Entries
 
@@ -103,12 +115,12 @@ func (ctx *Context) processTable(table *TST.WPTableInfoArchive) *html.Node {
 	// so for now we assume at most one tile per row, and rows are in the right order.  I suspect long rows (more than
 	// 255 columns) will have multiple tiles, however.  This would likely only happen in a spreadsheet.
 
-	rval := E("table")
+	table := E("table")
 	for _, tinfo := range tm.DataStore.Tiles.Tiles {
 		tile := ctx.ix.Deref(tinfo.Tile).(*TST.Tile)
-		for _, rinfo := range tile.RowInfos {
+		for r, rinfo := range tile.RowInfos {
 			tr := E("tr")
-			rval.AppendChild(tr)
+			table.AppendChild(tr)
 
 			offsets := make([]uint16, len(rinfo.CellOffsets)/2)
 			binary.Read(bytes.NewBuffer(rinfo.CellOffsets), LE, offsets)
@@ -126,8 +138,16 @@ func (ctx *Context) processTable(table *TST.WPTableInfoArchive) *html.Node {
 					continue
 				}
 
-				// version := LE.Uint16(rinfo.CellStorageBuffer[offset : offset+2])
-				cellType := int(rinfo.CellStorageBuffer[offset+2])
+				var cellType int
+				// this has changed since I first wrote the code.  There is now a 4 in the first byte and the type in the next
+				// the "stingrayreader" site says there is a halfword "version" and then the type, which I think worked at one
+				// point, but I no longer have the file.
+				if rinfo.CellStorageBuffer[offset] == 4 {
+					cellType = int(rinfo.CellStorageBuffer[offset+1])
+				} else {
+					panic("not four")
+					cellType = int(rinfo.CellStorageBuffer[offset+2])
+				}
 
 				// As far as I can tell, the records are variable length, with the pointer into the string/rich table at
 				// the end, but this field seems to contain one bit per uint32 before the pointer to the string table
@@ -137,16 +157,36 @@ func (ctx *Context) processTable(table *TST.WPTableInfoArchive) *html.Node {
 
 				key := LE.Uint32(rinfo.CellStorageBuffer[o : o+4])
 
-				// fmt.Printf("P %x %d %d %x\n", flags, popcount(flags), rinfo.CellStorageBuffer[o:o+4])
+				// fmt.Printf("P %d %x %d %x\n", cellType, flags, popcount(flags), rinfo.CellStorageBuffer[o:o+4])
+				// version := LE.Uint16(rinfo.CellStorageBuffer[offset : offset+2])
 				// fmt.Println("XXX", c, version, cellType, hex.EncodeToString(rinfo.CellStorageBuffer[offset:]))
 				switch cellType {
+				case 0:
+					// blank cells are type 0
+				case 2: // number
+					value := math.Float64frombits(LE.Uint64(rinfo.CellStorageBuffer[o : o+8]))
+					td.AppendChild(E("p", fmt.Sprint(value)))
+				case 5: // date
+					value := math.Float64frombits(LE.Uint64(rinfo.CellStorageBuffer[o : o+8]))
+					value += 978307200 // Apple to unix epoch
+					tm := time.Unix(int64(value), 0)
+					// We'll probably want to figure out formatting here.
+					td.AppendChild(E("p", fmt.Sprint(tm)))
+				case 6: // boolean
+					value := math.Float64frombits(LE.Uint64(rinfo.CellStorageBuffer[o : o+8]))
+					var label = "???"
+					if value == 0 {
+						label = "FALSE"
+					} else if value == 0xf03f {
+						label = "TRUE"
+					}
+					td.AppendChild(E("p", label))
 				case 3:
 					for _, entry := range stringTable {
 						if *entry.Key == key {
 							td.AppendChild(E("p", *entry.String_))
 						}
 					}
-
 				case 9:
 					for _, entry := range richTable {
 						if *entry.Key == key {
@@ -155,23 +195,60 @@ func (ctx *Context) processTable(table *TST.WPTableInfoArchive) *html.Node {
 							ctx.storageToNode(st, td)
 						}
 					}
+				default:
+					fmt.Printf("P %d %x %d %x\n", cellType, flags, popcount(flags), rinfo.CellStorageBuffer[o:o+8])
+					fmt.Printf("CELL %d:%d type %d %s\n", r, c, cellType, hex.EncodeToString(rinfo.CellStorageBuffer[offset:]))
+					td.AppendChild(E("p", fmt.Sprintf("UNKNOWN CELL TYPE %d", cellType)))
 				}
 			}
 		}
 	}
+	rval := E("div")
+	if tm.TableName != nil {
+		// rval.AppendChild(E("h3", *tm.TableName)) // no need to show table name
+	}
+	rval.AppendChild(table)
 	return rval
 }
 
-func (ctx *Context) processAttachment(attach *TSWP.DrawableAttachmentArchive) *html.Node {
-	item := ctx.ix.Deref(attach.Drawable)
+func (ctx *Context) processDrawable(ref *TSP.Reference) *html.Node {
+	item := ctx.ix.Deref(ref)
 	switch item.(type) {
 	case *TSD.ImageArchive:
 		return ctx.processImage(item.(*TSD.ImageArchive))
 	case *TST.WPTableInfoArchive:
-		return ctx.processTable(item.(*TST.WPTableInfoArchive))
+		table := item.(*TST.WPTableInfoArchive)
+		tm := ctx.ix.Deref(table.Super.TableModel).(*TST.TableModelArchive)
+		return ctx.processTable(tm)
+	case *TST.TableInfoArchive:
+		tm := ctx.ix.Deref(item.(*TST.TableInfoArchive).TableModel).(*TST.TableModelArchive)
+		return ctx.processTable(tm)
+	case *TSWP.ShapeInfoArchive:
+		return ctx.processShapeInfo(item.(*TSWP.ShapeInfoArchive))
+	case *TSD.GroupArchive:
+		return ctx.processDrawableArchive(item.(*TSD.GroupArchive).Super)
+	case *KN.PlaceholderArchive:
+		return ctx.processShapeInfo(item.(*KN.PlaceholderArchive).Super)
 	default:
-		fmt.Printf("Unhandled attachment type %T\n", item)
+		msg := fmt.Sprintf("*** Unhandled attachment type %T\n", item)
+		fmt.Println(msg)
+		return E("div", msg)
 	}
+	return nil
+}
+
+func (ctx *Context) processShapeInfo(sia *TSWP.ShapeInfoArchive) *html.Node {
+	if cs := ctx.ix.Deref(sia.ContainedStorage).(*TSWP.StorageArchive); cs != nil {
+		div := E("div")
+		if ctx.storageToNode(cs, div) == nil {
+			return div
+		}
+	}
+	return ctx.processDrawableArchive(sia.Super.Super)
+}
+
+func (ctx *Context) processDrawableArchive(da *TSD.DrawableArchive) *html.Node {
+	// do nothing...
 	return nil
 }
 
@@ -182,7 +259,7 @@ func (ctx *Context) storageToNode(bs *TSWP.StorageArchive, body *html.Node) erro
 	texts := bs.Text
 
 	if len(texts) != 1 {
-		log.Printf("FIXME - Expecting exactly one text, got %d", len(texts))
+		return fmt.Errorf("FIXME - Expecting exactly one text, got %d", len(texts))
 	}
 	text := texts[0]
 
@@ -196,10 +273,15 @@ func (ctx *Context) storageToNode(bs *TSWP.StorageArchive, body *html.Node) erro
 	if bs.TableAttachment != nil {
 		for _, entry := range bs.TableAttachment.Entries {
 			pos := *entry.CharacterIndex
-			archive := ctx.ix.Deref(entry.Object).(*TSWP.DrawableAttachmentArchive)
-			node := ctx.processAttachment(archive)
-			if node != nil {
-				attachments = append(attachments, Attachment{pos, node})
+			switch ctx.ix.Deref(entry.Object).(type) {
+			case *TSWP.DrawableAttachmentArchive:
+				archive := ctx.ix.Deref(entry.Object).(*TSWP.DrawableAttachmentArchive)
+				node := ctx.processDrawable(archive.Drawable)
+				if node != nil {
+					attachments = append(attachments, Attachment{pos, node})
+				}
+			case *TSWP.NumberAttachmentArchive:
+				// do nothing...
 			}
 		}
 	}
@@ -333,17 +415,81 @@ Usage:
 		return
 	}
 
-	fmt.Println("Processing", os.Args[1])
+	if err := Convert(os.Args[1], os.Args[2]); err != nil {
+		panic(err)
+	}
+}
+
+func Convert(in, out string) error {
+	fmt.Println("Processing", in)
 
 	var err error
 	var ctx Context
-
 	ctx.styles = make(map[string]string)
-	ctx.ix, err = index.Open(os.Args[1])
-	must(err)
+	ctx.imgs = make(map[string]uint64)
+	if ctx.ix, err = index.Open(in); err != nil {
+		return err
+	}
+	if ctx.zr, err = zip.OpenReader(in); err != nil {
+		return err
+	}
+	defer ctx.zr.Close()
 
 	fmt.Println("Read", len(ctx.ix.Records), "records")
 
+	var doc *html.Node
+	switch ctx.ix.Type {
+	case "pages":
+		doc = ctx.processPages()
+	case "numbers":
+		doc = ctx.processNumbers()
+	case "key":
+		doc = ctx.processKeynote()
+	}
+
+	w, err := os.Create(out)
+	if err != nil {
+		return err
+	}
+	defer w.Close()
+	fmt.Println("Writing", out)
+	if strings.HasSuffix(out, ".json") {
+		out, err := json.MarshalIndent(ctx.ix, "", "  ")
+		if err != nil {
+			return err
+		}
+		if _, err = w.Write(out); err != nil {
+			return err
+		}
+	} else {
+		html.Render(w, doc)
+	}
+	return nil
+}
+
+func (ctx *Context) renderImgData() *html.Node {
+	if len(ctx.imgs) <= 0 {
+		return nil
+	}
+
+	s := ""
+	for _, f := range ctx.zr.File {
+		if id, ok := ctx.imgs[f.Name]; ok {
+			rc, _ := f.Open()
+			defer rc.Close()
+
+			imageBytes, _ := io.ReadAll(rc)
+			s += "document.querySelectorAll('.img_" + fmt.Sprint(id) + "').forEach(function(e) {e.src='data:image/" + filepath.Ext(f.Name)[1:] + ";base64," + base64.StdEncoding.EncodeToString(imageBytes) + "';});"
+		}
+	}
+
+	script := E("script")
+	script.AppendChild(T(s))
+	return script
+}
+
+// processPages translates a pages file.
+func (ctx *Context) processPages() *html.Node {
 	// Root of output document
 	head, body := E("head", "\n", E("meta", []string{"charset", "utf-8"}), "\n"), E("body", "\n")
 	doc := E("", E("html"), "\n", E("html", head, "\n", body))
@@ -366,6 +512,44 @@ Usage:
 
 	ctx.storageToNode(bs, body)
 
+	if img := ctx.renderImgData(); img != nil {
+		body.AppendChild(img)
+	}
+
+	style := E("style")
+	style.AppendChild(T("\np { margin: 0; }\n")) // reset paragraphs
+	for k, v := range ctx.styles {
+		style.AppendChild(T(fmt.Sprintf(".%s {\n%s}\n", k, v)))
+	}
+	head.AppendChild(style)
+	return doc
+}
+
+func (ctx *Context) processNumbers() *html.Node {
+	// Root of output document
+	head, body := E("head", "\n", E("meta", []string{"charset", "utf-8"}), "\n"), E("body", "\n")
+	doc := E("", E("html"), "\n", E("html", head, "\n", body))
+	doc.Type = html.DocumentNode
+	doc.FirstChild.Type = html.DoctypeNode
+	da := ctx.ix.Records[1].(*TN.DocumentArchive)
+
+	for _, ref := range da.Sheets {
+		sheet := ctx.ix.Deref(ref).(*TN.SheetArchive)
+		section := E("section", E("h2", "Sheet - ", *sheet.Name))
+		body.AppendChild(section)
+		for _, ref := range sheet.DrawableInfos {
+			// if this cast throws there are other kinds of drawables...
+			e := ctx.processDrawable(ref)
+			if e != nil {
+				section.AppendChild(e)
+			}
+		}
+	}
+
+	if img := ctx.renderImgData(); img != nil {
+		body.AppendChild(img)
+	}
+
 	style := E("style")
 	style.AppendChild(T("\np { margin: 0; }\n")) // reset paragraphs
 	for k, v := range ctx.styles {
@@ -373,15 +557,54 @@ Usage:
 	}
 	head.AppendChild(style)
 
-	if len(os.Args) > 2 {
-		w, err := os.Create(os.Args[2])
-		must(err)
-		defer w.Close()
-		fmt.Println("Writing", os.Args[2])
-		html.Render(w, doc)
-	} else {
-		// html.Render(os.Stdout, doc)
+	return doc
+}
+
+// processKeynote translates a keynote file.
+func (ctx *Context) processKeynote() *html.Node {
+	// Root of output document
+	head, body := E("head", "\n", E("meta", []string{"charset", "utf-8"}), "\n"), E("body", "\n")
+	doc := E("", E("html"), "\n", E("html", head, "\n", body))
+	doc.Type = html.DocumentNode
+	doc.FirstChild.Type = html.DoctypeNode
+
+	meta := ctx.ix.Records[2].(*TSP.PackageMetadata)
+	ids := []uint64{}
+	for _, comp := range meta.Components {
+		if *comp.PreferredLocator == "Slide" {
+			ids = append(ids, *comp.Identifier)
+		}
 	}
+	sort.Slice(ids, func(i, j int) bool { return ids[i] < ids[j] })
+
+	container := E("container", []string{"class", "slide-container"})
+	for _, id := range ids {
+		slide := ctx.ix.Records[id].(*KN.SlideArchive)
+		div := E("div", []string{"class", "slide"})
+		for _, d := range append([]*TSP.Reference{slide.BodyPlaceholder}, slide.Drawables...) {
+			if d == nil {
+				continue
+			}
+			e := ctx.processDrawable(d)
+			if e != nil {
+				div.AppendChild(e)
+			}
+		}
+		container.AppendChild(div)
+	}
+	body.AppendChild(container)
+
+	if img := ctx.renderImgData(); img != nil {
+		body.AppendChild(img)
+	}
+
+	style := E("style")
+	style.AppendChild(T(".slide-container { display: flex; flex-direction: column; height: 100%;}\n.slide { flex: 1; background-color: #f0f0f0; padding: 50px; font-size: 24px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); transition: transform 0.5s ease, box-shadow 0.5s ease;}\n.slide:hover { transform: scale(1.01); box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);}\np { margin: 0; }\n")) // reset paragraphs
+	for k, v := range ctx.styles {
+		style.AppendChild(T(fmt.Sprintf(".%s {\n%s}\n", k, v)))
+	}
+	head.AppendChild(style)
+	return doc
 }
 
 func mergeCharProps(props *TSWP.CharacterStylePropertiesArchive, parent *TSWP.CharacterStylePropertiesArchive) {
@@ -471,13 +694,6 @@ func translateParaProps(props *TSWP.ParagraphStylePropertiesArchive) string {
 	return rval
 }
 
-// Debugging crap
-
-func must(err error) {
-	if err != nil {
-		panic(err)
-	}
-}
 func writejson(foo interface{}, fn string) {
 	a, err := json.MarshalIndent(foo, "", "  ")
 	if err != nil {

@@ -6,9 +6,11 @@
 Package KN is a generated protocol buffer package.
 
 It is generated from these files:
+
 	KNArchives.proto
 
 It has these top-level messages:
+
 	AnimationAttributesArchive
 	TransitionAttributesArchive
 	TransitionArchive
@@ -47,16 +49,19 @@ It has these top-level messages:
 */
 package KN
 
-import proto "github.com/golang/protobuf/proto"
-import math "math"
-import "github.com/dunhamsteve/iwork/proto/TSP"
+import (
+	math "math"
+
+	"github.com/dunhamsteve/iwork/proto/TSA"
+	"github.com/dunhamsteve/iwork/proto/TSCH"
+	"github.com/dunhamsteve/iwork/proto/TSD"
+	"github.com/dunhamsteve/iwork/proto/TSP"
+	"github.com/dunhamsteve/iwork/proto/TSS"
+	"github.com/dunhamsteve/iwork/proto/TSWP"
+	proto "github.com/golang/protobuf/proto"
+)
 
 // discarding unused import TSK "TSKArchives.pb"
-import "github.com/dunhamsteve/iwork/proto/TSS"
-import "github.com/dunhamsteve/iwork/proto/TSD"
-import "github.com/dunhamsteve/iwork/proto/TSWP"
-import "github.com/dunhamsteve/iwork/proto/TSA"
-import "github.com/dunhamsteve/iwork/proto/TSCH2"
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
@@ -1883,31 +1888,31 @@ func (m *DesktopUILayoutArchive) GetInspectorPaneViewMode() DesktopUILayoutArchi
 }
 
 type UIStateArchive struct {
-	SlideNodeToEdit                   *TSP.Reference        `protobuf:"bytes,1,opt,name=slideNodeToEdit" json:"slideNodeToEdit,omitempty"`
-	DeprecatedMasterSlideNodeToApply  *TSP.Reference        `protobuf:"bytes,2,opt,name=deprecated_masterSlideNodeToApply" json:"deprecated_masterSlideNodeToApply,omitempty"`
-	DeprecatedSlideThumbnailSize      *TSP.Size             `protobuf:"bytes,3,opt,name=deprecated_slideThumbnailSize" json:"deprecated_slideThumbnailSize,omitempty"`
-	CanvasViewScale                   *float32              `protobuf:"fixed32,4,opt,name=canvasViewScale" json:"canvasViewScale,omitempty"`
-	CanvasOffset                      *TSP.Point            `protobuf:"bytes,5,opt,name=canvasOffset" json:"canvasOffset,omitempty"`
-	SelectedSlideNodes                []*TSP.Reference      `protobuf:"bytes,6,rep,name=selectedSlideNodes" json:"selectedSlideNodes,omitempty"`
-	IPhoneCanvasViewScale             *float32              `protobuf:"fixed32,7,opt,name=iPhoneCanvasViewScale" json:"iPhoneCanvasViewScale,omitempty"`
-	IPhoneCanvasOffset                *TSP.Point            `protobuf:"bytes,8,opt,name=iPhoneCanvasOffset" json:"iPhoneCanvasOffset,omitempty"`
-	IPhone568CanvasViewScale          *float32              `protobuf:"fixed32,9,opt,name=iPhone568CanvasViewScale" json:"iPhone568CanvasViewScale,omitempty"`
-	IPhone568CanvasOffset             *TSP.Point            `protobuf:"bytes,10,opt,name=iPhone568CanvasOffset" json:"iPhone568CanvasOffset,omitempty"`
-	DesktopUiLayout                   *TSP.Reference        `protobuf:"bytes,11,opt,name=desktop_ui_layout" json:"desktop_ui_layout,omitempty"`
-	DesktopSlideViewContentFitsWindow *bool                 `protobuf:"varint,12,opt,name=desktop_slide_view_content_fits_window" json:"desktop_slide_view_content_fits_window,omitempty"`
-	DesktopCanvasViewScale            *float32              `protobuf:"fixed32,13,opt,name=desktop_canvas_view_scale" json:"desktop_canvas_view_scale,omitempty"`
-	DesktopCanvasOffset               *TSP.Point            `protobuf:"bytes,21,opt,name=desktop_canvas_offset" json:"desktop_canvas_offset,omitempty"`
-	LightTableZoomScale               *float32              `protobuf:"fixed32,14,opt,name=light_table_zoom_scale" json:"light_table_zoom_scale,omitempty"`
-	ChartUiState                      []*TSCH2.ChartUIState `protobuf:"bytes,15,rep,name=chart_ui_state" json:"chart_ui_state,omitempty"`
-	ShowSlideGuides                   *bool                 `protobuf:"varint,16,opt,name=show_slide_guides" json:"show_slide_guides,omitempty"`
-	ShowMasterGuides                  *bool                 `protobuf:"varint,17,opt,name=show_master_guides" json:"show_master_guides,omitempty"`
-	ShowsComments                     *bool                 `protobuf:"varint,18,opt,name=shows_comments" json:"shows_comments,omitempty"`
-	CollapsedSlideNodes               []*TSP.Reference      `protobuf:"bytes,19,rep,name=collapsed_slide_nodes" json:"collapsed_slide_nodes,omitempty"`
-	ShowsRuler                        *bool                 `protobuf:"varint,20,opt,name=shows_ruler" json:"shows_ruler,omitempty"`
-	DesktopNavigatorViewWidth         *float32              `protobuf:"fixed32,22,opt,name=desktop_navigator_view_width" json:"desktop_navigator_view_width,omitempty"`
-	DesktopOutlineViewWidth           *float32              `protobuf:"fixed32,23,opt,name=desktop_outline_view_width" json:"desktop_outline_view_width,omitempty"`
-	DesktopMainContentSize            *TSP.Size             `protobuf:"bytes,24,opt,name=desktop_main_content_size" json:"desktop_main_content_size,omitempty"`
-	XXX_unrecognized                  []byte                `json:"-"`
+	SlideNodeToEdit                   *TSP.Reference       `protobuf:"bytes,1,opt,name=slideNodeToEdit" json:"slideNodeToEdit,omitempty"`
+	DeprecatedMasterSlideNodeToApply  *TSP.Reference       `protobuf:"bytes,2,opt,name=deprecated_masterSlideNodeToApply" json:"deprecated_masterSlideNodeToApply,omitempty"`
+	DeprecatedSlideThumbnailSize      *TSP.Size            `protobuf:"bytes,3,opt,name=deprecated_slideThumbnailSize" json:"deprecated_slideThumbnailSize,omitempty"`
+	CanvasViewScale                   *float32             `protobuf:"fixed32,4,opt,name=canvasViewScale" json:"canvasViewScale,omitempty"`
+	CanvasOffset                      *TSP.Point           `protobuf:"bytes,5,opt,name=canvasOffset" json:"canvasOffset,omitempty"`
+	SelectedSlideNodes                []*TSP.Reference     `protobuf:"bytes,6,rep,name=selectedSlideNodes" json:"selectedSlideNodes,omitempty"`
+	IPhoneCanvasViewScale             *float32             `protobuf:"fixed32,7,opt,name=iPhoneCanvasViewScale" json:"iPhoneCanvasViewScale,omitempty"`
+	IPhoneCanvasOffset                *TSP.Point           `protobuf:"bytes,8,opt,name=iPhoneCanvasOffset" json:"iPhoneCanvasOffset,omitempty"`
+	IPhone568CanvasViewScale          *float32             `protobuf:"fixed32,9,opt,name=iPhone568CanvasViewScale" json:"iPhone568CanvasViewScale,omitempty"`
+	IPhone568CanvasOffset             *TSP.Point           `protobuf:"bytes,10,opt,name=iPhone568CanvasOffset" json:"iPhone568CanvasOffset,omitempty"`
+	DesktopUiLayout                   *TSP.Reference       `protobuf:"bytes,11,opt,name=desktop_ui_layout" json:"desktop_ui_layout,omitempty"`
+	DesktopSlideViewContentFitsWindow *bool                `protobuf:"varint,12,opt,name=desktop_slide_view_content_fits_window" json:"desktop_slide_view_content_fits_window,omitempty"`
+	DesktopCanvasViewScale            *float32             `protobuf:"fixed32,13,opt,name=desktop_canvas_view_scale" json:"desktop_canvas_view_scale,omitempty"`
+	DesktopCanvasOffset               *TSP.Point           `protobuf:"bytes,21,opt,name=desktop_canvas_offset" json:"desktop_canvas_offset,omitempty"`
+	LightTableZoomScale               *float32             `protobuf:"fixed32,14,opt,name=light_table_zoom_scale" json:"light_table_zoom_scale,omitempty"`
+	ChartUiState                      []*TSCH.ChartUIState `protobuf:"bytes,15,rep,name=chart_ui_state" json:"chart_ui_state,omitempty"`
+	ShowSlideGuides                   *bool                `protobuf:"varint,16,opt,name=show_slide_guides" json:"show_slide_guides,omitempty"`
+	ShowMasterGuides                  *bool                `protobuf:"varint,17,opt,name=show_master_guides" json:"show_master_guides,omitempty"`
+	ShowsComments                     *bool                `protobuf:"varint,18,opt,name=shows_comments" json:"shows_comments,omitempty"`
+	CollapsedSlideNodes               []*TSP.Reference     `protobuf:"bytes,19,rep,name=collapsed_slide_nodes" json:"collapsed_slide_nodes,omitempty"`
+	ShowsRuler                        *bool                `protobuf:"varint,20,opt,name=shows_ruler" json:"shows_ruler,omitempty"`
+	DesktopNavigatorViewWidth         *float32             `protobuf:"fixed32,22,opt,name=desktop_navigator_view_width" json:"desktop_navigator_view_width,omitempty"`
+	DesktopOutlineViewWidth           *float32             `protobuf:"fixed32,23,opt,name=desktop_outline_view_width" json:"desktop_outline_view_width,omitempty"`
+	DesktopMainContentSize            *TSP.Size            `protobuf:"bytes,24,opt,name=desktop_main_content_size" json:"desktop_main_content_size,omitempty"`
+	XXX_unrecognized                  []byte               `json:"-"`
 }
 
 func (m *UIStateArchive) Reset()         { *m = UIStateArchive{} }
@@ -2019,7 +2024,7 @@ func (m *UIStateArchive) GetLightTableZoomScale() float32 {
 	return 0
 }
 
-func (m *UIStateArchive) GetChartUiState() []*TSCH2.ChartUIState {
+func (m *UIStateArchive) GetChartUiState() []*TSCH.ChartUIState {
 	if m != nil {
 		return m.ChartUiState
 	}

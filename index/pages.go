@@ -1,9 +1,6 @@
 package index
 
 import (
-	"errors"
-	"fmt"
-
 	"github.com/dunhamsteve/iwork/proto/TP"
 
 	"github.com/golang/protobuf/proto"
@@ -253,7 +250,6 @@ func decodePages(typ uint32, payload []byte) (interface{}, error) {
 		return value, err
 
 	default:
-        // This is not really a big deal as it's a chunk we're not using.
-		return nil, errors.New(fmt.Sprintf("Unknown message type %d", typ))
+		return decodeCommon(typ, payload)
 	}
 }
