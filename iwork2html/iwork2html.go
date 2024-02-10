@@ -536,7 +536,7 @@ func (ctx *Context) processNumbers() *html.Node {
 	for _, ref := range da.Sheets {
 		sheet := ctx.ix.Deref(ref).(*TN.SheetArchive)
 		section := E("section", E("h2", "Sheet - ", *sheet.Name))
-		doc.AppendChild(section)
+		body.AppendChild(section)
 		for _, ref := range sheet.DrawableInfos {
 			// if this cast throws there are other kinds of drawables...
 			e := ctx.processDrawable(ref)
