@@ -10,7 +10,7 @@ It is very much a work in progress, but hopefully someone finds it useful.
 Download and build
 
 ```bash
-go get https://github.com/dunhamsteve/iwork/pages2html
+go get https://github.com/dunhamsteve/iwork/iwork2html
 ```
 
 # Usage
@@ -24,7 +24,7 @@ export PATH=$PATH:$(go env GOPATH)/bin
 Run conventer
 
 ```bash
-./pages2html infile.pages outfile.html
+./iwork2html infile.pages outfile.html
 ```
 
 ## Pages '13
@@ -38,13 +38,13 @@ archives. Those `.json` files are included in this project.
 I've used the json files to generate some of the code in the `index` directory. (Using the code found in `codegen`.) I ran
 `protoc` on the `.proto` files and cleaned up the results so they would compile.
 
-On top of this, I wrote the `index` package, which loads the database into memory. And I wrote `pages2html` which will load
+On top of this, I wrote the `index` package, which loads the database into memory. And I wrote `iwork2html` which will load
 a pages file and render the contents to HTML.
 
 ## iOS '.pages-tef' files
 
 Before the format change in Pages'13, the iOS version of pages introduced a `.pages-tef` bundle format for iCloud storage.
-It turns out that the sqlite database within these bundles mirror the '13 format. The `pages2html` program handles these
+It turns out that the sqlite database within these bundles mirror the '13 format. The `iwork2html` program handles these
 files too.
 
 
