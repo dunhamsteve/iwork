@@ -163,6 +163,8 @@ func (ix *Index) decodePayload(id uint64, typ uint32, payload []byte) {
 		value, err = decodePages(typ, payload)
 	} else if ix.Type == "numbers" {
 		value, err = decodeNumbers(typ, payload)
+	} else if ix.Type == "key" {
+		value, err = decodeKeynote(typ, payload)
 	} else {
 		fmt.Println("Cannot decode files of type", ix.Type)
 	}

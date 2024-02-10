@@ -6,9 +6,11 @@
 Package KN is a generated protocol buffer package.
 
 It is generated from these files:
+
 	KNCommandArchives.proto
 
 It has these top-level messages:
+
 	UIStateCommandGroupArchive
 	CommandSlideInsertDrawablesArchive
 	CommandSlideSetPlaceholdersForTagsArchive
@@ -56,16 +58,18 @@ It has these top-level messages:
 */
 package KN
 
-import proto "github.com/golang/protobuf/proto"
-import math "math"
-import "github.com/dunhamsteve/iwork/proto/TSP"
-import "github.com/dunhamsteve/iwork/proto/TSK"
-import "github.com/dunhamsteve/iwork/proto/TSS"
-import "github.com/dunhamsteve/iwork/proto/TSD"
+import (
+	math "math"
+
+	"github.com/dunhamsteve/iwork/proto/TSD"
+	"github.com/dunhamsteve/iwork/proto/TSK"
+	"github.com/dunhamsteve/iwork/proto/TSP"
+	"github.com/dunhamsteve/iwork/proto/TSS"
+	proto "github.com/golang/protobuf/proto"
+)
 
 // discarding unused import TSWP "TSWPArchives.pb"
 // discarding unused import TSA "TSAArchives.pb"
-import "github.com/dunhamsteve/iwork/proto/KN1"
 
 // Reference imports to suppress errors if they are not otherwise used.
 var _ = proto.Marshal
@@ -287,8 +291,10 @@ type CommandSlideSetPlaceholdersForTagsArchive struct {
 func (m *CommandSlideSetPlaceholdersForTagsArchive) Reset() {
 	*m = CommandSlideSetPlaceholdersForTagsArchive{}
 }
-func (m *CommandSlideSetPlaceholdersForTagsArchive) String() string { return proto.CompactTextString(m) }
-func (*CommandSlideSetPlaceholdersForTagsArchive) ProtoMessage()    {}
+func (m *CommandSlideSetPlaceholdersForTagsArchive) String() string {
+	return proto.CompactTextString(m)
+}
+func (*CommandSlideSetPlaceholdersForTagsArchive) ProtoMessage() {}
 
 func (m *CommandSlideSetPlaceholdersForTagsArchive) GetSuper() *TSK.CommandArchive {
 	if m != nil {
@@ -644,8 +650,10 @@ type CommandSlideSetValueArchive_PropertyValue struct {
 func (m *CommandSlideSetValueArchive_PropertyValue) Reset() {
 	*m = CommandSlideSetValueArchive_PropertyValue{}
 }
-func (m *CommandSlideSetValueArchive_PropertyValue) String() string { return proto.CompactTextString(m) }
-func (*CommandSlideSetValueArchive_PropertyValue) ProtoMessage()    {}
+func (m *CommandSlideSetValueArchive_PropertyValue) String() string {
+	return proto.CompactTextString(m)
+}
+func (*CommandSlideSetValueArchive_PropertyValue) ProtoMessage() {}
 
 func (m *CommandSlideSetValueArchive_PropertyValue) GetBoolValue() bool {
 	if m != nil && m.BoolValue != nil {
@@ -871,11 +879,11 @@ func (m *CommandShowSetValueArchive) GetNewValue() *CommandShowSetValueArchive_P
 }
 
 type CommandShowSetValueArchive_PropertyValue struct {
-	BoolValue        *bool                       `protobuf:"varint,1,opt,name=bool_value" json:"bool_value,omitempty"`
-	DoubleValue      *float64                    `protobuf:"fixed64,2,opt,name=double_value" json:"double_value,omitempty"`
-	ShowModeValue    *KN1.ShowArchive_KNShowMode `protobuf:"varint,3,opt,name=show_mode_value,enum=KN.ShowArchive_KNShowMode" json:"show_mode_value,omitempty"`
-	SizeValue        *TSP.Size                   `protobuf:"bytes,4,opt,name=size_value" json:"size_value,omitempty"`
-	XXX_unrecognized []byte                      `json:"-"`
+	BoolValue        *bool                   `protobuf:"varint,1,opt,name=bool_value" json:"bool_value,omitempty"`
+	DoubleValue      *float64                `protobuf:"fixed64,2,opt,name=double_value" json:"double_value,omitempty"`
+	ShowModeValue    *ShowArchive_KNShowMode `protobuf:"varint,3,opt,name=show_mode_value,enum=KN.ShowArchive_KNShowMode" json:"show_mode_value,omitempty"`
+	SizeValue        *TSP.Size               `protobuf:"bytes,4,opt,name=size_value" json:"size_value,omitempty"`
+	XXX_unrecognized []byte                  `json:"-"`
 }
 
 func (m *CommandShowSetValueArchive_PropertyValue) Reset() {
@@ -898,11 +906,11 @@ func (m *CommandShowSetValueArchive_PropertyValue) GetDoubleValue() float64 {
 	return 0
 }
 
-func (m *CommandShowSetValueArchive_PropertyValue) GetShowModeValue() KN1.ShowArchive_KNShowMode {
+func (m *CommandShowSetValueArchive_PropertyValue) GetShowModeValue() ShowArchive_KNShowMode {
 	if m != nil && m.ShowModeValue != nil {
 		return *m.ShowModeValue
 	}
-	return KN1.ShowArchive_kKNShowModeNormal
+	return ShowArchive_kKNShowModeNormal
 }
 
 func (m *CommandShowSetValueArchive_PropertyValue) GetSizeValue() *TSP.Size {
@@ -1479,11 +1487,11 @@ func (m *CommandSlideMoveBuildsArchive) GetToIndex() uint32 {
 }
 
 type CommandSlideInsertBuildChunkArchive struct {
-	Super            *TSK.CommandArchive    `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	Slide            *TSP.Reference         `protobuf:"bytes,2,req,name=slide" json:"slide,omitempty"`
-	BuildChunk       *KN1.BuildChunkArchive `protobuf:"bytes,3,req,name=buildChunk" json:"buildChunk,omitempty"`
-	Index            *uint32                `protobuf:"varint,4,req,name=index" json:"index,omitempty"`
-	XXX_unrecognized []byte                 `json:"-"`
+	Super            *TSK.CommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
+	Slide            *TSP.Reference      `protobuf:"bytes,2,req,name=slide" json:"slide,omitempty"`
+	BuildChunk       *BuildChunkArchive  `protobuf:"bytes,3,req,name=buildChunk" json:"buildChunk,omitempty"`
+	Index            *uint32             `protobuf:"varint,4,req,name=index" json:"index,omitempty"`
+	XXX_unrecognized []byte              `json:"-"`
 }
 
 func (m *CommandSlideInsertBuildChunkArchive) Reset()         { *m = CommandSlideInsertBuildChunkArchive{} }
@@ -1504,7 +1512,7 @@ func (m *CommandSlideInsertBuildChunkArchive) GetSlide() *TSP.Reference {
 	return nil
 }
 
-func (m *CommandSlideInsertBuildChunkArchive) GetBuildChunk() *KN1.BuildChunkArchive {
+func (m *CommandSlideInsertBuildChunkArchive) GetBuildChunk() *BuildChunkArchive {
 	if m != nil {
 		return m.BuildChunk
 	}
@@ -1519,11 +1527,11 @@ func (m *CommandSlideInsertBuildChunkArchive) GetIndex() uint32 {
 }
 
 type CommandSlideRemoveBuildChunkArchive struct {
-	Super            *TSK.CommandArchive    `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	Slide            *TSP.Reference         `protobuf:"bytes,2,req,name=slide" json:"slide,omitempty"`
-	BuildChunk       *KN1.BuildChunkArchive `protobuf:"bytes,3,req,name=buildChunk" json:"buildChunk,omitempty"`
-	Index            *uint32                `protobuf:"varint,4,req,name=index" json:"index,omitempty"`
-	XXX_unrecognized []byte                 `json:"-"`
+	Super            *TSK.CommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
+	Slide            *TSP.Reference      `protobuf:"bytes,2,req,name=slide" json:"slide,omitempty"`
+	BuildChunk       *BuildChunkArchive  `protobuf:"bytes,3,req,name=buildChunk" json:"buildChunk,omitempty"`
+	Index            *uint32             `protobuf:"varint,4,req,name=index" json:"index,omitempty"`
+	XXX_unrecognized []byte              `json:"-"`
 }
 
 func (m *CommandSlideRemoveBuildChunkArchive) Reset()         { *m = CommandSlideRemoveBuildChunkArchive{} }
@@ -1544,7 +1552,7 @@ func (m *CommandSlideRemoveBuildChunkArchive) GetSlide() *TSP.Reference {
 	return nil
 }
 
-func (m *CommandSlideRemoveBuildChunkArchive) GetBuildChunk() *KN1.BuildChunkArchive {
+func (m *CommandSlideRemoveBuildChunkArchive) GetBuildChunk() *BuildChunkArchive {
 	if m != nil {
 		return m.BuildChunk
 	}
@@ -1599,10 +1607,10 @@ func (m *CommandSlideMoveBuildChunkArchive) GetOldIndex() uint32 {
 }
 
 type CommandSlideMoveBuildChunksArchive struct {
-	Super            *TSK.CommandArchive      `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	BuildChunks      []*KN1.BuildChunkArchive `protobuf:"bytes,2,rep,name=buildChunks" json:"buildChunks,omitempty"`
-	ToIndex          *uint32                  `protobuf:"varint,3,opt,name=toIndex" json:"toIndex,omitempty"`
-	XXX_unrecognized []byte                   `json:"-"`
+	Super            *TSK.CommandArchive  `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
+	BuildChunks      []*BuildChunkArchive `protobuf:"bytes,2,rep,name=buildChunks" json:"buildChunks,omitempty"`
+	ToIndex          *uint32              `protobuf:"varint,3,opt,name=toIndex" json:"toIndex,omitempty"`
+	XXX_unrecognized []byte               `json:"-"`
 }
 
 func (m *CommandSlideMoveBuildChunksArchive) Reset()         { *m = CommandSlideMoveBuildChunksArchive{} }
@@ -1616,7 +1624,7 @@ func (m *CommandSlideMoveBuildChunksArchive) GetSuper() *TSK.CommandArchive {
 	return nil
 }
 
-func (m *CommandSlideMoveBuildChunksArchive) GetBuildChunks() []*KN1.BuildChunkArchive {
+func (m *CommandSlideMoveBuildChunksArchive) GetBuildChunks() []*BuildChunkArchive {
 	if m != nil {
 		return m.BuildChunks
 	}
@@ -1735,15 +1743,15 @@ func (m *CommandBuildSetValueArchive) GetEventTriggers() []bool {
 }
 
 type CommandBuildChunkSetValueArchive struct {
-	Super            *TSK.CommandArchive    `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	BuildChunk       *KN1.BuildChunkArchive `protobuf:"bytes,2,req,name=buildChunk" json:"buildChunk,omitempty"`
-	Property         *string                `protobuf:"bytes,3,req,name=property" json:"property,omitempty"`
-	Referents        []uint32               `protobuf:"varint,4,rep,name=referents" json:"referents,omitempty"`
-	Automatics       []bool                 `protobuf:"varint,5,rep,name=automatics" json:"automatics,omitempty"`
-	Durations        []float64              `protobuf:"fixed64,6,rep,name=durations" json:"durations,omitempty"`
-	Delays           []float64              `protobuf:"fixed64,7,rep,name=delays" json:"delays,omitempty"`
-	OldOwnsValue     *bool                  `protobuf:"varint,8,opt,name=oldOwnsValue" json:"oldOwnsValue,omitempty"`
-	XXX_unrecognized []byte                 `json:"-"`
+	Super            *TSK.CommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
+	BuildChunk       *BuildChunkArchive  `protobuf:"bytes,2,req,name=buildChunk" json:"buildChunk,omitempty"`
+	Property         *string             `protobuf:"bytes,3,req,name=property" json:"property,omitempty"`
+	Referents        []uint32            `protobuf:"varint,4,rep,name=referents" json:"referents,omitempty"`
+	Automatics       []bool              `protobuf:"varint,5,rep,name=automatics" json:"automatics,omitempty"`
+	Durations        []float64           `protobuf:"fixed64,6,rep,name=durations" json:"durations,omitempty"`
+	Delays           []float64           `protobuf:"fixed64,7,rep,name=delays" json:"delays,omitempty"`
+	OldOwnsValue     *bool               `protobuf:"varint,8,opt,name=oldOwnsValue" json:"oldOwnsValue,omitempty"`
+	XXX_unrecognized []byte              `json:"-"`
 }
 
 func (m *CommandBuildChunkSetValueArchive) Reset()         { *m = CommandBuildChunkSetValueArchive{} }
@@ -1757,7 +1765,7 @@ func (m *CommandBuildChunkSetValueArchive) GetSuper() *TSK.CommandArchive {
 	return nil
 }
 
-func (m *CommandBuildChunkSetValueArchive) GetBuildChunk() *KN1.BuildChunkArchive {
+func (m *CommandBuildChunkSetValueArchive) GetBuildChunk() *BuildChunkArchive {
 	if m != nil {
 		return m.BuildChunk
 	}
@@ -2076,7 +2084,7 @@ func (m *CommandMasterSetBodyStylesArchive) GetOldListStyles() []*TSP.Reference 
 
 type CommandSlideApplyThemeArchive struct {
 	Super            *TSS.ApplyThemeChildCommandArchive `protobuf:"bytes,1,req,name=super" json:"super,omitempty"`
-	Blob             *KN1.MasterChangeBlobArchive       `protobuf:"bytes,2,req,name=blob" json:"blob,omitempty"`
+	Blob             *MasterChangeBlobArchive           `protobuf:"bytes,2,req,name=blob" json:"blob,omitempty"`
 	XXX_unrecognized []byte                             `json:"-"`
 }
 
@@ -2091,7 +2099,7 @@ func (m *CommandSlideApplyThemeArchive) GetSuper() *TSS.ApplyThemeChildCommandAr
 	return nil
 }
 
-func (m *CommandSlideApplyThemeArchive) GetBlob() *KN1.MasterChangeBlobArchive {
+func (m *CommandSlideApplyThemeArchive) GetBlob() *MasterChangeBlobArchive {
 	if m != nil {
 		return m.Blob
 	}
@@ -2291,10 +2299,10 @@ func (m *CommandSoundtrackSetValue) GetNewValue() *CommandSoundtrackSetValue_Pro
 }
 
 type CommandSoundtrackSetValue_PropertyValue struct {
-	DoubleValue          *float64                       `protobuf:"fixed64,1,opt,name=double_value" json:"double_value,omitempty"`
-	ModeValue            *KN1.Soundtrack_SoundtrackMode `protobuf:"varint,2,opt,name=mode_value,enum=KN.Soundtrack_SoundtrackMode" json:"mode_value,omitempty"`
-	MediaReferenceValues []*TSP.DataReference           `protobuf:"bytes,3,rep,name=media_reference_values" json:"media_reference_values,omitempty"`
-	XXX_unrecognized     []byte                         `json:"-"`
+	DoubleValue          *float64                   `protobuf:"fixed64,1,opt,name=double_value" json:"double_value,omitempty"`
+	ModeValue            *Soundtrack_SoundtrackMode `protobuf:"varint,2,opt,name=mode_value,enum=KN.Soundtrack_SoundtrackMode" json:"mode_value,omitempty"`
+	MediaReferenceValues []*TSP.DataReference       `protobuf:"bytes,3,rep,name=media_reference_values" json:"media_reference_values,omitempty"`
+	XXX_unrecognized     []byte                     `json:"-"`
 }
 
 func (m *CommandSoundtrackSetValue_PropertyValue) Reset() {
@@ -2310,11 +2318,11 @@ func (m *CommandSoundtrackSetValue_PropertyValue) GetDoubleValue() float64 {
 	return 0
 }
 
-func (m *CommandSoundtrackSetValue_PropertyValue) GetModeValue() KN1.Soundtrack_SoundtrackMode {
+func (m *CommandSoundtrackSetValue_PropertyValue) GetModeValue() Soundtrack_SoundtrackMode {
 	if m != nil && m.ModeValue != nil {
 		return *m.ModeValue
 	}
-	return KN1.Soundtrack_kKNSoundtrackModePlayOnce
+	return Soundtrack_kKNSoundtrackModePlayOnce
 }
 
 func (m *CommandSoundtrackSetValue_PropertyValue) GetMediaReferenceValues() []*TSP.DataReference {

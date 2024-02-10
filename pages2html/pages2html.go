@@ -1,19 +1,25 @@
 package main
 
 import (
+	"archive/zip"
 	"bytes"
+	"encoding/base64"
 	"encoding/binary"
 	"encoding/hex"
 	"encoding/json"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"log"
 	"math"
 	"os"
+	"path/filepath"
+	"sort"
 	"strings"
 	"time"
 
 	"github.com/dunhamsteve/iwork/index"
+	"github.com/dunhamsteve/iwork/proto/KN"
 	"github.com/dunhamsteve/iwork/proto/TN"
 	"github.com/dunhamsteve/iwork/proto/TP"
 	"github.com/dunhamsteve/iwork/proto/TSD"
@@ -55,7 +61,9 @@ func E(tag string, children ...interface{}) *html.Node {
 
 type Context struct {
 	styles map[string]string
+	imgs   map[string]uint64
 	ix     *index.Index
+	zr     *zip.ReadCloser
 }
 
 type Attachment struct {
@@ -77,10 +85,11 @@ func (ctx *Context) processImage(image *TSD.ImageArchive) *html.Node {
 			}
 		}
 	}
+	ctx.imgs["Data/"+src] = dataId
 	// not sure if this is px or pt.  It's px on the html side.
 	width := fmt.Sprintf("%f", *image.OriginalSize.Width)
 	height := fmt.Sprintf("%f", *image.OriginalSize.Height)
-	return E("img", []string{"src", src, "width", width, "height", height})
+	return E("img", []string{"src", "", "width", width, "height", height, "class", "img_" + fmt.Sprint(dataId)})
 }
 
 var LE = binary.LittleEndian
@@ -196,7 +205,7 @@ func (ctx *Context) processTable(tm *TST.TableModelArchive) *html.Node {
 	}
 	rval := E("div")
 	if tm.TableName != nil {
-		rval.AppendChild(E("h3", *tm.TableName))
+		// rval.AppendChild(E("h3", *tm.TableName)) // no need to show table name
 	}
 	rval.AppendChild(table)
 	return rval
@@ -214,11 +223,32 @@ func (ctx *Context) processDrawable(ref *TSP.Reference) *html.Node {
 	case *TST.TableInfoArchive:
 		tm := ctx.ix.Deref(item.(*TST.TableInfoArchive).TableModel).(*TST.TableModelArchive)
 		return ctx.processTable(tm)
+	case *TSWP.ShapeInfoArchive:
+		return ctx.processShapeInfo(item.(*TSWP.ShapeInfoArchive))
+	case *TSD.GroupArchive:
+		return ctx.processDrawableArchive(item.(*TSD.GroupArchive).Super)
+	case *KN.PlaceholderArchive:
+		return ctx.processShapeInfo(item.(*KN.PlaceholderArchive).Super)
 	default:
 		msg := fmt.Sprintf("*** Unhandled attachment type %T\n", item)
 		fmt.Println(msg)
 		return E("div", msg)
 	}
+	return nil
+}
+
+func (ctx *Context) processShapeInfo(sia *TSWP.ShapeInfoArchive) *html.Node {
+	if cs := ctx.ix.Deref(sia.ContainedStorage).(*TSWP.StorageArchive); cs != nil {
+		div := E("div")
+		if ctx.storageToNode(cs, div) == nil {
+			return div
+		}
+	}
+	return ctx.processDrawableArchive(sia.Super.Super)
+}
+
+func (ctx *Context) processDrawableArchive(da *TSD.DrawableArchive) *html.Node {
+	// do nothing...
 	return nil
 }
 
@@ -229,7 +259,7 @@ func (ctx *Context) storageToNode(bs *TSWP.StorageArchive, body *html.Node) erro
 	texts := bs.Text
 
 	if len(texts) != 1 {
-		fmt.Printf("FIXME - Expecting exactly one text, got %d", len(texts))
+		return fmt.Errorf("FIXME - Expecting exactly one text, got %d", len(texts))
 	}
 	text := texts[0]
 
@@ -243,10 +273,15 @@ func (ctx *Context) storageToNode(bs *TSWP.StorageArchive, body *html.Node) erro
 	if bs.TableAttachment != nil {
 		for _, entry := range bs.TableAttachment.Entries {
 			pos := *entry.CharacterIndex
-			archive := ctx.ix.Deref(entry.Object).(*TSWP.DrawableAttachmentArchive)
-			node := ctx.processDrawable(archive.Drawable)
-			if node != nil {
-				attachments = append(attachments, Attachment{pos, node})
+			switch ctx.ix.Deref(entry.Object).(type) {
+			case *TSWP.DrawableAttachmentArchive:
+				archive := ctx.ix.Deref(entry.Object).(*TSWP.DrawableAttachmentArchive)
+				node := ctx.processDrawable(archive.Drawable)
+				if node != nil {
+					attachments = append(attachments, Attachment{pos, node})
+				}
+			case *TSWP.NumberAttachmentArchive:
+				// do nothing...
 			}
 		}
 	}
@@ -385,8 +420,12 @@ Usage:
 	var err error
 	var ctx Context
 	ctx.styles = make(map[string]string)
+	ctx.imgs = make(map[string]uint64)
 	ctx.ix, err = index.Open(os.Args[1])
 	must(err)
+	ctx.zr, err = zip.OpenReader(os.Args[1])
+	must(err)
+	defer ctx.zr.Close()
 
 	fmt.Println("Read", len(ctx.ix.Records), "records")
 
@@ -396,7 +435,10 @@ Usage:
 		doc = ctx.processPages()
 	case "numbers":
 		doc = ctx.processNumbers()
+	case "key":
+		doc = ctx.processKeynote()
 	}
+
 	if len(os.Args) > 2 {
 		w, err := os.Create(os.Args[2])
 		must(err)
@@ -415,6 +457,27 @@ Usage:
 	} else {
 		// html.Render(os.Stdout, doc)
 	}
+}
+
+func (ctx *Context) renderImgData() *html.Node {
+	if len(ctx.imgs) <= 0 {
+		return nil
+	}
+
+	s := ""
+	for _, f := range ctx.zr.File {
+		if id, ok := ctx.imgs[f.Name]; ok {
+			rc, _ := f.Open()
+			defer rc.Close()
+
+			imageBytes, _ := io.ReadAll(rc)
+			s += "document.querySelectorAll('.img_" + fmt.Sprint(id) + "').forEach(function(e) {e.src='data:image/" + filepath.Ext(f.Name)[1:] + ";base64," + base64.StdEncoding.EncodeToString(imageBytes) + "';});"
+		}
+	}
+
+	script := E("script")
+	script.AppendChild(T(s))
+	return script
 }
 
 // processPages translates a pages file.
@@ -441,6 +504,10 @@ func (ctx *Context) processPages() *html.Node {
 
 	ctx.storageToNode(bs, body)
 
+	if img := ctx.renderImgData(); img != nil {
+		body.AppendChild(img)
+	}
+
 	style := E("style")
 	style.AppendChild(T("\np { margin: 0; }\n")) // reset paragraphs
 	for k, v := range ctx.styles {
@@ -448,7 +515,6 @@ func (ctx *Context) processPages() *html.Node {
 	}
 	head.AppendChild(style)
 	return doc
-
 }
 
 func (ctx *Context) processNumbers() *html.Node {
@@ -469,6 +535,10 @@ func (ctx *Context) processNumbers() *html.Node {
 		}
 	}
 
+	if img := ctx.renderImgData(); img != nil {
+		body.AppendChild(img)
+	}
+
 	style := E("style")
 	style.AppendChild(T("\np { margin: 0; }\n")) // reset paragraphs
 	for k, v := range ctx.styles {
@@ -476,6 +546,53 @@ func (ctx *Context) processNumbers() *html.Node {
 	}
 	head.AppendChild(style)
 
+	return doc
+}
+
+// processKeynote translates a keynote file.
+func (ctx *Context) processKeynote() *html.Node {
+	// Root of output document
+	head, body := E("head", "\n", E("meta", []string{"charset", "utf-8"}), "\n"), E("body", "\n")
+	doc := E("", E("html"), "\n", E("html", head, "\n", body))
+	doc.Type = html.DocumentNode
+	doc.FirstChild.Type = html.DoctypeNode
+
+	meta := ctx.ix.Records[2].(*TSP.PackageMetadata)
+	ids := []uint64{}
+	for _, comp := range meta.Components {
+		if *comp.PreferredLocator == "Slide" {
+			ids = append(ids, *comp.Identifier)
+		}
+	}
+	sort.Slice(ids, func(i, j int) bool { return ids[i] < ids[j] })
+
+	container := E("container", []string{"class", "slide-container"})
+	for _, id := range ids {
+		slide := ctx.ix.Records[id].(*KN.SlideArchive)
+		div := E("div", []string{"class", "slide"})
+		for _, d := range append([]*TSP.Reference{slide.BodyPlaceholder}, slide.Drawables...) {
+			if d == nil {
+				continue
+			}
+			e := ctx.processDrawable(d)
+			if e != nil {
+				div.AppendChild(e)
+			}
+		}
+		container.AppendChild(div)
+	}
+	body.AppendChild(container)
+
+	if img := ctx.renderImgData(); img != nil {
+		body.AppendChild(img)
+	}
+
+	style := E("style")
+	style.AppendChild(T(".slide-container { display: flex; flex-direction: column; height: 100%;}\n.slide { flex: 1; background-color: #f0f0f0; padding: 50px; font-size: 24px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); transition: transform 0.5s ease, box-shadow 0.5s ease;}\n.slide:hover { transform: scale(1.01); box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);}\np { margin: 0; }\n")) // reset paragraphs
+	for k, v := range ctx.styles {
+		style.AppendChild(T(fmt.Sprintf(".%s {\n%s}\n", k, v)))
+	}
+	head.AppendChild(style)
 	return doc
 }
 
