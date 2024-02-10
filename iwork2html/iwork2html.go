@@ -415,16 +415,24 @@ Usage:
 		return
 	}
 
-	fmt.Println("Processing", os.Args[1])
+	if err := Convert(os.Args[1], os.Args[2]); err != nil {
+		panic(err)
+	}
+}
+
+func Convert(in, out string) error {
+	fmt.Println("Processing", in)
 
 	var err error
 	var ctx Context
 	ctx.styles = make(map[string]string)
 	ctx.imgs = make(map[string]uint64)
-	ctx.ix, err = index.Open(os.Args[1])
-	must(err)
-	ctx.zr, err = zip.OpenReader(os.Args[1])
-	must(err)
+	if ctx.ix, err = index.Open(in); err != nil {
+		return err
+	}
+	if ctx.zr, err = zip.OpenReader(in); err != nil {
+		return err
+	}
 	defer ctx.zr.Close()
 
 	fmt.Println("Read", len(ctx.ix.Records), "records")
@@ -439,24 +447,24 @@ Usage:
 		doc = ctx.processKeynote()
 	}
 
-	if len(os.Args) > 2 {
-		w, err := os.Create(os.Args[2])
-		must(err)
-		defer w.Close()
-		fmt.Println("Writing", os.Args[2])
-		if strings.HasSuffix(os.Args[2], ".json") {
-			out, err := json.MarshalIndent(ctx.ix, "", "  ")
-			must(err)
-			_, err = w.Write(out)
-			must(err)
-
-		} else {
-			html.Render(w, doc)
-		}
-
-	} else {
-		// html.Render(os.Stdout, doc)
+	w, err := os.Create(out)
+	if err != nil {
+		return err
 	}
+	defer w.Close()
+	fmt.Println("Writing", out)
+	if strings.HasSuffix(out, ".json") {
+		out, err := json.MarshalIndent(ctx.ix, "", "  ")
+		if err != nil {
+			return err
+		}
+		if _, err = w.Write(out); err != nil {
+			return err
+		}
+	} else {
+		html.Render(w, doc)
+	}
+	return nil
 }
 
 func (ctx *Context) renderImgData() *html.Node {
@@ -683,13 +691,6 @@ func translateParaProps(props *TSWP.ParagraphStylePropertiesArchive) string {
 	return rval
 }
 
-// Helper functions for debugging
-
-func must(err error) {
-	if err != nil {
-		panic(err)
-	}
-}
 func writejson(foo interface{}, fn string) {
 	a, err := json.MarshalIndent(foo, "", "  ")
 	if err != nil {
